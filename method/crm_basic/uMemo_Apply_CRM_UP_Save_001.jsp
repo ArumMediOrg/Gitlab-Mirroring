@@ -1,0 +1,123 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.HashMap"%>
+<%@ include file="/inc_prg/common.jsp"%>
+<%@ include file="/func/func_uMemo_Apply_CRM_UP_Save_001.jsp"%>
+<%
+	// 전달자료
+	HashMap<String, Object> htData = null;
+	HashMap<String, String> htMethod = null;
+
+	// DB객체
+	Statement stmtExec = null;
+
+	//
+	String G_INFO = "";
+
+	try {
+%>
+<%@ include file="/inc_prg/connect.jsp"%>
+<%
+		// 전달자료
+		htData = (HashMap<String, Object>)request.getAttribute("htData");
+		htMethod = (HashMap<String, String>)request.getAttribute("htMethod_1");
+
+		String SMODE = htMethod.get("SMODE");
+		String CCM_SEQ = htMethod.get("CCM_SEQ");
+		String MEMO_DT = htMethod.get("MEMO_DT");
+		String MEMO_KD = htMethod.get("MEMO_KD");
+		String MEMO_LT = htMethod.get("MEMO_LT");
+		String MEMO_TX = htMethod.get("MEMO_TX");
+		String FONT_ST = htMethod.get("FONT_ST");
+		String USER_ID = htMethod.get("USER_ID");
+
+		//
+
+		if(SMODE == null) { SMODE = ""; }
+		if(CCM_SEQ == null) { CCM_SEQ = ""; }
+		if(MEMO_DT == null) { MEMO_DT = ""; }
+		if(MEMO_KD == null) { MEMO_KD = ""; }
+		if(MEMO_LT == null) { MEMO_LT = ""; }
+		if(MEMO_TX == null) { MEMO_TX = ""; }
+		if(FONT_ST == null) { FONT_ST = ""; }
+		if(USER_ID == null) { USER_ID = ""; }
+
+		// DB객체
+		stmtExec = connect.createStatement();
+
+		sql = func_uMemo_Apply_CRM_UP_Save_001(stmtExec, htMethod);
+
+			//
+			G_INFO += "<!-- \n";
+			G_INFO += "서비스명 : uMemo_Apply_CRM_UP_Save_001 \n";
+			G_INFO += "설명 : 종검상담스케줄-종검상담일정메모 insert,update \n";
+			G_INFO += "\n\n";
+
+			G_INFO += "전달인자 : \n";
+			G_INFO += " SMODE : " + SMODE + " \n";
+			G_INFO += " CCM_SEQ : " + CCM_SEQ + " \n";
+			G_INFO += " MEMO_DT : " + MEMO_DT + " \n";
+			G_INFO += " MEMO_KD : " + MEMO_KD + " \n";
+			G_INFO += " MEMO_LT : " + MEMO_LT + " \n";
+			G_INFO += " MEMO_TX : " + MEMO_TX + " \n";
+			G_INFO += " FONT_ST : " + FONT_ST + " \n";
+			G_INFO += " USER_ID : " + USER_ID + " \n";
+			G_INFO += "\n\n";
+
+			G_INFO += "질의문 : " + sql + " \n";
+			G_INFO += "-->";
+
+		out.clear();		// include된 파일안의 공백 제거
+		response.addHeader("Content-type", "text/xml");
+%><?xml version="1.0" encoding="UTF-8"?>
+
+<%= G_INFO%>
+
+<nurionXml>
+	<resultCode>200</resultCode>
+	<resultXml></resultXml>
+	<errorMsg></errorMsg>
+</nurionXml>
+
+<%
+	} catch (FuncException fe) {
+
+		out.clear();		// include된 파일안의 공백 제거
+		response.addHeader("Content-type", "text/xml");
+%><?xml version="1.0" encoding="UTF-8"?>
+
+<%= G_INFO%>
+
+<nurionXml>
+	<resultCode>400</resultCode>
+	<resultXml></resultXml>
+	<errorMsg><![CDATA[<%= fe.toString()%>]]></errorMsg>
+	<sql><![CDATA[<%= fe.getSql()%>]]></sql>
+</nurionXml>
+
+<%
+	} catch (Exception e) {
+
+		out.clear();		// include된 파일안의 공백 제거
+		response.addHeader("Content-type", "text/xml");
+%><?xml version="1.0" encoding="UTF-8"?>
+
+<%= G_INFO%>
+
+<nurionXml>
+	<resultCode>400</resultCode>
+	<resultXml></resultXml>
+	<errorMsg><![CDATA[<%= e.toString()%>]]></errorMsg>
+</nurionXml>
+
+<%
+	} finally {
+
+		if(stmtExec != null) {
+			stmtExec.close();
+			stmtExec = null;
+		}
+%>
+<%@ include file="/inc_prg/disconnect.jsp"%>
+<%
+	}
+%>

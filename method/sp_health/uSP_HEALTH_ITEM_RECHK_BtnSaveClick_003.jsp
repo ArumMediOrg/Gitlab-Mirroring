@@ -1,0 +1,149 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.HashMap"%>
+<%@ include file="/inc_prg/common.jsp"%>
+<%@ include file="/func/func_uSP_HEALTH_ITEM_RECHK_BtnSaveClick_003.jsp"%>
+<%
+	// 전달자료
+	HashMap<String, Object> htData = null;
+	HashMap<String, String> htMethod = null;
+
+	// DB객체
+	Statement stmtExec = null;
+
+	//
+	String G_INFO = "";
+
+	try {
+%>
+<%@ include file="/inc_prg/connect.jsp"%>
+<%
+		// 전달자료
+		htData = (HashMap<String, Object>)request.getAttribute("htData");
+		htMethod = (HashMap<String, String>)request.getAttribute("htMethod_1");
+
+		String SSAVEMODE = htMethod.get("SSAVEMODE");
+		String EXAM_DT = htMethod.get("EXAM_DT");
+		String EXAM_SQ = htMethod.get("EXAM_SQ");
+		String EXAM_CHA = htMethod.get("EXAM_CHA");
+		String MATT_CD = htMethod.get("MATT_CD");
+		String ORGA_CD = htMethod.get("ORGA_CD");
+		String MKJJ_CD = htMethod.get("MKJJ_CD");
+		String SWING_CD = htMethod.get("SWING_CD");
+		String CUST_NO = htMethod.get("CUST_NO");
+		String EITEM_LT = htMethod.get("EITEM_LT");
+		String SITEM_LT = htMethod.get("SITEM_LT");
+		String USER_ID = htMethod.get("USER_ID");
+		String ETITEM_LT = htMethod.get("ETITEM_LT");
+		String EXAM_DT2 = htMethod.get("EXAM_DT2");
+		String EXAM_SQ2 = htMethod.get("EXAM_SQ2");
+		String ADD_LT = htMethod.get("ADD_LT");
+		String ZERO_LT = htMethod.get("ZERO_LT");
+
+		//
+		if(SSAVEMODE == null) { SSAVEMODE = ""; }
+		if(EXAM_DT == null) { EXAM_DT = ""; }
+		if(EXAM_SQ == null) { EXAM_SQ = ""; }
+		if(EXAM_CHA == null) { EXAM_CHA = ""; }
+		if(MATT_CD == null) { MATT_CD = ""; }
+		if(ORGA_CD == null) { ORGA_CD = ""; }
+		if(MKJJ_CD == null) { MKJJ_CD = ""; }
+		if(SWING_CD == null) { SWING_CD = ""; }
+		if(CUST_NO == null) { CUST_NO = ""; }
+		if(EITEM_LT == null) { EITEM_LT = ""; }
+		if(SITEM_LT == null) { SITEM_LT = ""; }
+		if(USER_ID == null) { USER_ID = ""; }
+		if(ETITEM_LT == null) { ETITEM_LT = ""; }
+		if(EXAM_DT2 == null) { EXAM_DT2 = ""; }
+		if(EXAM_SQ2 == null) { EXAM_SQ2 = ""; }
+		if(ADD_LT == null) { ADD_LT = ""; }
+		if(ZERO_LT == null) { ZERO_LT = ""; }
+
+		// DB객체
+		stmtExec = connect.createStatement();
+
+		sql = func_uSP_HEALTH_ITEM_RECHK_BtnSaveClick_003(stmtExec, htMethod);
+
+			//
+			G_INFO += "<!-- \n";
+			G_INFO += "서비스명 : uSP_HEALTH_ITEM_RECHK_BtnSaveClick_003 \n";
+			G_INFO += "설명 : 특검 2차대상항목 저장(insert,update) \n";
+			G_INFO += "\n\n";
+
+			G_INFO += "전달인자 : \n";
+			G_INFO += " SSAVEMODE : " + SSAVEMODE + " \n";
+			G_INFO += " EXAM_DT : " + EXAM_DT + " \n";
+			G_INFO += " EXAM_SQ : " + EXAM_SQ + " \n";
+			G_INFO += " EXAM_CHA : " + EXAM_CHA + " \n";
+			G_INFO += " MATT_CD : " + MATT_CD + " \n";
+			G_INFO += " ORGA_CD : " + ORGA_CD + " \n";
+			G_INFO += " MKJJ_CD : " + MKJJ_CD + " \n";
+			G_INFO += " SWING_CD : " + SWING_CD + " \n";
+			G_INFO += " CUST_NO : " + CUST_NO + " \n";
+			G_INFO += " EITEM_LT : " + EITEM_LT + " \n";
+			G_INFO += " SITEM_LT : " + SITEM_LT + " \n";
+			G_INFO += " USER_ID : " + USER_ID + " \n";
+			G_INFO += " ETITEM_LT : " + ETITEM_LT + " \n";
+			G_INFO += " EXAM_DT2 : " + EXAM_DT2 + " \n";
+			G_INFO += " EXAM_SQ2 : " + EXAM_SQ2 + " \n";
+			G_INFO += " ADD_LT : " + ADD_LT + " \n";
+			G_INFO += " ZERO_LT : " + ZERO_LT + " \n";
+			G_INFO += "\n\n";
+
+			G_INFO += "질의문 : " + sql + " \n";
+			G_INFO += "-->";
+
+		out.clear();		// include된 파일안의 공백 제거
+		response.addHeader("Content-type", "text/xml");
+%><?xml version="1.0" encoding="UTF-8"?>
+
+<%= G_INFO%>
+
+<nurionXml>
+	<resultCode>200</resultCode>
+	<resultXml></resultXml>
+	<errorMsg></errorMsg>
+</nurionXml>
+
+<%
+	} catch (FuncException fe) {
+
+		out.clear();		// include된 파일안의 공백 제거
+		response.addHeader("Content-type", "text/xml");
+%><?xml version="1.0" encoding="UTF-8"?>
+
+<%= G_INFO%>
+
+<nurionXml>
+	<resultCode>400</resultCode>
+	<resultXml></resultXml>
+	<errorMsg><![CDATA[<%= fe.toString()%>]]></errorMsg>
+	<sql><![CDATA[<%= fe.getSql()%>]]></sql>
+</nurionXml>
+
+<%
+	} catch (Exception e) {
+
+		out.clear();		// include된 파일안의 공백 제거
+		response.addHeader("Content-type", "text/xml");
+%><?xml version="1.0" encoding="UTF-8"?>
+
+<%= G_INFO%>
+
+<nurionXml>
+	<resultCode>400</resultCode>
+	<resultXml></resultXml>
+	<errorMsg><![CDATA[<%= e.toString()%>]]></errorMsg>
+</nurionXml>
+
+<%
+	} finally {
+
+		if(stmtExec != null) {
+			stmtExec.close();
+			stmtExec = null;
+		}
+%>
+<%@ include file="/inc_prg/disconnect.jsp"%>
+<%
+	}
+%>

@@ -1,0 +1,202 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.HashMap"%>
+<%@ include file="/inc_prg/common.jsp"%>
+<%
+	// 전달자료
+	HashMap<String, Object> htData = null;
+	HashMap<String, String> htMethod = null;
+
+	// DB객체
+	Statement stmtList = null;
+
+	ResultSet rsList = null;
+
+	CRs cRsList = null;
+
+	//
+	String G_INFO = "";
+
+	try {
+%>
+<%@ include file="/inc_prg/connect.jsp"%>
+<%
+		// 전달자료
+		htData = (HashMap<String, Object>)request.getAttribute("htData");
+		htMethod = (HashMap<String, String>)request.getAttribute("htMethod_1");
+
+		String APPLY_DT = htMethod.get("APPLY_DT");
+
+		//
+		if(APPLY_DT == null) { APPLY_DT = ""; }
+
+		// DB객체
+		stmtList = connect.createStatement();
+
+		/*
+
+SELECT TO_CHAR(TO_DATE(:APPLY_DT, 'YYYY-MM-DD') + 1, 'YYYY-MM-DD') AS NEXT_DAY,
+       TO_CHAR(TO_DATE(:APPLY_DT, 'YYYY-MM-DD') - 1, 'YYYY-MM-DD') AS PREV_DAY,
+       TO_CHAR(ADD_MONTHS(TO_DATE(:APPLY_DT, 'YYYY-MM-DD'),   1), 'YYYY-MM-DD') AS NEXT_MON,
+       TO_CHAR(ADD_MONTHS(TO_DATE(:APPLY_DT, 'YYYY-MM-DD'),  -1), 'YYYY-MM-DD') AS PREV_MON,
+       TO_CHAR(ADD_MONTHS(TO_DATE(:APPLY_DT, 'YYYY-MM-DD'),  12), 'YYYY-MM-DD') AS NEXT_YEAR,
+       TO_CHAR(ADD_MONTHS(TO_DATE(:APPLY_DT, 'YYYY-MM-DD'), -12), 'YYYY-MM-DD') AS PREV_YEAR
+  FROM DUAL
+		*/
+
+		sql = " SELECT TO_CHAR(TO_DATE('" + APPLY_DT + "', 'YYYY-MM-DD') + 1, 'YYYY-MM-DD') AS NEXT_DAY, TO_CHAR(TO_DATE('" + APPLY_DT + "', 'YYYY-MM-DD') - 1, 'YYYY-MM-DD') AS PREV_DAY, TO_CHAR(ADD_MONTHS(TO_DATE('" + APPLY_DT + "', 'YYYY-MM-DD'), 1), 'YYYY-MM-DD') AS NEXT_MON, TO_CHAR(ADD_MONTHS(TO_DATE('" + APPLY_DT + "', 'YYYY-MM-DD'), -1), 'YYYY-MM-DD') AS PREV_MON, TO_CHAR(ADD_MONTHS(TO_DATE('" + APPLY_DT + "', 'YYYY-MM-DD'), 12), 'YYYY-MM-DD') AS NEXT_YEAR, TO_CHAR(ADD_MONTHS(TO_DATE('" + APPLY_DT + "', 'YYYY-MM-DD'), -12), 'YYYY-MM-DD') AS PREV_YEAR";
+		sql += " FROM DUAL";
+
+			//
+			G_INFO += "<!-- \n";
+			G_INFO += "서비스명 : uFM_AcptComm_GF_FindNextDate_001 \n";
+			G_INFO += "설명 : 이전/다음 일자 조회 (한달/일년) \n";
+			G_INFO += "\n\n";
+
+			G_INFO += "전달인자 : \n";
+			G_INFO += " APPLY_DT : " + APPLY_DT + " \n";
+			G_INFO += "\n\n";
+
+			G_INFO += "질의문 : " + sql + " \n";
+			G_INFO += "-->";
+
+		rsList = stmtList.executeQuery(sql);
+		cRsList = new CRs(rsList);
+
+		out.clear();		// include된 파일안의 공백 제거
+		response.addHeader("Content-type", "text/xml");
+%><?xml version="1.0" encoding="UTF-8"?>
+
+<%= G_INFO%>
+
+<nurionXml>
+	<resultCode>200</resultCode>
+	<resultXml>
+		<xml xmlns:s='uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882'
+			xmlns:dt='uuid:C2F41010-65B3-11d1-A29F-00AA00C14882'
+			xmlns:rs='urn:schemas-microsoft-com:rowset'
+			xmlns:z='#RowsetSchema'>
+
+<s:Schema id='RowsetSchema'>
+	<s:ElementType name='row' content='eltOnly' rs:updatable='true'>
+		<s:AttributeType name='NEXT_DAY' rs:number='1' rs:nullable='true'>
+			<s:datatype dt:type='string' dt:maxLength='10'/>
+		</s:AttributeType>
+		<s:AttributeType name='PREV_DAY' rs:number='2' rs:nullable='true'>
+			<s:datatype dt:type='string' dt:maxLength='10'/>
+		</s:AttributeType>
+		<s:AttributeType name='NEXT_MON' rs:number='3' rs:nullable='true'>
+			<s:datatype dt:type='string' dt:maxLength='10'/>
+		</s:AttributeType>
+		<s:AttributeType name='PREV_MON' rs:number='4' rs:nullable='true'>
+			<s:datatype dt:type='string' dt:maxLength='10'/>
+		</s:AttributeType>
+		<s:AttributeType name='NEXT_YEAR' rs:number='5' rs:nullable='true'>
+			<s:datatype dt:type='string' dt:maxLength='10'/>
+		</s:AttributeType>
+		<s:AttributeType name='PREV_YEAR' rs:number='6' rs:nullable='true'>
+			<s:datatype dt:type='string' dt:maxLength='10'/>
+		</s:AttributeType>
+		<s:AttributeType name='ROWID' rs:number='7' rs:rowid='true' rs:basetable='DUAL' rs:basecolumn='ROWID' rs:keycolumn='true'
+			 rs:hidden='true' rs:autoincrement='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:extends type='rs:rowbase'/>
+	</s:ElementType>
+</s:Schema>
+		<rs:data>
+<%
+		int cnt = 0;
+		while(cRsList.next()) {
+
+			cnt++;
+
+			String NEXT_DAY_T = cRsList.getString("NEXT_DAY");
+			String PREV_DAY_T = cRsList.getString("PREV_DAY");
+			String NEXT_MON_T = cRsList.getString("NEXT_MON");
+			String PREV_MON_T = cRsList.getString("PREV_MON");
+			String NEXT_YEAR_T = cRsList.getString("NEXT_YEAR");
+			String PREV_YEAR_T = cRsList.getString("PREV_YEAR");
+			String ROWID_T = cRsList.getString("ROWID");
+%>
+			<z:row
+<%
+			if(! NEXT_DAY_T.equals("")) {
+%>
+		 		NEXT_DAY='<%= NEXT_DAY_T%>'
+<%
+			}
+
+			if(! PREV_DAY_T.equals("")) {
+%>
+		 		PREV_DAY='<%= PREV_DAY_T%>'
+<%
+			}
+
+			if(! NEXT_MON_T.equals("")) {
+%>
+		 		NEXT_MON='<%= NEXT_MON_T%>'
+<%
+			}
+
+			if(! PREV_MON_T.equals("")) {
+%>
+		 		PREV_MON='<%= PREV_MON_T%>'
+<%
+			}
+
+			if(! NEXT_YEAR_T.equals("")) {
+%>
+		 		NEXT_YEAR='<%= NEXT_YEAR_T%>'
+<%
+			}
+
+			if(! PREV_YEAR_T.equals("")) {
+%>
+		 		PREV_YEAR='<%= PREV_YEAR_T%>'
+<%
+			}
+%>
+				ROWID='<%= cnt%>'
+			/>
+<%
+		}
+%>
+		</rs:data>
+		</xml>
+	</resultXml>
+	<errorMsg></errorMsg>
+</nurionXml>
+
+<%
+	} catch (Exception e) {
+
+		out.clear();		// include된 파일안의 공백 제거
+		response.addHeader("Content-type", "text/xml");
+%><?xml version="1.0" encoding="UTF-8"?>
+
+<%= G_INFO%>
+
+<nurionXml>
+	<resultCode>400</resultCode>
+	<resultXml></resultXml>
+	<errorMsg><![CDATA[<%= e.toString()%>]]></errorMsg>
+	<sql><![CDATA[<%= sql%>]]></sql>
+</nurionXml>
+
+<%
+	} finally {
+
+		if(rsList != null) {
+			rsList.close();
+			rsList = null;
+		}
+
+		if(stmtList != null) {
+			stmtList.close();
+			stmtList = null;
+		}
+%>
+<%@ include file="/inc_prg/disconnect.jsp"%>
+<%
+	}
+%>

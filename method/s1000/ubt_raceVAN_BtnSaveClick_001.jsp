@@ -1,0 +1,146 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.HashMap"%>
+<%@ include file="/inc_prg/common.jsp"%>
+<%@ include file="/func/func_ubt_raceVAN_BtnSaveClick_001.jsp"%>
+<%
+	// 전달자료
+	HashMap<String, Object> htData = null;
+	HashMap<String, String> htMethod = null;
+
+	// DB객체
+	Statement stmtExec = null;
+
+	//
+	String G_INFO = "";
+
+	try {
+%>
+<%@ include file="/inc_prg/connect.jsp"%>
+<%
+		// 전달자료
+		htData = (HashMap<String, Object>)request.getAttribute("htData");
+		htMethod = (HashMap<String, String>)request.getAttribute("htMethod_1");
+
+		String RECE_NO = htMethod.get("RECE_NO");
+		String CUST_NO = htMethod.get("CUST_NO");
+		String TRACE_CD = htMethod.get("TRACE_CD");
+		String TID = htMethod.get("TID");
+		String WCC = htMethod.get("WCC");
+		String ALLOT_MM = htMethod.get("ALLOT_MM");
+		String RECE_PR = htMethod.get("RECE_PR");
+		String APPR_NO = htMethod.get("APPR_NO");
+		String APPR_DT = htMethod.get("APPR_DT");
+		String ISSUE_CD = htMethod.get("ISSUE_CD");
+		String CARD_NM = htMethod.get("CARD_NM");
+		String PURCH_CD = htMethod.get("PURCH_CD");
+		String PURCH_NM = htMethod.get("PURCH_NM");
+		String USER_ID = htMethod.get("USER_ID");
+		String DSC_KD = htMethod.get("DSC_KD");
+		String CARD_NO = htMethod.get("CARD_NO");
+
+		//
+		if(RECE_NO == null) { RECE_NO = ""; }
+		if(CUST_NO == null) { CUST_NO = ""; }
+		if(TRACE_CD == null) { TRACE_CD = ""; }
+		if(TID == null) { TID = ""; }
+		if(WCC == null) { WCC = ""; }
+		if(ALLOT_MM == null) { ALLOT_MM = ""; }
+		if(RECE_PR == null) { RECE_PR = ""; }
+		if(APPR_NO == null) { APPR_NO = ""; }
+		if(APPR_DT == null) { APPR_DT = ""; }
+		if(ISSUE_CD == null) { ISSUE_CD = ""; }
+		if(CARD_NM == null) { CARD_NM = ""; }
+		if(PURCH_CD == null) { PURCH_CD = ""; }
+		if(PURCH_NM == null) { PURCH_NM = ""; }
+		if(USER_ID == null) { USER_ID = ""; }
+		if(DSC_KD == null) { DSC_KD = ""; }
+		if(CARD_NO == null) { CARD_NO = ""; }
+
+		// DB객체
+		stmtExec = connect.createStatement();
+
+		sql = func_ubt_raceVAN_BtnSaveClick_001(stmtExec, htMethod);
+
+			//
+			G_INFO += "<!-- \n";
+			G_INFO += "서비스명 : ubt_raceVAN_BtnSaveClick_001 \n";
+			G_INFO += "설명 : 카드수납테이블insert 승인 \n";
+			G_INFO += "\n\n";
+
+			G_INFO += "전달인자 : \n";
+			G_INFO += " RECE_NO : " + RECE_NO + " \n";
+			G_INFO += " CUST_NO : " + CUST_NO + " \n";
+			G_INFO += " TRACE_CD : " + TRACE_CD + " \n";
+			G_INFO += " TID : " + TID + " \n";
+			G_INFO += " WCC : " + WCC + " \n";
+			G_INFO += " ALLOT_MM : " + ALLOT_MM + " \n";
+			G_INFO += " RECE_PR : " + RECE_PR + " \n";
+			G_INFO += " APPR_NO : " + APPR_NO + " \n";
+			G_INFO += " APPR_DT : " + APPR_DT + " \n";
+			G_INFO += " ISSUE_CD : " + ISSUE_CD + " \n";
+			G_INFO += " CARD_NM : " + CARD_NM + " \n";
+			G_INFO += " PURCH_CD : " + PURCH_CD + " \n";
+			G_INFO += " PURCH_NM : " + PURCH_NM + " \n";
+			G_INFO += " USER_ID : " + USER_ID + " \n";
+			G_INFO += " DSC_KD : " + DSC_KD + " \n";
+			G_INFO += " CARD_NO : " + CARD_NO + " \n";
+			G_INFO += "\n\n";
+
+			G_INFO += "질의문 : " + sql + " \n";
+			G_INFO += "-->";
+
+		out.clear();		// include된 파일안의 공백 제거
+		response.addHeader("Content-type", "text/xml");
+%><?xml version="1.0" encoding="UTF-8"?>
+
+<%= G_INFO%>
+
+<nurionXml>
+	<resultCode>200</resultCode>
+	<resultXml></resultXml>
+	<errorMsg></errorMsg>
+</nurionXml>
+
+<%
+	} catch (FuncException fe) {
+
+		out.clear();		// include된 파일안의 공백 제거
+		response.addHeader("Content-type", "text/xml");
+%><?xml version="1.0" encoding="UTF-8"?>
+
+<%= G_INFO%>
+
+<nurionXml>
+	<resultCode>400</resultCode>
+	<resultXml></resultXml>
+	<errorMsg><![CDATA[<%= fe.toString()%>]]></errorMsg>
+	<sql><![CDATA[<%= fe.getSql()%>]]></sql>
+</nurionXml>
+
+<%
+	} catch (Exception e) {
+
+		out.clear();		// include된 파일안의 공백 제거
+		response.addHeader("Content-type", "text/xml");
+%><?xml version="1.0" encoding="UTF-8"?>
+
+<%= G_INFO%>
+
+<nurionXml>
+	<resultCode>400</resultCode>
+	<resultXml></resultXml>
+	<errorMsg><![CDATA[<%= e.toString()%>]]></errorMsg>
+</nurionXml>
+
+<%
+	} finally {
+
+		if(stmtExec != null) {
+			stmtExec.close();
+			stmtExec = null;
+		}
+%>
+<%@ include file="/inc_prg/disconnect.jsp"%>
+<%
+	}
+%>

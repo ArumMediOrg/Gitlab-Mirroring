@@ -1,0 +1,39 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%!
+	public String func_uSP_Health_RzBmpButton3Click_001(Statement argStmtExec, HashMap argHtMethod) throws Exception {
+
+		String sql = "";
+		String sql2 = "";
+		String sql_disp = "";
+
+		try {
+
+			String PANJ_DT = (String) argHtMethod.get("PANJ_DT");
+			String EXAM_DT = (String) argHtMethod.get("EXAM_DT");
+			String EXAM_SQ = (String) argHtMethod.get("EXAM_SQ");
+
+			//
+			if(PANJ_DT == null) { PANJ_DT = ""; }
+			if(EXAM_DT == null) { EXAM_DT = ""; }
+			if(EXAM_SQ == null) { EXAM_SQ = ""; }
+
+			//
+			PANJ_DT = CTr.Replace(PANJ_DT, "'", "''");
+			EXAM_DT = CTr.Replace(EXAM_DT, "'", "''");
+			EXAM_SQ = CTr.Replace(EXAM_SQ, "'", "''");
+
+			sql = "UPDATE ST_PANJUNG SET ";
+			sql += "  SPG_PANJ_DT = '" + PANJ_DT + "'";
+			sql += " WHERE SPG_EXAM_DT = '" + EXAM_DT + "'";
+			sql += " AND SPG_EXAM_SQ = '" + EXAM_SQ + "'";
+
+			argStmtExec.executeUpdate(sql);
+
+		} catch (Exception e) {
+
+			throw new FuncException(e.toString(), sql);
+		}
+
+		return sql;
+	}
+%>
