@@ -21,13 +21,13 @@
 
 			//
 
-			if(RECE_NO == null) { RECE_NO ""; }
-			if(RECE_SEQ == null) { RECE_SEQ ""; }
-			if(USE_YYYYMM == null) { USE_YYYYMM ""; }
-			if(EMPL_NO == null) { EMPL_NO ""; }
-			if(LOCAL_NM == null) { LOCAL_NM ""; }
-			if(EMPL_NM == null) { EMPL_NM ""; }
-			if(DEPT_NM == null) { DEPT_NM ""; }
+			if(RECE_NO == null) { RECE_NO = ""; }
+			if(RECE_SEQ == null) { RECE_SEQ = ""; }
+			if(USE_YYYYMM == null) { USE_YYYYMM = ""; }
+			if(EMPL_NO == null) { EMPL_NO = ""; }
+			if(LOCAL_NM == null) { LOCAL_NM = ""; }
+			if(EMPL_NM == null) { EMPL_NM = ""; }
+			if(DEPT_NM == null) { DEPT_NM = ""; }
 
 			//
 

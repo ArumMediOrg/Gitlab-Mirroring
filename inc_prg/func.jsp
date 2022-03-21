@@ -1300,7 +1300,7 @@
 		if(argMethodName.equals("uCRM_BASIC_MAIN_UP_Save_001")) 	{ return func_uCRM_BASIC_MAIN_UP_Save_001(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uCRM_BASIC_MAIN_btnS2_DeleteClick_001")) 	{ return func_uCRM_BASIC_MAIN_btnS2_DeleteClick_001(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uKUMC_Point_Management_usePoint_001")) 	{ return func_uKUMC_Point_Management_usePoint_001(argStmtExec, argHtMethod); }
-		if(argMethodName.equals("uKUMC_Point_Management_usePointNew_001")) 	{ return func uKUMC_Point_Management_usePointNew_001(argStmtExec, argHtMethod); }
+		if(argMethodName.equals("uKUMC_Point_Management_usePointNew_001")) 	{ return func_uKUMC_Point_Management_usePointNew_001(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uSPSUGA_Set_Insert_001")) 	{ return func_uSPSUGA_Set_Insert_001(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uSPSUGA_Set_Insert_002")) 	{ return func_uSPSUGA_Set_Insert_002(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uSPSUGA_Set_Insert_003")) 	{ return func_uSPSUGA_Set_Insert_003(argStmtExec, argHtMethod); }
