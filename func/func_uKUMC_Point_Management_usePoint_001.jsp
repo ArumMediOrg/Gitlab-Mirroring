@@ -12,7 +12,6 @@
 		try {
 
 			String RECE_NO = (String) argHtMethod.get("RECE_NO");
-			String RECE_SEQ = (String) argHtMethod.get("RECE_SEQ");
 			String USE_YYYYMM = (String) argHtMethod.get("USE_YYYYMM");
 			String EMPL_NO = (String) argHtMethod.get("EMPL_NO");
 			String LOCAL_NM = (String) argHtMethod.get("LOCAL_NM");
@@ -21,7 +20,6 @@
 
 			//
 			if(RECE_NO == null) { RECE_NO = ""; }
-			if(RECE_SEQ == null) { RECE_SEQ = ""; }
 			if(USE_YYYYMM == null) { USE_YYYYMM = ""; }
 			if(EMPL_NO == null) { EMPL_NO = ""; }
 			if(LOCAL_NM == null) { LOCAL_NM = ""; }
@@ -31,10 +29,9 @@
 			//
 
 
-			sql = " INSERT INTO RT_KUMC_POINT_NEW (RKP_RECE_NO, RKP_RECE_SEQ, RKP_USE_YYYYMM, RKP_EMPL_NO, RKP_LOCAL_NM, RKP_EMPL_NM, RKP_DEPT_NM) ";
+			sql = " INSERT INTO RT_KUMC_POINT (RKP_RECE_NO, RKP_USE_YYYYMM, RKP_EMPL_NO, RKP_LOCAL_NM, RKP_EMPL_NM, RKP_DEPT_NM) ";
 			sql += " VALUES ( ";
 			sql += "  ? ";
-			sql += ", ? ";
 			sql += ", ? ";
 			sql += ", ? ";
 			sql += ", ? ";
@@ -45,12 +42,11 @@
 			CallStmtExec = connect.prepareCall(sql);
 
 			CallStmtExec.setString(1, RECE_NO);
-			CallStmtExec.setString(2, RECE_SEQ);
-			CallStmtExec.setString(3, USE_YYYYMM);
-			CallStmtExec.setString(4, EMPL_NO);
-			CallStmtExec.setString(5, LOCAL_NM);
-			CallStmtExec.setString(6, EMPL_NM);
-			CallStmtExec.setString(7, DEPT_NM);
+			CallStmtExec.setString(2, USE_YYYYMM);
+			CallStmtExec.setString(3, EMPL_NO);
+			CallStmtExec.setString(4, LOCAL_NM);
+			CallStmtExec.setString(5, EMPL_NM);
+			CallStmtExec.setString(6, DEPT_NM);
 
 			CallStmtExec.executeUpdate();
 
