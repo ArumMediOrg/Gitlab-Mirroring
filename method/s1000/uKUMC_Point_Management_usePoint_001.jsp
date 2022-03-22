@@ -43,7 +43,7 @@
 			//
 			G_INFO += "<!-- \n";
 			G_INFO += "서비스명 : uKUMC_Point_Management_usePoint_001 \n";
-			G_INFO += "설명 : SMS 로그 삭제 \n";
+			G_INFO += "설명 : 포인트 사용 인적정보 저장 \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "전달인자 : \n";
