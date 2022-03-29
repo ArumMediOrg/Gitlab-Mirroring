@@ -38,8 +38,8 @@
 		sql += " 			AA.rrm_return_pr, nvl(AA.rrm_rece_pr,0)-nvl(AA.rrm_return_pr, 0) TotalPRICE ";
 		sql += " 		from rt_rece_medichk AA ";
 		sql += " 		where (AA.rrm_pay_kd = '05') ";
-		sql += " 			and (AA.rrm_input_dt < '" + TODT + "') ";
-		sql += " 			and (AA.rrm_input_dt >= '" + FROMDT + "') ";
+		sql += " 			and (AA.rrm_rece_dt < '" + TODT + "') ";
+		sql += " 			and (AA.rrm_rece_dt >= '" + FROMDT + "') ";
 		sql += " 	) RECE_INFO LEFT OUTER  join RT_KUMC_POINT_NEW B ON  ";
 		sql += " 	(RECE_INFO.rrm_rece_no = B.RKP_RECE_NO) and ";
 		sql += " 	(RECE_INFO.rrm_rece_seq = B.RKP_RECE_SEQ) and ";
