@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.HashMap"%>
+<%@ include file="/inc_prg/common.jsp"%>
+<%
+	// 전달자료
+	HashMap<String, Object> htData = null;
+	HashMap<String, String> htMethod = null;
+
+	// DB객체
+	Statement stmtList = null;
+
+	ResultSet rsList = null;
+
+	CRs cRsList = null;
 
 	//
 	String G_INFO = "";
