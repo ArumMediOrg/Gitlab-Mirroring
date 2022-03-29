@@ -22,6 +22,9 @@
 			String NOT_REG = (String) argHtMethod.get("NOT_REG");
 			String SLNS_DELAY = (String) argHtMethod.get("SLNS_DELAY");
 			String BUILD_CD = (String) argHtMethod.get("BUILD_CD");
+			String KOSHA_PROVD_YN = (String) argHtMethod.get("KOSHA_PROVD_YN");
+			String INFO_PROVD_YN = (String) argHtMethod.get("INFO_PROVD_YN");
+			String NIGHT_OPERT_CD = (String) argHtMethod.get("NIGHT_OPERT_CD");
 
 			//
 			if(ISSU_NO == null) { ISSU_NO = ""; }
@@ -38,6 +41,9 @@
 			if(NOT_REG == null) { NOT_REG = ""; }
 			if(SLNS_DELAY == null) { SLNS_DELAY = ""; }
 			if(BUILD_CD == null) { BUILD_CD = ""; }
+			if(KOSHA_PROVD_YN == null) { KOSHA_PROVD_YN =""; }
+			if(INFO_PROVD_YN == null) { INFO_PROVD_YN =""; }
+			if(NIGHT_OPERT_CD == null) { NIGHT_OPERT_CD =""; }
 
 			//
 			ISSU_NO = CTr.Replace(ISSU_NO, "'", "''");
@@ -54,6 +60,9 @@
 			NOT_REG = CTr.Replace(NOT_REG, "'", "''");
 			SLNS_DELAY = CTr.Replace(SLNS_DELAY, "'", "''");
 			BUILD_CD = CTr.Replace(BUILD_CD, "'", "''");
+			KOSHA_PROVD_YN = CTr.Replace(KOSHA_PROVD_YN, "'", "''");
+			INFO_PROVD_YN = CTr.Replace(INFO_PROVD_YN, "'", "''");
+			NIGHT_OPERT_CD = CTr.Replace(NIGHT_OPERT_CD, "'", "''");
 
 			sql = "UPDATE ST_BASE SET ";
 			sql += "  SBE_ISSU_NO = '" + ISSU_NO + "'";
@@ -67,6 +76,9 @@
 			sql += ", SBE_NOT_REG = '" + NOT_REG + "' ";
    			sql += ", SBE_SLNS_DELAY = '" + SLNS_DELAY + "' ";
    			sql += ", SBE_BUILD_CD = '" + BUILD_CD + "' ";
+   			sql += ", SBE_KOSHA_PROVD_YN = '" + KOSHA_PROVD_YN + "' ";
+   			sql += ", SBE_INFO_PROVD_YN = '" + INFO_PROVD_YN + "' ";
+   			sql += ", SBE_NIGHT_OPERT_CD = '" + NIGHT_OPERT_CD + "' ";
 			sql += " WHERE SBE_EXAM_DT = '" + EXAM_DT + "'";
 			sql += " AND SBE_EXAM_SQ = '" + EXAM_SQ + "'";
 			sql += " AND SBE_EXAM_CHA = '" + EXAM_CHA + "'";
