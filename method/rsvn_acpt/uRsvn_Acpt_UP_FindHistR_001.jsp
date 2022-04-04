@@ -65,6 +65,7 @@
 		sql += "  || CASE WHEN UPPER(A.RRT_ETSB_YN) = 'Y' THEN '기타+' ELSE '' END AS RRG_EXAM_SUB";
 		sql += ", F_USER_FIND(A.RRT_INPT_ID) RRG_INPT_NM,  A.RRT_DRUG_DT RRG_DRUG_DT, F_COMP_FIND(A.RRT_COMP_CD) RRG_COMP_NM, 'I' RRG_DATA_KD";
 		sql += " , A.RRT_FAMY_CD RRG_FAMY_CD, A.RRT_FAMY_NM RRG_FAMY_NM ";
+		sql += " , A.RRT_CNCL_YN RRG_CNCL_YN ";
 		sql += " FROM RT_RSVT A";
 
 		if(SRCH_KD.equals("C")) {
@@ -74,7 +75,6 @@
 			sql += " WHERE A.RRT_RSVN_NO = '" + SRCH_NO + "'";
 		}
 		sql += " AND SUBSTR(A.RRT_EXAM_CD, 1, 2) <> '31'";
-		sql += " AND NVL(A.RRT_CNCL_YN, 'N') <> 'Y'";
 
 		sql += " ORDER BY RRG_RSVN_NO DESC";
 			//
