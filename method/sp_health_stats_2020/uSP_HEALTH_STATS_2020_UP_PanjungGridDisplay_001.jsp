@@ -36,26 +36,26 @@
 
 		/*
 
-SELECT * 
-  FROM (SELECT B.CSM_MATT_NM SPG_MATT_NM, B.CSM_INJA_CD,                                          
-               GetSP_COMMON_cdToNm('HM05E',A.SPG_PANJ_CD) SPG_PANJ_NM,                      
-               A.*                                                                                
-          FROM ST_PANJUNG A LEFT OUTER JOIN CT_SP_MATTER B ON A.SPG_MATT_CD = B.CSM_MATT_CD       
+SELECT *
+  FROM (SELECT B.CSM_MATT_NM SPG_MATT_NM, B.CSM_INJA_CD,
+               GetSP_COMMON_cdToNm('HM05E',A.SPG_PANJ_CD) SPG_PANJ_NM,
+               A.*
+          FROM ST_PANJUNG A LEFT OUTER JOIN CT_SP_MATTER B ON A.SPG_MATT_CD = B.CSM_MATT_CD
          WHERE A.SPG_EXAM_DT  = :EXAM_DT
            AND A.SPG_EXAM_SQ  = :EXAM_SQ
            AND A.SPG_EXAM_CHA = '1'
         UNION
-        SELECT B.CSM_MATT_NM SPG_MATT_NM, B.CSM_INJA_CD,                                          
-               GetSP_COMMON_cdToNm('HM05E',A.SPG_PANJ_CD) SPG_PANJ_NM,                      
-               A.*                                                                                
-          FROM (SELECT DISTINCT SIR_EXAM_DT2, SIR_EXAM_SQ2 
+        SELECT B.CSM_MATT_NM SPG_MATT_NM, B.CSM_INJA_CD,
+               GetSP_COMMON_cdToNm('HM05E',A.SPG_PANJ_CD) SPG_PANJ_NM,
+               A.*
+          FROM (SELECT DISTINCT SIR_EXAM_DT2, SIR_EXAM_SQ2
                   FROM ST_ITEM_RECHECK
                  WHERE SIR_EXAM_DT  = :EXAM_DT
                    AND SIR_EXAM_SQ  =  :EXAM_SQ
                    AND SIR_EXAM_CHA = '1') C,
-               ST_PANJUNG A LEFT OUTER JOIN CT_SP_MATTER B ON A.SPG_MATT_CD = B.CSM_MATT_CD       
-         WHERE A.SPG_EXAM_DT  = C.SIR_EXAM_DT2 
-           AND A.SPG_EXAM_SQ  = C.SIR_EXAM_SQ2 
+               ST_PANJUNG A LEFT OUTER JOIN CT_SP_MATTER B ON A.SPG_MATT_CD = B.CSM_MATT_CD
+         WHERE A.SPG_EXAM_DT  = C.SIR_EXAM_DT2
+           AND A.SPG_EXAM_SQ  = C.SIR_EXAM_SQ2
            AND A.SPG_EXAM_CHA = '2'
        ) D
  ORDER BY D.SPG_MATT_CD, D.SPG_PANJ_CD
@@ -85,7 +85,7 @@ SELECT *
 		sql += " 	AND A.SPG_EXAM_SQ = C.SIR_EXAM_SQ2";
 		sql += " 	AND A.SPG_EXAM_CHA = '2'";
 		sql += " ) D";
-		sql += " ORDER BY D.SPG_MATT_CD, D.SPG_PANJ_CD";
+		sql += " ORDER BY C.SPG_PANJ_CD, C.SPG_MATT_CD";
 
 			//
 			G_INFO += "<!-- \n";
