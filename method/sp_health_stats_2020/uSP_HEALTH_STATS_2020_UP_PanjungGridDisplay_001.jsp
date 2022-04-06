@@ -85,7 +85,7 @@ SELECT *
 		sql += " 	AND A.SPG_EXAM_SQ = C.SIR_EXAM_SQ2";
 		sql += " 	AND A.SPG_EXAM_CHA = '2'";
 		sql += " ) D";
-		sql += " ORDER BY C.SPG_PANJ_CD, C.SPG_MATT_CD";
+		sql += " ORDER BY D.SPG_PANJ_CD, D.SPG_MATT_CD";
 
 			//
 			G_INFO += "<!-- \n";
