@@ -38,11 +38,11 @@
 
 		/*
 
-Select                                                                   
+Select
 A.SIC_ITEM_CD, B.IIM_ITEM_CD, B.IIM_KNME_NM, B.IIM_SBCD_CD, A.SIC_CANC_LT
-From ST_ITEM_CANCEL A                                                    
-Inner Join IT_ITEM B On (B.IIM_ITEM_CD = :ITEM_CD Or 
-                                          B.IIM_SBCD_CD = :ITEM_CD)   
+From ST_ITEM_CANCEL A
+Inner Join IT_ITEM B On (B.IIM_ITEM_CD = :ITEM_CD Or
+                                          B.IIM_SBCD_CD = :ITEM_CD)
 
  Where A.SIC_EXAM_DT = :EXAM_DT
    And A.SIC_EXAM_SQ = :EXAM_SQ
@@ -54,6 +54,7 @@ Inner Join IT_ITEM B On (B.IIM_ITEM_CD = :ITEM_CD Or
 		sql += " ON (B.IIM_ITEM_CD = '" + ITEM_CD + "' OR B.IIM_SBCD_CD = '" + ITEM_CD + "')";
 		sql += " WHERE A.SIC_EXAM_DT = '" + EXAM_DT + "'";
 		sql += " AND A.SIC_EXAM_SQ = '" + EXAM_SQ + "'";
+		sql += " AND (A.SIC_ITEM_CD = '" + ITEM_CD + "' OR A.SIC_SBCD_CD = '" + ITEM_CD + "')";
 
 			//
 			G_INFO += "<!-- \n";
