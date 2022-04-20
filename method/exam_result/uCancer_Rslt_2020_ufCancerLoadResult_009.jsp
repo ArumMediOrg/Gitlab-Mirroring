@@ -32,9 +32,9 @@
 		String sChkUseYN = htMethod.get("sChkUseYN");
 
 		//
-		if(sRslt_Cd == null) { sRslt_Cd == ""; }
-		if(sRslt_Nm == null) { sRslt_Nm == ""; }
-		if(sChkUseYN == null) { sChkUseYN == ""; }
+		if(sRslt_Cd == null) { sRslt_Cd = ""; }
+		if(sRslt_Nm == null) { sRslt_Nm = ""; }
+		if(sChkUseYN == null) { sChkUseYN = ""; }
 
 		// DB객체
 		stmtList = connect.createStatement();
@@ -62,7 +62,7 @@
 		G_INFO += "\n\n";
 
 		G_INFO += "전달인자 : \n";
-		G_INFO += " sRsltKD : " + sRsltKD + " \n";
+		G_INFO += " sRslt_Cd : " + sRslt_Cd + " \n";
 		G_INFO += " sRslt_Nm : " + sRslt_Nm + " \n";
 		G_INFO += " sChkUseYN : " + sChkUseYN + " \n";
 
