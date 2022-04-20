@@ -27,11 +27,11 @@
 		htData = (HashMap<String, Object>)request.getAttribute("htData");
 		htMethod = (HashMap<String, String>)request.getAttribute("htMethod_1");
 
-		String SCOLOPAN = htMethod.get("SCOLOPAN");
+		String sRsltKD = htMethod.get("sRsltKD");
 
 		//
 
-		if(SCOLOPAN == null) { SCOLOPAN = ""; }
+		if(sRsltKD == null) { sRsltKD = ""; }
 
 		// DB객체
 		stmtList = connect.createStatement();
