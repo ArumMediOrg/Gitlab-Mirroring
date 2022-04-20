@@ -27,7 +27,10 @@
 		htData = (HashMap<String, Object>)request.getAttribute("htData");
 		htMethod = (HashMap<String, String>)request.getAttribute("htMethod_1");
 
+		String sRsltKD = htMethod.get("sRsltKD");
+
 		//
+		if(sRsltKD == null) { sRsltKD = ""; }
 
 		// DB객체
 		stmtList = connect.createStatement();

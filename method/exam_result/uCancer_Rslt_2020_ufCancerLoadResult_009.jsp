@@ -39,7 +39,7 @@
 		// DB객체
 		stmtList = connect.createStatement();
 
-		sql = " SELECT FROM ET_SAVED_RSLT ";
+		sql = " SELECT * FROM ET_SAVED_RSLT ";
 		sql += " WHERE 1=1 ";
 
 		if(!sRslt_Cd.equals("")) {
