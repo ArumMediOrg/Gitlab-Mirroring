@@ -27,11 +27,7 @@
 		htData = (HashMap<String, Object>)request.getAttribute("htData");
 		htMethod = (HashMap<String, String>)request.getAttribute("htMethod_1");
 
-		String sRsltKD = htMethod.get("sRsltKD");
-
 		//
-
-		if(sRsltKD == null) { sRsltKD = ""; }
 
 		// DB객체
 		stmtList = connect.createStatement();
@@ -39,19 +35,20 @@
 		sql = " SELECT MAX(SUBSTRING(ESR_RSLT_CD,5,3) + 1) AS RSLT_CD FROM ET_SAVED_RSLT ";
 		sql += " WHERE ESR_RSLT_CD LIKE '" + sRsltKD + "%'";
 
-		G_INFO += "<!-- \n";
-		G_INFO += "서비스명 : uCancer_Rslt_2020_ufCancerLoadResult_007 \n";
-		G_INFO += "설명 : 암검진 결과자동등록 MAX 번호 조회 \n";
-		G_INFO += "\n\n";
+		//
+			G_INFO += "<!-- \n";
+			G_INFO += "서비스명 : uCancer_Rslt_2020_ufCancerLoadResult_007 \n";
+			G_INFO += "설명 : 암검진 결과자동등록 MAX 번호 조회 \n";
+			G_INFO += "\n\n";
 
-		G_INFO += "전달인자 : \n";
-		G_INFO += " sRsltKD : " + sRsltKD + " \n";
+			G_INFO += "전달인자 : \n";
+			G_INFO += " sRsltKD : " + sRsltKD + " \n";
 
-		G_INFO += "\n\n";
+			G_INFO += "\n\n";
 
-		G_INFO += "질의문 : " + sql + " \n";
+			G_INFO += "질의문 : " + sql + " \n";
 
-		G_INFO += "-->";
+			G_INFO += "-->";
 
 		rsList = stmtList.executeQuery(sql);
 		cRsList = new CRs(rsList);
