@@ -35,7 +35,8 @@
 		// DB객체
 		stmtList = connect.createStatement();
 
-		sql = " SELECT MAX(SUBSTRING(ESR_RSLT_CD,5,3) + 1) AS RSLT_CD FROM ET_SAVED_RSLT ";
+		sql = " SELECT MAX(SUBSTRING(ESR_RSLT_CD,5,3) + 1) AS RSLT_CD ";
+		sql += " FROM ET_SAVED_RSLT ";
 		sql += " WHERE ESR_RSLT_CD LIKE '" + sRsltKD + "%'";
 
 		//
