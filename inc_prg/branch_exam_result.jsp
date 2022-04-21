@@ -276,6 +276,7 @@
 	htBranch.put("uGen_Frst_Panj_uAutoPanBrain_015", 		"/method/exam_result/uGen_Frst_Panj_uAutoPanBrain_015.jsp");
 	htBranch.put("uCancer_Rslt_2020_ufCancerLoadResult_006", 		"/method/exam_result/uCancer_Rslt_2020_ufCancerLoadResult_006.jsp");
 	htBranch.put("uCancer_Rslt_2020_ufCancerLoadResult_007", 		"/method/exam_result/uCancer_Rslt_2020_ufCancerLoadResult_007.jsp");
+	htBranch.put("uCancer_Rslt_2020_ufCancerLoadResult_008", 		"/method/exam_result/uCancer_Rslt_2020_ufCancerLoadResult_008.jsp");
 	htBranch.put("uExam_Result_btnPanReqClick_001", 		"/method/exam_result/uExam_Result_btnPanReqClick_001.jsp");
 	htBranch.put("uExam_Result_btnPanReqClick_002", 		"/method/exam_result/uExam_Result_btnPanReqClick_002.jsp");
 	htBranch.put("uCancer_Rslt_2020_ufSaveStmcRslt_002_Log", 		"/method/exam_result/uCancer_Rslt_2020_ufSaveStmcRslt_002_Log.jsp");
