@@ -232,6 +232,8 @@
 			G_INFO += " CMBPACK_CD : " + CMBPACK_CD + " \n";
 			G_INFO += " CMBSRCHTEST : " + CMBSRCHTEST + " \n";
 			G_INFO += " CMBSORT : " + CMBSORT + " \n";
+			G_INFO += " sDivi_Cs : " + sDivi_Cs + " \n";
+			G_INFO += " sCLSS_KD : " + sCLSS_KD + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";
