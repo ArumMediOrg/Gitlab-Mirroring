@@ -10,7 +10,6 @@
 		CallableStatement CallStmtExec = null;
 
 		try {
-
 			String sRsltCd = (String) argHtMethod.get("sRsltCd");
 			String sRSLT_NM = (String) argHtMethod.get("sRSLT_NM");
 			String sExamKd = (String) argHtMethod.get("sExamKd");
@@ -20,6 +19,7 @@
 			String sRSLT4_VL = (String) argHtMethod.get("sRSLT4_VL");
 
 			//
+
 			if(sRsltCd == null) { sRsltCd = ""; }
 			if(sRSLT_NM == null) { sRSLT_NM = ""; }
 			if(sExamKd == null) { sExamKd = ""; }
@@ -37,8 +37,10 @@
 			//sRSLT3_VL = Ctr.Replace(sRSLT3_VL, "'", "''");
 			//sRSLT4_VL = Ctr.Replace(sRSLT4_VL, "'", "''");
 
-			sql = " INSERT INTO ET_SAVED_RSLT (ESR_RSLT_CD, ESR_RSLT_NM, ESR_EXAM_KD, ESR_RSLT1_VL, ESR_RSLT2_VL, ESR_RSLT3_VL, ESR_RSLT4_VL, ESR_USE_YN) ";
+			sql = " INSERT INTO ET_SAVED_RSLT (ESR_RSLT_CD, ESR_RSLT_NM, ESR_EXAM_KD, ESR_RSLT1_VL, ESR_RSLT2_VL, ESR_RSLT3_VL, ESR_RSLT4_VL, ESR_USE_YN ) ";
 			sql += " VALUES (?, ?, ?, ?, ?, ?, ?, 'Y') ";
+
+			CallStmtExec = connect.prepareCall(sql);
 
 			CallStmtExec.setString(1, sRsltCd);
 			CallStmtExec.setString(2, sRSLT_NM);
@@ -48,8 +50,7 @@
 			CallStmtExec.setString(6, sRSLT3_VL);
 			CallStmtExec.setString(7, sRSLT4_VL);
 
-			argStmtExec.executeUpdate(sql);
-
+			CallStmtExec.executeUpdate();
 
 		} catch (Exception e) {
 
