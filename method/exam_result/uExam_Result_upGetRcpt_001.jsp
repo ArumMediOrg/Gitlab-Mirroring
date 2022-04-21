@@ -93,11 +93,6 @@
 		sql += " AND SUBSTR(BBP_CHUNG_KD, 1, 1) = '1'";
 		sql += " AND BBP_RETURN_KD = '0'";
 
-		sql += " LEFT OUTER JOIN ST_BASE";
-		sql += " ON EEA_EXAM_DT = SBE_EXAM_DT";
-		sql += " AND EEA_EXAM_SQ = SBE_EXAM_SQ";
-
-
 		sql += " WHERE EEA_EXAM_DT BETWEEN '" + FREXAM_DT + "'";
 		sql += " AND '" + TOEXAM_DT + "'";
 		sql += " AND EEA_ORDER_YN <> 'C'";
