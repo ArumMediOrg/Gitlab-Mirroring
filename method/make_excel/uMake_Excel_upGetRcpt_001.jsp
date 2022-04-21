@@ -38,6 +38,8 @@
 		String CMBPACK_CD = htMethod.get("CMBPACK_CD");
 		String CMBSRCHTEST = htMethod.get("CMBSRCHTEST");
 		String CMBSORT = htMethod.get("CMBSORT");
+		String sDivi_Cs = htMethod.get("sDivi_Cs");
+		String sCLSS_KD = htMethod.get("sCLSS_KD");
 
 		//
 		if(G_ENCRT_KD == null) { G_ENCRT_KD = ""; }
@@ -51,6 +53,8 @@
 		if(CMBPACK_CD == null) { CMBPACK_CD = ""; }
 		if(CMBSRCHTEST == null) { CMBSRCHTEST = ""; }
 		if(CMBSORT == null) { CMBSORT = ""; }
+		if(sDivi_Cs == null) { sDivi_Cs = ""; }
+		if(sCLSS_KD == null) { sCLSS_KD = ""; }
 
 		// DB객체
 		stmtList = connect.createStatement();
@@ -73,7 +77,7 @@
 		sql += " F_CODE_FIND('0401', EEA_SPSB_CD, '', '1') AS SPSB_NM , F_CODE_FIND('0401', EEA_CVSB_CD, '', '1') AS CVSB_NM , ";
 		sql += " F_CODE_FIND('0401', EEA_EMSB_CD, '', '1') AS EMSB_NM , F_CODE_FIND('0401', EEA_ETSB_CD, '', '1') AS ETSB_NM , ";
 		sql += " F_CODE_FIND('0919', EEA_FAMY_CD, '', '1') AS EEA_FAMY_CD , EEA_HLTHR_PR, EEA_SPCLR_PR, EEA_PSNLR_PR, EEA_COMPR_PR, ";
-		sql += " ICR_INFO_YN, ICR_INFORE_YN ";
+		sql += " ICR_INFO_YN, ICR_INFORE_YN, EEA_DIVI_CS, EEA_CLSS_KD ";
 		sql += " FROM ET_EXAM_ACPT JOIN IT_CUSTOMER";
 		sql += " ON ICR_CUST_NO = EEA_CUST_NO LEFT OUTER JOIN IT_COMPANY";
 		sql += " ON ICY_COMP_CD = EEA_COMP_CD";
@@ -103,6 +107,14 @@
 
 		if(!CMBPACK_CD.equals("")) {
 			sql += " AND EEA_EXAM_LT LIKE '%' || '" + CMBPACK_CD + "' || '%'";
+		}
+
+		if(!sDivi_Cs.equals("")) {
+			sql += " AND EEA_DIVI_CS '" + sDivi_Cs + "'";
+		}
+
+		if(!sCLSS_KD.equals("")) {
+			sql += " AND EEA_CLSS_KD '" + sCLSS_KD + "'";
 		}
 
 		if(!CMBSRCHTEST.equals("")) {
