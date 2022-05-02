@@ -155,70 +155,74 @@ SELECT RRM_RECE_NO,RRM_RECE_SEQ,RRM_RECE_DT,  RRM_MEMO, RRM_INPUT_ID,
 			 rs:basecolumn='RRM_OCCU_KD'>
 			<s:datatype dt:type='string' dt:maxLength='2'/>
 		</s:AttributeType>
-		<s:AttributeType name='RRM_OCCU_NM' rs:number='7' rs:nullable='true'>
+		<s:AttributeType name='RRM_APPR_NO' rs:number='7' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
+			 rs:basecolumn='RRM_APPR_NO'>
+			<s:datatype dt:type='string' dt:maxLength='20'/>
+		</s:AttributeType>
+		<s:AttributeType name='RRM_OCCU_NM' rs:number='8' rs:nullable='true'>
 			<s:datatype dt:type='string' dt:maxLength='300'/>
 		</s:AttributeType>
-		<s:AttributeType name='RRM_RECE_PR' rs:number='8' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
+		<s:AttributeType name='RRM_RECE_PR' rs:number='9' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
 			 rs:basecolumn='RRM_RECE_PR'>
 			<s:datatype dt:type='number' rs:dbtype='numeric' dt:maxLength='19' rs:scale='0' rs:precision='10' rs:fixedlength='true'/>
 		</s:AttributeType>
-		<s:AttributeType name='RRM_OVERPAY_PR' rs:number='9' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
+		<s:AttributeType name='RRM_OVERPAY_PR' rs:number='10' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
 			 rs:basecolumn='RRM_OVERPAY_PR'>
 			<s:datatype dt:type='number' rs:dbtype='numeric' dt:maxLength='19' rs:scale='0' rs:precision='10' rs:fixedlength='true'/>
 		</s:AttributeType>
-		<s:AttributeType name='RRM_RETURN_PR' rs:number='10' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
+		<s:AttributeType name='RRM_RETURN_PR' rs:number='11' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
 			 rs:basecolumn='RRM_RETURN_PR'>
 			<s:datatype dt:type='number' rs:dbtype='numeric' dt:maxLength='19' rs:scale='0' rs:precision='10' rs:fixedlength='true'/>
 		</s:AttributeType>
-		<s:AttributeType name='RRM_SALE_KD' rs:number='11' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
+		<s:AttributeType name='RRM_SALE_KD' rs:number='12' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
 			 rs:basecolumn='RRM_SALE_KD'>
 			<s:datatype dt:type='string' dt:maxLength='2'/>
 		</s:AttributeType>
-		<s:AttributeType name='RRM_SALE_NM' rs:number='12' rs:nullable='true'>
+		<s:AttributeType name='RRM_SALE_NM' rs:number='13' rs:nullable='true'>
 			<s:datatype dt:type='string' dt:maxLength='300'/>
 		</s:AttributeType>
-		<s:AttributeType name='RRM_SALE_PR' rs:number='13' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
+		<s:AttributeType name='RRM_SALE_PR' rs:number='14' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
 			 rs:basecolumn='RRM_SALE_PR'>
 			<s:datatype dt:type='number' rs:dbtype='numeric' dt:maxLength='19' rs:scale='0' rs:precision='10' rs:fixedlength='true'/>
 		</s:AttributeType>
-		<s:AttributeType name='RRM_TRUNC_PR' rs:number='14' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
+		<s:AttributeType name='RRM_TRUNC_PR' rs:number='15' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
 			 rs:basecolumn='RRM_TRUNC_PR'>
 			<s:datatype dt:type='number' rs:dbtype='numeric' dt:maxLength='19' rs:scale='0' rs:precision='10' rs:fixedlength='true'/>
 		</s:AttributeType>
-		<s:AttributeType name='RRM_PAYEND_KD' rs:number='15' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
+		<s:AttributeType name='RRM_PAYEND_KD' rs:number='16' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
 			 rs:basecolumn='RRM_PAYEND_KD'>
 			<s:datatype dt:type='string' dt:maxLength='2'/>
 		</s:AttributeType>
-		<s:AttributeType name='RRM_PAYEND_NM' rs:number='16' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
+		<s:AttributeType name='RRM_PAYEND_NM' rs:number='17' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
 			 rs:basecolumn='RRM_PAYEND_NM'>
 			<s:datatype dt:type='string' dt:maxLength='4' rs:fixedlength='true'/>
 		</s:AttributeType>
-		<s:AttributeType name='RRM_PAY_KD' rs:number='17' rs:nullable='true'>
+		<s:AttributeType name='RRM_PAY_KD' rs:number='18' rs:nullable='true'>
 			<s:datatype dt:type='string' dt:maxLength='2'/>
 		</s:AttributeType>
-		<s:AttributeType name='RRM_PAY_NM' rs:number='18' rs:nullable='true'>
+		<s:AttributeType name='RRM_PAY_NM' rs:number='19' rs:nullable='true'>
 			<s:datatype dt:type='string' dt:maxLength='300'/>
 		</s:AttributeType>
-		<s:AttributeType name='RRM_RESER_PR' rs:number='19' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
+		<s:AttributeType name='RRM_RESER_PR' rs:number='20' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
 			 rs:basecolumn='RRM_RESER_PR'>
 			<s:datatype dt:type='number' rs:dbtype='numeric' dt:maxLength='19' rs:scale='0' rs:precision='10' rs:fixedlength='true'/>
 		</s:AttributeType>
-		<s:AttributeType name='RRM_RESEREPL_PR' rs:number='20' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
+		<s:AttributeType name='RRM_RESEREPL_PR' rs:number='21' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
 			 rs:basecolumn='RRM_RESEREPL_PR'>
 			<s:datatype dt:type='number' rs:dbtype='numeric' dt:maxLength='19' rs:scale='0' rs:precision='10' rs:fixedlength='true'/>
 		</s:AttributeType>
-		<s:AttributeType name='RRM_ISSUE_CD' rs:number='21' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
+		<s:AttributeType name='RRM_ISSUE_CD' rs:number='22' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
 			 rs:basecolumn='RRM_ISSUE_CD'>
 			<s:datatype dt:type='string' dt:maxLength='3'/>
 		</s:AttributeType>
-		<s:AttributeType name='RRM_ISSUE_NM' rs:number='22' rs:nullable='true'>
+		<s:AttributeType name='RRM_ISSUE_NM' rs:number='23' rs:nullable='true'>
 			<s:datatype dt:type='string' dt:maxLength='340'/>
 		</s:AttributeType>
-		<s:AttributeType name='RRM_RETURN_RECE_SEQ' rs:number='23' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
+		<s:AttributeType name='RRM_RETURN_RECE_SEQ' rs:number='24' rs:nullable='true' rs:writeunknown='true' rs:basetable='RT_RECE_MEDICHK'
 			 rs:basecolumn='RRM_RETURN_RECE_SEQ'>
 			<s:datatype dt:type='string' dt:maxLength='10'/>
 		</s:AttributeType>
-		<s:AttributeType name='ROWID' rs:number='24' rs:rowid='true' rs:basetable='RT_RECE_MEDICHK' rs:basecolumn='ROWID'
+		<s:AttributeType name='ROWID' rs:number='25' rs:rowid='true' rs:basetable='RT_RECE_MEDICHK' rs:basecolumn='ROWID'
 			 rs:keycolumn='true' rs:hidden='true' rs:autoincrement='true'>
 			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
 		</s:AttributeType>
@@ -238,6 +242,7 @@ SELECT RRM_RECE_NO,RRM_RECE_SEQ,RRM_RECE_DT,  RRM_MEMO, RRM_INPUT_ID,
 			String RRM_MEMO_T = cRsList.getString("RRM_MEMO");
 			String RRM_INPUT_ID_T = cRsList.getString("RRM_INPUT_ID");
 			String RRM_OCCU_KD_T = cRsList.getString("RRM_OCCU_KD");
+			String RRM_APPR_NO_T = cRsList.getString("RRM_APPR_NO");
 			String RRM_OCCU_NM_T = cRsList.getString("RRM_OCCU_NM");
 			String RRM_RECE_PR_T = cRsList.getString("RRM_RECE_PR");
 			String RRM_OVERPAY_PR_T = cRsList.getString("RRM_OVERPAY_PR");
@@ -292,6 +297,12 @@ SELECT RRM_RECE_NO,RRM_RECE_SEQ,RRM_RECE_DT,  RRM_MEMO, RRM_INPUT_ID,
 			if(! RRM_OCCU_KD_T.equals("")) {
 %>
 		 		RRM_OCCU_KD='<%= RRM_OCCU_KD_T%>'
+<%
+			}
+
+			if(! RRM_APPR_NO_T.equals("")) {
+%>
+		 		RRM_APPR_NO='<%= RRM_APPR_NO_T%>'
 <%
 			}
 
