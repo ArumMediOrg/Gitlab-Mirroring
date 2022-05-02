@@ -6,9 +6,6 @@
 		String sql2 = "";
 		String sql_disp = "";
 
-		Connection connect = argStmtExec.getConnection();
-		CallableStatement CallStmtExec = null;
-
 		try {
 
 			String sRsltCd = (String) argHtMethod.get("sRsltCd");
