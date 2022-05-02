@@ -30,16 +30,24 @@
 			if(sRSLT4_VL == null) { sRSLT4_VL = ""; }
 
 			//
+			sRsltCd = Ctr.Replace(sRsltCd, "'", "''");
+			sRSLT_NM = Ctr.Replace(sRSLT_NM, "'", "''");
+			sExamKd = Ctr.Replace(sExamKd, "'", "''");
+			sRSLT1_VL = Ctr.Replace(sRSLT1_VL, "'", "''");
+			sRSLT2_VL = Ctr.Replace(sRSLT2_VL, "'", "''");
+			sRSLT3_VL = Ctr.Replace(sRSLT3_VL, "'", "''");
+			sRSLT4_VL = Ctr.Replace(sRSLT4_VL, "'", "''");
 
 			sql = " INSERT INTO ET_SAVED_RSLT ";
-			sql += "(ESR_RSLT_CD, ESR_RSLT_NM, ESR_EXAM_KD, ESR_RSLT1_VL, ESR_RSLT2_VL, ESR_RSLT3_VL, ESR_RSLT4_VL, ESR_USE_YN ) VALUES (";
-			sql += "  '" + sRsltCd + "'";
-			sql += ",  '" + sRSLT_NM + "'";
-			sql += ",  '" + sExamKd + "'";
-			sql += ",  '" + sRSLT1_VL + "'";
-			sql += ",  '" + sRSLT2_VL + "'";
-			sql += ",  '" + sRSLT3_VL + "'";
-			sql += ",  '" + sRSLT4_VL + "'";
+			sql += " (ESR_RSLT_CD, ESR_RSLT_NM, ESR_EXAM_KD, ESR_RSLT1_VL, ESR_RSLT2_VL, ESR_RSLT3_VL, ESR_RSLT4_VL, ESR_USE_YN ) ";
+			sql += " VALUES (";
+			sql += " ?, ";
+			sql += " ?, ";
+			sql += " ?, ";
+			sql += " ?, ";
+			sql += " ?, ";
+			sql += " ?, ";
+			sql += " ?, ";
 			sql += " 'Y') ";
 
 
