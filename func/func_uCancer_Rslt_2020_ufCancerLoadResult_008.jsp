@@ -6,8 +6,6 @@
 		String sql2 = "";
 		String sql_disp = "";
 
-		Connection connect = argStmtExec.getConnection();
-		CallableStatement CallStmtExec = null;
 
 		try {
 
@@ -31,23 +29,20 @@
 
 			//
 
+			sRsltCd = CTr.Replace(sRsltCd, "'", "''");
+			sRSLT_NM = CTr.Replace(sRSLT_NM, "'", "''");
+			sExamKd = CTr.Replace(sExamKd, "'", "''");
+			sRSLT1_VL = CTr.Replace(sRSLT1_VL, "'", "''");
+			sRSLT2_VL = CTr.Replace(sRSLT2_VL, "'", "''");
+			sRSLT3_VL = CTr.Replace(sRSLT3_VL, "'", "''");
+			sRSLT4_VL = CTr.Replace(sRSLT4_VL, "'", "''");
+
 			sql = " INSERT INTO ET_SAVED_RSLT ";
 			sql += "(ESR_RSLT_CD, ESR_RSLT_NM, ESR_EXAM_KD, ESR_RSLT1_VL, ESR_RSLT2_VL, ESR_RSLT3_VL, ESR_RSLT4_VL, ESR_USE_YN ) ";
 			sql += " VALUES ";
 			sql += " (?, ?, ?, ?, ?, ?, ?, 'Y') ";
 
-			CallStmtExec = connect.prepareCall(sql);
-
-			CallStmtExec.setString(1, sRsltCd);
-			CallStmtExec.setString(2, sRSLT_NM);
-			CallStmtExec.setString(3, sExamKd);
-			CallStmtExec.setString(4, sRSLT1_VL);
-			CallStmtExec.setString(5, sRSLT2_VL);
-			CallStmtExec.setString(6, sRSLT3_VL);
-			CallStmtExec.setString(7, sRSLT4_VL);
-
-
-			CallStmtExec.executeUpdate();
+			argStmtExec.executeUpdate(sql);
 
 		} catch (Exception e) {
 
