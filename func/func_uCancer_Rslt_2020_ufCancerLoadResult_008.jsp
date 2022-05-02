@@ -46,7 +46,7 @@
 			sql += ",  '" + sRSLT2_VL + "'";
 			sql += ",  '" + sRSLT3_VL + "'";
 			sql += ",  '" + sRSLT4_VL + "'";
-			sql += " 'Y') ";
+			sql += ", 'Y') ";
 
 
 			argStmtExec.executeUpdate(sql);
