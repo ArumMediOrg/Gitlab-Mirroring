@@ -46,7 +46,7 @@
 			sql += " ?, ";
 			sql += " ?, ";
 			sql += " ?, ";
-			sql += "'Y') ";
+			sql += " ? ) ";
 
 
 			argStmtExec.executeUpdate(sql);
