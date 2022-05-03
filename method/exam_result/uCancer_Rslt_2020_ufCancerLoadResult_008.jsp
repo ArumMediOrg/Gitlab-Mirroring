@@ -21,13 +21,13 @@
 		htData = (HashMap<String, Object>)request.getAttribute("htData");
 		htMethod = (HashMap<String, String>)request.getAttribute("htMethod_1");
 
-		String sRsltCd = htMethod.get("sRsltCd");
-		String sRSLT_NM = htMethod.get("sRSLT_NM");
-		String sExamKd = htMethod.get("sExamKd");
-		String sRSLT1_VL = htMethod.get("sRSLT1_VL");
-		String sRSLT2_VL = htMethod.get("sRSLT2_VL");
-		String sRSLT3_VL = htMethod.get("sRSLT3_VL");
-		String sRSLT4_VL = htMethod.get("sRSLT4_VL");
+		String sRsltCd = htMethod.get("SRSLTCD");
+		String sRSLT_NM = htMethod.get("SRSLT_NM");
+		String sExamKd = htMethod.get("SEXAMKD");
+		String sRSLT1_VL = htMethod.get("SRSLT1_VL");
+		String sRSLT2_VL = htMethod.get("SRSLT2_VL");
+		String sRSLT3_VL = htMethod.get("SRSLT3_VL");
+		String sRSLT4_VL = htMethod.get("SRSLT4_VL");
 
 		//
 		if(sRsltCd == null) { sRsltCd = ""; }

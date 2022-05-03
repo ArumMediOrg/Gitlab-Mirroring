@@ -9,13 +9,13 @@
 
 		try {
 
-			String sRsltCd = (String) argHtMethod.get("sRsltCd");
-			String sRSLT_NM = (String) argHtMethod.get("sRSLT_NM");
-			String sExamKd = (String) argHtMethod.get("sExamKd");
-			String sRSLT1_VL = (String) argHtMethod.get("sRSLT1_VL");
-			String sRSLT2_VL = (String) argHtMethod.get("sRSLT2_VL");
-			String sRSLT3_VL = (String) argHtMethod.get("sRSLT3_VL");
-			String sRSLT4_VL = (String) argHtMethod.get("sRSLT4_VL");
+			String sRsltCd = (String) argHtMethod.get("SRSLTCD");
+			String sRSLT_NM = (String) argHtMethod.get("SRSLT_NM");
+			String sExamKd = (String) argHtMethod.get("SEXAMKD");
+			String sRSLT1_VL = (String) argHtMethod.get("SRSLT1_VL");
+			String sRSLT2_VL = (String) argHtMethod.get("SRSLT2_VL");
+			String sRSLT3_VL = (String) argHtMethod.get("SRSLT3_VL");
+			String sRSLT4_VL = (String) argHtMethod.get("SRSLT4_VL");
 
 			//
 
@@ -39,7 +39,7 @@
 
 			sql = " INSERT INTO ET_SAVED_RSLT ";
 			sql += "(ESR_RSLT_CD, ESR_RSLT_NM, ESR_EXAM_KD, ESR_RSLT1_VL, ESR_RSLT2_VL, ESR_RSLT3_VL, ESR_RSLT4_VL, ESR_USE_YN ) VALUES (";
-			sql += "   '" + sRsltCd + "'";
+			sql += "  '" + sRsltCd + "'";
 			sql += ",  '" + sRSLT_NM + "'";
 			sql += ",  '" + sExamKd + "'";
 			sql += ",  '" + sRSLT1_VL + "'";

@@ -27,14 +27,14 @@
 		htData = (HashMap<String, Object>)request.getAttribute("htData");
 		htMethod = (HashMap<String, String>)request.getAttribute("htMethod_1");
 
-		String sRslt_Cd = htMethod.get("sRslt_Cd");
-		String sRslt_Nm = htMethod.get("sRslt_Nm");
-		String sChkUseYN = htMethod.get("sChkUseYN");
+		String SRSLT_CD = htMethod.get("SRSLT_CD");
+		String SRSLT_NM = htMethod.get("SRSLT_NM");
+		String SCHKUSEYN = htMethod.get("SCHKUSEYN");
 
 		//
-		if(sRslt_Cd == null) { sRslt_Cd = ""; }
-		if(sRslt_Nm == null) { sRslt_Nm = ""; }
-		if(sChkUseYN == null) { sChkUseYN = ""; }
+		if(SRSLT_CD == null) { SRSLT_CD = ""; }
+		if(SRSLT_NM == null) { SRSLT_NM = ""; }
+		if(SCHKUSEYN == null) { SCHKUSEYN = ""; }
 
 		// DB객체
 		stmtList = connect.createStatement();
@@ -42,16 +42,16 @@
 		sql = " SELECT * FROM ET_SAVED_RSLT ";
 		sql += " WHERE 1=1 ";
 
-		if(!sRslt_Cd.equals("")) {
-			sql += " AND ESR_RSLT_CD LIKE '" + sRslt_Cd + "'% ";
+		if(!SRSLT_CD.equals("")) {
+			sql += " AND ESR_RSLT_CD LIKE '" + SRSLT_CD + "'% ";
 		}
 
-		if(!sRslt_Nm.equals("")) {
-			sql += " AND ESR_RSLT_NM LIKE '" + sRslt_Nm + "'% ";
+		if(!SRSLT_NM.equals("")) {
+			sql += " AND ESR_RSLT_NM LIKE '" + SRSLT_NM + "'% ";
 		}
 
-		if(!sChkUseYN .equals("")) {
-			sql += " AND ESR_RSLT_NM LIKE '" + sChkUseYN  + "'";
+		if(!SCHKUSEYN .equals("")) {
+			sql += " AND ESR_RSLT_NM LIKE '" + SCHKUSEYN  + "'";
 		}
 		sql += " ORDER BY ESR_RSLT_CD ";
 
@@ -62,9 +62,9 @@
 		G_INFO += "\n\n";
 
 		G_INFO += "전달인자 : \n";
-		G_INFO += " sRslt_Cd : " + sRslt_Cd + " \n";
-		G_INFO += " sRslt_Nm : " + sRslt_Nm + " \n";
-		G_INFO += " sChkUseYN : " + sChkUseYN + " \n";
+		G_INFO += " SRSLT_CD : " + SRSLT_CD + " \n";
+		G_INFO += " SRSLT_NM : " + SRSLT_NM + " \n";
+		G_INFO += " SCHKUSEYN : " + SCHKUSEYN + " \n";
 
 		G_INFO += "\n\n";
 

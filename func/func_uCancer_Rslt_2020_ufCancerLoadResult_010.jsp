@@ -8,17 +8,17 @@
 
 		try {
 
-			String sRSLT_CD = (String) argHtMethod.get("sRSLT_CD");
+			String SRSLT_CD = (String) argHtMethod.get("SRSLT_CD");
 
 			//
-			if(sRSLT_CD == null) { sRSLT_CD = ""; }
+			if(SRSLT_CD == null) { SRSLT_CD = ""; }
 
 			//
-			sRSLT_CD = CTr.Replace(sRSLT_CD, "'", "''");
+			SRSLT_CD = CTr.Replace(SRSLT_CD, "'", "''");
 
 			sql = " UPDATE ET_SAVED_RSLT SET ";
 			sql += " ESR_USE_YN = 'N'";
-			sql += " WHERE ESR_RSLT_CD = '" + sRSLT_CD + "'";
+			sql += " WHERE ESR_RSLT_CD = '" + SRSLT_CD + "'";
 
 			argStmtExec.executeUpdate(sql);
 

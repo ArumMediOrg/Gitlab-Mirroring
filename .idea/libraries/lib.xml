@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/WEB-INF/lib/tibero6-jdbc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WEB-INF/lib/ojdbc8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WEB-INF/lib/gson-2.8.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

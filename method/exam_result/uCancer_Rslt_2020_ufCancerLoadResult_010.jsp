@@ -21,10 +21,10 @@
 		htData = (HashMap<String, Object>)request.getAttribute("htData");
 		htMethod = (HashMap<String, String>)request.getAttribute("htMethod_1");
 
-		String sRSLT_CD = htMethod.get("sRSLT_CD");
+		String SRSLT_CD = htMethod.get("SRSLT_CD");
 
 		//
-		if(sRSLT_CD == null) { sRSLT_CD = ""; }
+		if(SRSLT_CD == null) { SRSLT_CD = ""; }
 
 		// DB객체
 		stmtExec = connect.createStatement();
@@ -38,7 +38,7 @@
 			G_INFO += "\n\n";
 
 			G_INFO += "전달인자 : \n";
-			G_INFO += " sRSLT_CD : " + sRSLT_CD + " \n";
+			G_INFO += " SRSLT_CD : " + SRSLT_CD + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";

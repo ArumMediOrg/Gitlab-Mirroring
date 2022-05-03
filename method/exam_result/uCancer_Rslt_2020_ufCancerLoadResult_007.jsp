@@ -27,18 +27,18 @@
 		htData = (HashMap<String, Object>)request.getAttribute("htData");
 		htMethod = (HashMap<String, String>)request.getAttribute("htMethod_1");
 
-		String sRsltKD = htMethod.get("sRsltKD");
+		String SRSLTKD = htMethod.get("SRSLTKD");
 
 		//
 
-		if(sRsltKD == null) { sRsltKD = ""; }
+		if(SRSLTKD == null) { SRSLTKD = ""; }
 
 		// DB객체
 		stmtList = connect.createStatement();
 
 		sql = " SELECT MAX(SUBSTR(ESR_RSLT_CD,5,3) + 1) AS RSLT_CD ";
 		sql += " FROM ET_SAVED_RSLT ";
-		sql += " WHERE ESR_RSLT_CD LIKE '" + sRsltKD + "%'";
+		sql += " WHERE ESR_RSLT_CD LIKE '" + SRSLTKD + "%'";
 
 		G_INFO += "<!-- \n";
 		G_INFO += "서비스명 : uCancer_Rslt_2020_ufCancerLoadResult_007 \n";
@@ -46,7 +46,7 @@
 		G_INFO += "\n\n";
 
 		G_INFO += "전달인자 : \n";
-		G_INFO += " sRsltKD : " + sRsltKD + " \n";
+		G_INFO += " SRSLTKD : " + SRSLTKD + " \n";
 
 		G_INFO += "\n\n";
 
