@@ -39,7 +39,7 @@
 
 			sql = " INSERT INTO ET_SAVED_RSLT ";
 			sql += "(ESR_RSLT_CD, ESR_RSLT_NM, ESR_EXAM_KD, ESR_RSLT1_VL, ESR_RSLT2_VL, ESR_RSLT3_VL, ESR_RSLT4_VL, ESR_USE_YN ) VALUES (";
-			sql += "  '" + sRsltCd + "'";
+			sql += "'" + sRsltCd + "'";
 			sql += ",  '" + sRSLT_NM + "'";
 			sql += ",  '" + sExamKd + "'";
 			sql += ",  '" + sRSLT1_VL + "'";
