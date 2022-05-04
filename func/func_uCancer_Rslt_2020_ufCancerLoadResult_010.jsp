@@ -20,7 +20,7 @@
 			USE = CTr.Replace(USE, "'", "''");
 
 			sql = " UPDATE ET_SAVED_RSLT SET ";
-			sql += " ESR_USE_YN = '" + USE "' ";
+			sql += " ESR_USE_YN = '" + USE + "' ";
 			sql += " WHERE ESR_RSLT_CD = '" + SRSLT_CD + "'";
 
 			argStmtExec.executeUpdate(sql);
