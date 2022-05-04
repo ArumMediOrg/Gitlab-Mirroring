@@ -37,6 +37,7 @@
 		String GUBUN = htMethod.get("GUBUN");
 		String RBCODE = htMethod.get("RBCODE");
 		String CBORDERYN = htMethod.get("CBORDERYN");
+		String CONTAINNOTUSE = htMethod.get("CONTAINNOTUSE");
 
 		//
 		if(COLUMN1 == null) { COLUMN1 = ""; }
@@ -49,6 +50,7 @@
 		if(GUBUN == null) { GUBUN = ""; }
 		if(RBCODE == null) { RBCODE = ""; }
 		if(CBORDERYN == null) { CBORDERYN = ""; }
+		if(CONTAINNOTUSE == null) { CONTAINNOTUSE = "";}
 
 		// DB객체
 		stmtList = connect.createStatement();
@@ -88,12 +90,14 @@
 			sql += " WHERE ICY_COMP_NM LIKE '%" + EDCODE_NM + "%'";
 			sql += " AND UPPER(NVL(ICY_USE_YN, 'Y')) = 'Y'";
 		} else if(SEARCH_CD.equals("학교")) {
-
 			sql += " SELECT ICY_COMP_CD CCN_SMALL, ICY_COMP_NM CCN_NAME, ' ' CCN_VALUE";
 			sql += " FROM " + TBL_NAME;
 			sql += " WHERE ICY_COMP_NM LIKE '%" + EDCODE_NM + "%'";
 			sql += " AND (SUBSTR(ICY_COKD_CD, 1, 2) = '05'";
 			sql += " OR ICY_COMP_NM LIKE '%학교%')";
+			if (CONTAINNOTUSE.equals("N")) {
+				sql += "AND UPPER(ICY_USE_YN) = 'Y'";
+			}
 		} else if(SEARCH_CD.equals("사업장부서")) {
 
 			sql += " SELECT ICY_COMP_CD CCN_SMALL, ICY_COMP_NM CCN_NAME, ' ' CCN_VALUE";
@@ -369,6 +373,7 @@
 			G_INFO += " GUBUN : " + GUBUN + " \n";
 			G_INFO += " RBCODE : " + RBCODE + " \n";
 			G_INFO += " CBORDERYN : " + CBORDERYN + " \n";
+			G_INFO += " CONTAINNOTUSE : " + CONTAINNOTUSE + " \n";
 
 			G_INFO += "\n\n";
 
