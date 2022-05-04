@@ -9,15 +9,18 @@
 		try {
 
 			String SRSLT_CD = (String) argHtMethod.get("SRSLT_CD");
+			String USE = (String) argHtMethod.get("USE");
 
 			//
 			if(SRSLT_CD == null) { SRSLT_CD = ""; }
+			if(USE == null) { USE = ""; }
 
 			//
 			SRSLT_CD = CTr.Replace(SRSLT_CD, "'", "''");
+			USE = CTr.Replace(USE, "'", "''");
 
 			sql = " UPDATE ET_SAVED_RSLT SET ";
-			sql += " ESR_USE_YN = 'N'";
+			sql += " ESR_USE_YN = '" + USE "' ";
 			sql += " WHERE ESR_RSLT_CD = '" + SRSLT_CD + "'";
 
 			argStmtExec.executeUpdate(sql);
