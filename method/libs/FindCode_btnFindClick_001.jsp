@@ -96,7 +96,7 @@
 			sql += " AND (SUBSTR(ICY_COKD_CD, 1, 2) = '05'";
 			sql += " OR ICY_COMP_NM LIKE '%학교%')";
 			if (CONTAINNOTUSE.equals("N")) {
-				sql += "AND UPPER(ICY_USE_YN) = 'Y'";
+				sql += "AND ICY_USE_YN = 'Y'";
 			}
 		} else if(SEARCH_CD.equals("사업장부서")) {
 
