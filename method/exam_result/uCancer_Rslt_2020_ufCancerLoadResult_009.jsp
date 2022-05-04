@@ -43,15 +43,15 @@
 		sql += " WHERE 1=1 ";
 
 		if(!SRSLT_CD.equals("")) {
-			sql += " AND ESR_RSLT_CD LIKE '" + SRSLT_CD + "'% ";
+			sql += " AND ESR_RSLT_CD LIKE '%" + SRSLT_CD + "%'";
 		}
 
 		if(!SRSLT_NM.equals("")) {
-			sql += " AND ESR_RSLT_NM LIKE '" + SRSLT_NM + "'% ";
+			sql += " AND ESR_RSLT_NM LIKE '%" + SRSLT_NM + "%'";
 		}
 
 		if(!SCHKUSEYN .equals("")) {
-			sql += " AND ESR_RSLT_NM LIKE '" + SCHKUSEYN  + "'";
+			sql += " AND ESR_USE_YN = '" + SCHKUSEYN  + "'";
 		}
 		sql += " ORDER BY ESR_RSLT_CD ";
 
