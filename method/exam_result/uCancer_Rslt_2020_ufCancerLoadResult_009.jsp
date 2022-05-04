@@ -40,6 +40,7 @@
 		stmtList = connect.createStatement();
 
 		sql = " SELECT * FROM ET_SAVED_RSLT ";
+		sql += " WHERE 1=1 ";
 
 		if(!SRSLT_CD.equals("")) {
 			sql += " AND ESR_RSLT_CD LIKE '" + SRSLT_CD + "'% ";
