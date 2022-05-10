@@ -36,7 +36,7 @@
 
 		/*
 
-       SELECT * FROM PT_SED_PANJUNG 
+       SELECT * FROM PT_SED_PANJUNG
                         WHERE PSP_EXAM_DT = :EXAM_DT
                         AND PSP_EXAM_SQ = :EXAM_SQ
 
@@ -44,6 +44,7 @@
 
 		sql = " SELECT *";
 		sql += " FROM PT_SED_PANJUNG";
+		sql += " LEFT OUTER JOIN PT_FIR_PANJUNG ON PFP_EXAM_DT = PSP_EXAM_DT AND PFP_EXAM_SQ = PSP_EXAM_SQ ";
 		sql += " WHERE PSP_EXAM_DT = '" + EXAM_DT + "'";
 		sql += " AND PSP_EXAM_SQ = '" + EXAM_SQ + "'";
 
