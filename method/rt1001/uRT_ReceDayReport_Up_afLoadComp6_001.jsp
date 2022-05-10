@@ -87,6 +87,7 @@
 		sql += " 	WHERE ";
 		sql += " 		RRM_RECE_DT  BETWEEN  '" + DP_FROMDT + "'   AND  '" + DP_TODT + "' ";
 		sql += " 	AND RRM_OCCU_KD IN ('20','70','71','72') ";
+		sql += " 	AND SUBSTR(RRM_RECE_NO,9,1) NOT IN ('3') ";
 		sql += " 	) AA ";
 		sql += " 	WHERE 1 = 1 ";
 		sql += " 	GROUP BY EEA_EXAM_DT, EEA_EXAM_SQ ";
