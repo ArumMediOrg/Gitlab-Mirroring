@@ -38,19 +38,29 @@
 		// DB객체
 		stmtList = connect.createStatement();
 
-		sql = " Select EEA_EXAM_DT, EEA_EXAM_SQ, EEA_PSNL_NM, EEA_MOBL_NO, ";
-		sql += " Case when EEA_HTSB_CD = '11001' then 'Y' else 'N' end EEA_HLTH_YN, ";
-		sql += " Case when EEA_EXAM_CD = '21001' then 'Y' else 'N' end EEA_TOTAL_YN, ";
-		sql += " EEA_ORAL_YN, ";
-		sql += " Case when EEA_STOMA_CD = '0' then 'N' else 'Y' end EEA_STOMA_YN, ";
-		sql += " Case when EEA_STOMA_CD = '0' then 'N' else 'Y' end EEA_COLON_YN, ";
-		sql += " Case when EEA_STOMA_CD = '0' then 'N' else 'Y' end EEA_LIVER_YN, ";
-		sql += " Case when EEA_STOMA_CD = '0' then 'N' else 'Y' end EEA_BAST_YN, ";
-		sql += " Case when EEA_STOMA_CD = '0' then 'N' else 'Y' end EEA_UTER_YN, ";
-		sql += " Case when EEA_STOMA_CD = '0' then 'N' else 'Y' end EEA_LUNG_YN ";
-		sql += " from ET_EXAM_ACPT ";
-		sql += " Where EEA_EXAM_DT = '" + EXAM_DT + "' ";
-		sql += " And   EEA_EXAM_SQ = '" + EXAM_SQ + "' ";
+  		sql = "  SELECT ";
+  		sql += " A.EEA_EXAM_DT, ";
+  		sql += " A.EEA_EXAM_SQ, ";
+  		sql += " A.EEA_PSNL_NM, ";
+  		sql += " A.EEA_MOBL_NO, ";
+  		sql += " A.EEA_CUST_NO, ";
+  		sql += " B.ICR_BIRH_DT, ";
+  		sql += " CASE WHEN A.EEA_HTSB_CD = '11001' THEN 'Y' ELSE 'N' END EEA_HLTH_YN, ";
+  		sql += " CASE WHEN A.EEA_EXAM_CD = '21001' THEN 'Y' ELSE 'N' END EEA_TOTAL_YN, ";
+  		sql += " A.EEA_ORAL_YN, ";
+  		sql += " CASE WHEN A.EEA_STOMA_CD = '0' THEN 'N' ELSE 'Y' END EEA_STOMA_YN, ";
+  		sql += " CASE WHEN A.EEA_STOMA_CD = '0' THEN 'N' ELSE 'Y' END EEA_COLON_YN, ";
+  		sql += " CASE WHEN A.EEA_STOMA_CD = '0' THEN 'N' ELSE 'Y' END EEA_LIVER_YN, ";
+  		sql += " CASE WHEN A.EEA_STOMA_CD = '0' THEN 'N' ELSE 'Y' END EEA_BAST_YN, ";
+  		sql += " CASE WHEN A.EEA_STOMA_CD = '0' THEN 'N' ELSE 'Y' END EEA_UTER_YN, ";
+  		sql += " CASE WHEN A.EEA_STOMA_CD = '0' THEN 'N' ELSE 'Y' END EEA_LUNG_YN ";
+  		sql += " FROM ";
+  		sql += " ET_EXAM_ACPT A";
+  		sql += " INNER JOIN IT_CUSTOMER B ON B.ICR_CUST_NO = A.EEA_CUST_NO ";
+  		sql += " WHERE ";
+  		sql += " A.EEA_EXAM_DT = '" + EXAM_DT + "' ";
+  		sql += " AND A.EEA_EXAM_SQ = '" + EXAM_SQ + "' ";
+
 
 
 			//
