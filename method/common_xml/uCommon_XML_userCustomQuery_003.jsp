@@ -48,7 +48,7 @@ select A.aliasField1, A.aliasField2, A.aliasField3, A.aliasField4, A.aliasField5
 
 			//
 			G_INFO += "<!-- \n";
-			G_INFO += "서비스명 : uCommon_XML_userCustomQuery_002 \n";
+			G_INFO += "서비스명 : uCommon_XML_userCustomQuery_003 \n";
 			G_INFO += "설명 : 알리아싱된 데이터 출력을 위한 쿼리 - maxlength를 크게 잡아주시기 바랍니다. \n";
 			G_INFO += "\n\n";
 

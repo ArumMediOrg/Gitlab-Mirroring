@@ -16,6 +16,7 @@
 	htBranch.put("uCommon_XML_userCustomQuery_001", 		"/method/common_xml/uCommon_XML_userCustomQuery_001.jsp");
 	htBranch.put("uCommon_XML_userCustomQuery_002", 		"/method/common_xml/uCommon_XML_userCustomQuery_002.jsp");
 	htBranch.put("uCommon_XML_userCustomQuery_003", 		"/method/common_xml/uCommon_XML_userCustomQuery_003.jsp");
+	htBranch.put("uCommon_XML_userCustomQuery_004", 		"/method/common_xml/uCommon_XML_userCustomQuery_004.jsp");
 	htBranch.put("uCommon_XML_SP_Comm_001", 		"/method/common_xml/uCommon_XML_SP_Comm_001.jsp");
 	htBranch.put("uCommon_XML_CCN_003", 		"/method/common_xml/uCommon_XML_CCN_003.jsp");
 	htBranch.put("uCommon_XML_CCN_005", 		"/method/common_xml/uCommon_XML_CCN_005.jsp");
