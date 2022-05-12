@@ -57,30 +57,30 @@
 SELECT IFG_RSLT_CD,    IFG_TITLE_NM,  IFG_RSLT_EX,   IFG_ERSLT_EX,  IFG_CRSLT_EX,  IFG_RRSLT_EX,
        IFG_JRSLT_EX,   IFG_ITEM_CD1,  IFG_ITEM_CD2,  IFG_ITEM_CD3,  IFG_ITEM_CD4,
        IFG_PART_CD,    IFG_SUB_CD,    IFG_USE_YN,    IFG_COMM_YN,   IFG_SUB2_CD,
-       IFG_RSLT_PANJ,  IFG_NUSE_ID,   IFG_NUSE_DTT,  IFG_INPT_DTT,  IFG_INPT_ID,  
+       IFG_RSLT_PANJ,  IFG_NUSE_ID,   IFG_NUSE_DTT,  IFG_INPT_DTT,  IFG_INPT_ID,
        IFG_MODI_DTT,   IFG_MODI_ID
 FROM IT_FINDING
 WHERE 0=0
 if :edtIfg_Title_Nm_S <> '' then
       and IFG_TITLE_NM LIKE '%' || :edtIfg_Title_Nm_S || '%'
-      
+
 if :edtIfg_Rslt_Ex_S <> '' then
       and IFG_RSLT_EX LIKE '%' || :edtIfg_Rslt_Ex_S || '%'
-      
+
 if :edtIfg_Rslt_Cd_S <> '' then
       and IFG_RSLT_CD = :edtIfg_Rslt_Cd_S
-      
+
 if :edtIfg_Item_Cd_S <> '' then
 begin
-      and ( (IFG_ITEM_CD1 = :edtIfg_Item_Cd_S) 
-           or (IFG_ITEM_CD2 = :edtIfg_Item_Cd_S) 
-           or (IFG_ITEM_CD3 = :edtIfg_Item_Cd_S) 
+      and ( (IFG_ITEM_CD1 = :edtIfg_Item_Cd_S)
+           or (IFG_ITEM_CD2 = :edtIfg_Item_Cd_S)
+           or (IFG_ITEM_CD3 = :edtIfg_Item_Cd_S)
            or (IFG_ITEM_CD4 = :edtIfg_Item_Cd_S) )
 end;
 
 if :cmbIfg_Part_Cd_S1 <> '' then
       and (IFG_PART_CD = :cmbIfg_Part_Cd_S2)
-      
+
 if :cmbIfg_Sub_Cd_S <> '' then
       and (IFG_SUB_CD = :cmbIfg_Sub_Cd_S)
 
@@ -88,12 +88,12 @@ if :cmbIfg_Sub2_Cd_S1 <> '' then
       and (IFG_SUB2_CD = :cmbIfg_Sub2_Cd_S2)
 
 if :rdgIfg_Use_Yn_S = '1' then
-      and (IFG_USE_YN = 'Y') 
+      and (IFG_USE_YN = 'Y')
 else if :rdgIfg_Use_Yn_S = '2' then
       and (IFG_USE_YN = 'N')
-      
+
 if :rdgIfg_Comm_Yn_S = '1' then
-      and (IFG_COMM_YN = 'Y') 
+      and (IFG_COMM_YN = 'Y')
 
 order by IFG_RSLT_CD
 		*/
@@ -105,15 +105,15 @@ order by IFG_RSLT_CD
 		if(!EDTIFG_TITLE_NM_S.equals("")) {
 			sql += " AND IFG_TITLE_NM LIKE '%' || '" + EDTIFG_TITLE_NM_S + "' || '%'";
 		}
-		
+
 		if(!EDTIFG_RSLT_EX_S.equals("")) {
 			sql += " AND IFG_RSLT_EX LIKE '%' || '" + EDTIFG_RSLT_EX_S + "' || '%'";
 		}
-		
+
 		if(!EDTIFG_RSLT_CD_S.equals("")) {
-			sql += " AND IFG_RSLT_CD = '" + EDTIFG_RSLT_CD_S + "'";
+			sql += " AND IFG_RSLT_CD LIKE '%' || '" + EDTIFG_RSLT_CD_S + "' || '%'";
 		}
-		
+
 		if(!EDTIFG_ITEM_CD_S.equals("")) {
 			sql += " AND (";
 			sql += "	(IFG_ITEM_CD1 = '" + EDTIFG_ITEM_CD_S + "')";
@@ -122,11 +122,11 @@ order by IFG_RSLT_CD
 			sql += " 	OR (IFG_ITEM_CD4 = '" + EDTIFG_ITEM_CD_S + "')";
 			sql += ")";
 		}
-		
+
 		if(!CMBIFG_PART_CD_S1.equals("")) {
 			sql += " AND (IFG_PART_CD = '" + CMBIFG_PART_CD_S2 + "')";
 		}
-		
+
 		if(!CMBIFG_SUB_CD_S.equals("")) {
 			sql += " AND (IFG_SUB_CD = '" + CMBIFG_SUB_CD_S + "')";
 		}
@@ -142,7 +142,7 @@ order by IFG_RSLT_CD
 		else if(RDGIFG_USE_YN_S.equals("2")) {
 			sql += " AND (IFG_USE_YN = 'N')";
 		}
-		
+
 		if(RDGIFG_COMM_YN_S.equals("1")) {
 			sql += " AND (IFG_COMM_YN = 'Y')";
 		}
