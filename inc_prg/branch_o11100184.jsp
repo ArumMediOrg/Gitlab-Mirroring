@@ -79,6 +79,7 @@
 	htBranch.put("uMain_StringGrid1Click_001", 		"/method/o11100184/uMain_StringGrid1Click_001.jsp");
 	htBranch.put("uMain_ufRsltAutoCalc_001", 		"/method/o11100184/uMain_ufRsltAutoCalc_001.jsp");
 	htBranch.put("uMain_rsltNoramlUpdate_002", 		"/method/o11100184/uMain_rsltNoramlUpdate_002.jsp");
+	htBranch.put("uMain_rsltNoramlUpdate_002_01", 		"/method/o11100184/uMain_rsltNoramlUpdate_002_01.jsp");
 	htBranch.put("uMain_KUMCAArsltNoramlUpdate_002", 		"/method/o11100184/uMain_KUMCAArsltNoramlUpdate_002.jsp");
 	htBranch.put("sp_Select_Common_003", 		"/method/o11100184/sp_Select_Common_003.jsp");
 	htBranch.put("uMain_OcsOrdInsert_003", 		"/method/o11100184/uMain_OcsOrdInsert_003.jsp");

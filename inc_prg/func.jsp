@@ -330,6 +330,7 @@
 <%@ include file="/func/func_uMain_OcsOrdDelete_005.jsp"%>
 <%@ include file="/func/func_uMain_OcsOrdInsert_002.jsp"%>
 <%@ include file="/func/func_uMain_rsltNoramlUpdate_002.jsp"%>
+<%@ include file="/func/func_uMain_rsltNoramlUpdate_002_01.jsp"%>
 <%@ include file="/func/func_uMain_ufRsltAutoCalc_004.jsp"%>
 <%@ include file="/func/func_uIT_ChungGU_Move_Up_Insert_chungCmd_002_TRAN001.jsp"%>
 <%@ include file="/func/func_uIT_ChungGU_Move_Up_Insert_chungCmd_003_TRAN002.jsp"%>
@@ -1009,6 +1010,7 @@
 		if(argMethodName.equals("uMain_OcsOrdDelete_005")) 	{ return func_uMain_OcsOrdDelete_005(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uMain_OcsOrdInsert_002")) 	{ return func_uMain_OcsOrdInsert_002(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uMain_rsltNoramlUpdate_002")) 	{ return func_uMain_rsltNoramlUpdate_002(argStmtExec, argHtMethod); }
+		if(argMethodName.equals("uMain_rsltNoramlUpdate_002_01")) 	{ return func_uMain_rsltNoramlUpdate_002_01(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uMain_ufRsltAutoCalc_004")) 	{ return func_uMain_ufRsltAutoCalc_004(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uIT_ChungGU_Move_Up_Insert_chungCmd_002_TRAN001")) 	{ return func_uIT_ChungGU_Move_Up_Insert_chungCmd_002_TRAN001(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uIT_ChungGU_Move_Up_Insert_chungCmd_003_TRAN002")) 	{ return func_uIT_ChungGU_Move_Up_Insert_chungCmd_003_TRAN002(argStmtExec, argHtMethod); }
