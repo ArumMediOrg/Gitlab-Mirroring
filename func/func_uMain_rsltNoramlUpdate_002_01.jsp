@@ -18,7 +18,7 @@
 			String EXAM_DT = (String) argHtMethod.get("EXAM_DT");
 			String EXAM_SQ = (String) argHtMethod.get("EXAM_SQ");
 			String OCS_CD = (String) argHtMethod.get("OCS_CD");
-			String OSRL_CD  = (String) argHtMethod.get("OSRL_CD ");
+			String OSRL_CD = (String) argHtMethod.get("OSRL_CD");
 			String ITEM_CD = (String) argHtMethod.get("ITEM_CD");
 			String OSSB_CD = (String) argHtMethod.get("OSSB_CD");
 			String RSLT_EX = (String) argHtMethod.get("RSLT_EX");
