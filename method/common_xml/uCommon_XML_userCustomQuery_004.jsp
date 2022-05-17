@@ -96,7 +96,7 @@ select A.aliasField1, A.aliasField2, A.aliasField3, A.aliasField4, A.aliasField5
                             }
                     %>
                     <s:AttributeType name='<%= rsmd.getColumnName(colCnt)%>' rs:number='<%= Integer.toString(colCnt)%>' rs:writeunknown='true' rs:basetable='DUAL' rs:basecolumn='<%= rsmd.getColumnName(colCnt)%>'>
-                        <s:datatype dt:type='<%= dataType%>' dt:maxLength='<%= maxLength%>' <% if (! maxLength.equals("4000")) { %> rs:long='true' <% } %>/>
+                        <s:datatype dt:type='<%= dataType%>' dt:maxLength='<%= maxLength%>' <% if (! maxLength.equals("30000")) { %> rs:long='true' <% } %>/>
                     </s:AttributeType>
                     <%
                         }
