@@ -92,8 +92,6 @@
 		sql += " AND EEA_EXAM_DT <= '" + DP_TODT + "'";
 		sql += " AND EEA_ORDER_YN <> 'C'";
 		sql += SSQL_ADD;
-		sql += " ) ";
-
 			//
 			G_INFO += "<!-- \n";
 			G_INFO += "서비스명 : ubT_Rece_Up_afLoadper_001_2 \n";
