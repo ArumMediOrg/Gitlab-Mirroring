@@ -116,7 +116,7 @@ from RT_RECE_MEDICHK
 		sql = " SELECT *";
 		sql += " FROM ( SELECT ICR_PENL_ID, EEA_CUPN_NO, EEA_EXAM_DT EEA_BUSI_YR, (REPLACE(EEA_EXAM_DT,'-','') || EEP_EXAM_SQ ) RECENO, EEA_CUST_NO, EEA_CHART_NO, EEA_PSNL_NM, ICR_BIRH_DT, EEA_EXAM_DT, EEP_EXAM_SQ, EEP_PSNL_PR, NVL(EEA_DISC_PR,0) EEA_DISC_PR, EEA_EXAM_CD, EEA_RECE_NO , (SELECT A.ICY_COMP_NM";
 		sql += " FROM IT_COMPANY A";
-		sql += " WHERE EEA_COMP_CD = A.ICY_COMP_CD) ICY_COMP_NM , NVL((SELECT (SELECT NVL(SUM(RRM_RESER_PR),0) RRM_RESER_PR";
+		sql += " WHERE EEA_COMP_CD = A.ICY_COMP_CD) ICY_COMP_NM , NVL((SELECT (SELECT (NVL(SUM(RRM_RESER_PR),0) - NVL(SUM(RRM_RESEREPL_PR),0) ) RRM_RESER_PR";
 		sql += " FROM RT_RECE_MEDICHK";
 		sql += " WHERE RRM_RECE_NO=RRT_RECE_NO)";
 		sql += " FROM RT_RSVT";
@@ -146,9 +146,9 @@ from RT_RECE_MEDICHK
 		sql += " AND BB.RRM_RECE_NO=EEA_RECE_NO";
 		sql += " AND AA.CCN_LARGE='0920' ";
 		sql += " AND BB.RRM_RECE_SEQ = (select max(BB.RRM_RECE_SEQ) SEQ  FROM CT_COMMON AA, RT_RECE_MEDICHK BB ";
-		sql += " WHERE BB.RRM_PAY_KD = AA.CCN_SMALL                                                           ";
-		sql += " AND BB.RRM_RECE_NO = EEA_RECE_NO                                                           ";
-		sql += " AND AA.CCN_LARGE='0920' )) RRM_PAY_NM ,                                                  ";
+		sql += " WHERE BB.RRM_PAY_KD = AA.CCN_SMALL ";
+		sql += " AND BB.RRM_RECE_NO = EEA_RECE_NO ";
+		sql += " AND AA.CCN_LARGE='0920' )) RRM_PAY_NM , ";
 		sql += " (SELECT CCN_FULL_NM";
 		sql += " FROM CT_COMMON";
 		sql += " WHERE CCN_LARGE='0401'";
@@ -164,6 +164,7 @@ from RT_RECE_MEDICHK
 		sql += " AND EEA_EXAM_DT <= '" + DP_TODT + "'";
 		sql += " AND EEA_ORDER_YN <> 'C'";
 		sql += SSQL_ADD;
+		sql += " ) ";
 
 			//
 			G_INFO += "<!-- \n";
