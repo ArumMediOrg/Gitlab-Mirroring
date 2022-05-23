@@ -41,6 +41,7 @@
 		String AMENU = htMethod.get("AMENU");
 		String HOS_SPNEWAUTOPAN_YN = htMethod.get("HOS_SPNEWAUTOPAN_YN");
 		String HOS_SPJ_YN = htMethod.get("HOS_SPJ_YN");
+		String HOS_ETOWEB_J_YN = htMethod.get("HOS_ETOWEB_J_YN");
 
 		//
 		if(GUSER == null) { GUSER = ""; }
@@ -57,6 +58,7 @@
 		if(AMENU == null) { AMENU = ""; }
 		if(HOS_SPNEWAUTOPAN_YN == null) { HOS_SPNEWAUTOPAN_YN = ""; }
 		if(HOS_SPJ_YN == null) { HOS_SPJ_YN = ""; }
+		if(HOS_ETOWEB_J_YN == null) { HOS_ETOWEB_J_YN = ""; }
 
 		// DB객체
 		stmtList = connect.createStatement();
@@ -202,6 +204,10 @@
 			sql += " AND IAP_PRGM_ID <> 'PG4212'";
 		}
 
+		if (HOS_ETOWEB_J_YN.equals("N")) {
+			sql += " AND IAP_PRGM_ID <> 'PGH114'";
+		}
+
 		if(! AMENU.equals("1")) {
 			sql += " AND IAP_PRGM_NM LIKE '%" + AMENU + "%'";
 		}
@@ -230,6 +236,7 @@
 			G_INFO += " AMENU : " + AMENU + " \n";
 			G_INFO += " HOS_SPNEWAUTOPAN_YN : " + HOS_SPNEWAUTOPAN_YN + " \n";
 			G_INFO += " HOS_SPJ_YN : " + HOS_SPJ_YN + " \n";
+			G_INFO += " Hos_ETOWEB_J_YN : " + HOS_SPJ_YN + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";
