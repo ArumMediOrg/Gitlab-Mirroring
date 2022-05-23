@@ -58,6 +58,7 @@
 			sql += "	OR UPPER(IIM_KNME_NM) LIKE '%" + SEARCH_TEXT + "%'";
 			sql += "	OR UPPER(IIM_ENME_NM) LIKE '%" + SEARCH_TEXT + "%'";
 			sql += "	OR UPPER(IIM_SNME_NM) LIKE '%" + SEARCH_TEXT + "%'";
+			sql += "	OR UPPER(IIM_ETONME_NM) LIKE '%" + SEARCH_TEXT + "%'";
 			sql += ")";
 		}
 
