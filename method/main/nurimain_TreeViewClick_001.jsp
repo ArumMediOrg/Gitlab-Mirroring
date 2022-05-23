@@ -236,7 +236,7 @@
 			G_INFO += " AMENU : " + AMENU + " \n";
 			G_INFO += " HOS_SPNEWAUTOPAN_YN : " + HOS_SPNEWAUTOPAN_YN + " \n";
 			G_INFO += " HOS_SPJ_YN : " + HOS_SPJ_YN + " \n";
-			G_INFO += " Hos_ETOWEB_J_YN : " + HOS_SPJ_YN + " \n";
+			G_INFO += " HOS_ETOWEB_J_YN : " + HOS_SPJ_YN + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";
