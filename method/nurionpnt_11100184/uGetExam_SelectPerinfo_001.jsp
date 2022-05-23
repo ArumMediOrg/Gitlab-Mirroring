@@ -49,7 +49,7 @@
 		sql += " when substr(a.eea_exam_lt, 1, 3) = 'C03' then f_pack_find(a.eea_exam_lt, a.eea_comp_cd) ";
 		sql += " else case when a.eea_rece_no = 'R' then '이관-'||f_code_find('0401', substr(a.eea_exam_cd, 1, 2)+'000', '', '1') ";
 		sql += " 	else f_code_find('0401', a.eea_exam_cd, '', '1') end end as eea_exam_nm, D.SSV_CFRM_CD, B.ICR_PENL_ID ";
-		sql += ", (SELECT (A.EEA_SEND_CD || '-' || CCN_FULL_NM) FROM CT_COMMON WHERE CCN_LARGE = '0712' AND CCN_SMALL = A.EEA_SEND_CD) EEA_SEND_NM ";
+		sql += ", (select (A.EEA_SEND_CD || '-' || CCN_FULL_NM) from CT_COMMON where CCN_LARGE = '0712' and CCN_SMALL = A.EEA_SEND_CD)  EEA_SEND_NM ";
 		sql += " FROM ET_EXAM_ACPT A INNER JOIN IT_CUSTOMER B ON A.EEA_CUST_NO = B.ICR_CUST_NO";
 		sql += " LEFT OUTER JOIN IT_COMPANY C ON A.EEA_COMP_CD = C.ICY_COMP_CD ";
 		sql += " LEFT OUTER JOIN ST_SYTH_VIEW D ON A.EEA_EXAM_DT = D.SSV_EXAM_DT AND A.EEA_EXAM_SQ = D.SSV_EXAM_SQ ";
