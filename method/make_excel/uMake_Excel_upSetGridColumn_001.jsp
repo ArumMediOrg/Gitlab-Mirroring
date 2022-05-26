@@ -16,6 +16,9 @@
 	//
 	String G_INFO = "";
 
+	ResultSetMetaData rsmd = null;
+	int colCnt = 0;
+
 	try {
 %>
 <%@ include file="/inc_prg/connect.jsp"%>
@@ -74,15 +77,67 @@ ORDER BY SEQ, ERI_ITEM_CD
 		sql += " UNION";
 		sql += " SELECT 'TOTAL' ERI_ITEM_CD, '종합소견' IIM_SNME_NM, '7' IIM_RSLT_KD, '1' AS SEQ";
 		sql += " FROM DUAL";
+
 		sql += " UNION";
 		sql += " SELECT 'FIRPAN' ERI_ITEM_CD, '1차판정' IIM_SNME_NM, '7' IIM_RSLT_KD, '2' AS SEQ";
 		sql += " FROM DUAL";
+
 		sql += " UNION";
 		sql += " SELECT 'FIREX' ERI_ITEM_CD, '1차소견' IIM_SNME_NM, '7' IIM_RSLT_KD, '2' AS SEQ";
 		sql += " FROM DUAL";
+
 		sql += " UNION";
 		sql += " SELECT 'SECEX' ERI_ITEM_CD, '2차소견' IIM_SNME_NM, '7' IIM_RSLT_KD, '3' AS SEQ";
 		sql += " FROM DUAL";
+
+		sql += " UNION";
+		sql += " SELECT STMCCHECK ERI_ITEM_CD, '기존위암자' IIM_SNME_NM,  '8' IIM_RSLT_KD, '4' AS SEQ";
+		sql += " UNION";
+		sql += " SELECT STMCPAN ERI_ITEM_CD, '위암판정' IIM_SNME_NM,  '8' IIM_RSLT_KD, '4' AS SEQ";
+		sql += " UNION";
+		sql += " SELECT STMCSO ERI_ITEM_CD, '위암소견' IIM_SNME_NM,  '8' IIM_RSLT_KD, '4' AS SEQ";
+
+		sql += " UNION";
+		sql += " SELECT COLOCHECK ERI_ITEM_CD, '기존대장암자' IIM_SNME_NM,  '8' IIM_RSLT_KD, '5' AS SEQ";
+		sql += " UNION";
+		sql += " SELECT COLOPAN ERI_ITEM_CD, '대장암판정' IIM_SNME_NM,  '8' IIM_RSLT_KD, '5' AS SEQ";
+		sql += " UNION";
+		sql += " SELECT COLOSO ERI_ITEM_CD, '대장암판정소견' IIM_SNME_NM,  '8' IIM_RSLT_KD, '5' AS SEQ";
+
+		sql += " UNION";
+		sql += " SELECT LIVERCHECK ERI_ITEM_CD, '기존간암자' IIM_SNME_NM,  '8' IIM_RSLT_KD, '6' AS SEQ";
+		sql += " UNION";
+		sql += " SELECT LIVERPAN ERI_ITEM_CD, '간암판정' IIM_SNME_NM,  '8' IIM_RSLT_KD, '6' AS SEQ";
+		sql += " UNION";
+		sql += " SELECT LIVERSO ERI_ITEM_CD, '간암판정소견' IIM_SNME_NM,  '8' IIM_RSLT_KD, '6' AS SEQ";
+
+		sql += " UNION";
+		sql += " SELECT BRSTCHECK ERI_ITEM_CD, '기존유방암자' IIM_SNME_NM,  '8' IIM_RSLT_KD, '7' AS SEQ";
+		sql += " UNION";
+		sql += " SELECT BRSTPAN ERI_ITEM_CD, '유방암판정' IIM_SNME_NM,  '8'' IIM_RSLT_KD, '7' AS SEQ";
+		sql += " UNION";
+		sql += " SELECT BRSTSO ERI_ITEM_CD, '유방암판정소견' IIM_SNME_NM,  '8' IIM_RSLT_KD, '7' AS SEQ";
+
+		sql += " UNION";
+		sql += " SELECT CRVCCHECK ERI_ITEM_CD, '기존자궁암자' IIM_SNME_NM,  '8' IIM_RSLT_KD, '8'' AS SEQ";
+		sql += " UNION";
+		sql += " SELECT CRVCPAN ERI_ITEM_CD, '자궁암판정' IIM_SNME_NM,  '8' IIM_RSLT_KD, '8' AS SEQ";
+		sql += " UNION";
+		sql += " SELECT CRVCSO ERI_ITEM_CD, '자궁암판정소견' IIM_SNME_NM,  '8' IIM_RSLT_KD, '8' AS SEQ";
+
+		sql += " UNION";
+		sql += " SELECT LUNGCHECK ERI_ITEM_CD, '기존폐암자' IIM_SNME_NM,  '8' IIM_RSLT_KD, '9' AS SEQ";
+		sql += " UNION";
+		sql += " SELECT LUNGPAN ERI_ITEM_CD, '폐암판정' IIM_SNME_NM,  '8' IIM_RSLT_KD, '9' AS SEQ";
+		sql += " UNION";
+		sql += " SELECT LUNGPANS ERI_ITEM_CD, '폐암범주' IIM_SNME_NM,  '8' IIM_RSLT_KD, '9' AS SEQ";
+		sql += " UNION";
+		sql += " SELECT LUNGPANT ERI_ITEM_CD, '폐암기타폐결절외 의미있는 소견' IIM_SNME_NM,  '8' IIM_RSLT_KD, '9' AS SEQ";
+		sql += " UNION";
+		sql += " SELECT LUNGSO ERI_ITEM_CD, '폐암판정권고' IIM_SNME_NM,  '8' IIM_RSLT_KD, '9' AS SEQ";
+		sql += " UNION";
+		sql += " SELECT LUNGSOS ERI_ITEM_CD, '폐암판정권고(폐결절)' IIM_SNME_NM,  '8' IIM_RSLT_KD, '9' AS SEQ";
+
 		sql += " ORDER BY SEQ, ERI_ITEM_CD";
 
 			//
@@ -103,7 +158,10 @@ ORDER BY SEQ, ERI_ITEM_CD
 		rsList = stmtList.executeQuery(sql);
 		cRsList = new CRs(rsList);
 
-		out.clear();		// include된 파일안의 공백 제거
+		rsmd = rsList.getMetaData();  //Select 결과의 Metadata 가져오기.
+
+
+	out.clear();		// include된 파일안의 공백 제거
 		response.addHeader("Content-type", "text/xml");
 %><?xml version="1.0" encoding="UTF-8"?>
 
@@ -113,69 +171,63 @@ ORDER BY SEQ, ERI_ITEM_CD
 	<resultCode>200</resultCode>
 	<resultXml>
 		<xml xmlns:s='uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882'
-			xmlns:dt='uuid:C2F41010-65B3-11d1-A29F-00AA00C14882'
-			xmlns:rs='urn:schemas-microsoft-com:rowset'
-			xmlns:z='#RowsetSchema'>
+			 xmlns:dt='uuid:C2F41010-65B3-11d1-A29F-00AA00C14882'
+			 xmlns:rs='urn:schemas-microsoft-com:rowset'
+			 xmlns:z='#RowsetSchema'>
 
-<s:Schema id='RowsetSchema'>
-	<s:ElementType name='row' content='eltOnly' rs:updatable='true'>
-		<s:AttributeType name='ERI_ITEM_CD' rs:number='1' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='10'/>
-		</s:AttributeType>
-		<s:AttributeType name='IIM_SNME_NM' rs:number='2' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='200'/>
-		</s:AttributeType>
-		<s:AttributeType name='IIM_RSLT_KD' rs:number='3' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='1'/>
-		</s:AttributeType>
-		<s:AttributeType name='SEQ' rs:number='4' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='1' rs:fixedlength='true'/>
-		</s:AttributeType>
-		<s:extends type='rs:rowbase'/>
-	</s:ElementType>
-</s:Schema>
-		<rs:data>
-<%
-		int cnt = 0;
-		while(cRsList.next()) {
+			<s:Schema id='RowsetSchema'>
+				<s:ElementType name='row' content='eltOnly' rs:updatable='true'>
+					<%
+						for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
+							String dataType = "string";
+							String maxLength = "4000";
 
-			cnt++;
+							if (rsmd.getColumnTypeName(colCnt).equals("BLOB")){
+								dataType = "bin.hex";
+								maxLength = "2147483647";
+								//<s:datatype dt:type='bin.hex' dt:maxLength='2147483647' rs:long='true'/>
+							} else if (rsmd.getColumnTypeName(colCnt).equals("CLOB")){
+								maxLength = "1073741823";
+								//<s:datatype dt:type='string' dt:maxLength='1073741823' rs:long='true'/>
+							}
+					%>
+					<s:AttributeType name='<%= rsmd.getColumnName(colCnt)%>' rs:number='<%= Integer.toString(colCnt)%>' rs:writeunknown='true' rs:basetable='DUAL' rs:basecolumn='<%= rsmd.getColumnName(colCnt)%>'>
+						<s:datatype dt:type='<%= dataType%>' dt:maxLength='<%= maxLength%>' <% if (! maxLength.equals("4000")) { %> rs:long='true' <% } %>/>
+					</s:AttributeType>
+					<%
+						}
+					%>
+					<s:AttributeType name='ROWID' rs:number='<%= Integer.toString(colCnt)%>' rs:rowid='true' rs:writeunknown='true' rs:basetable='DUAL'
+									 rs:basecolumn='ROWID' rs:keycolumn='true' rs:hidden='true' rs:autoincrement='true'>
+						<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
+					</s:AttributeType>
+					<s:extends type='rs:rowbase'/>
+				</s:ElementType>
+			</s:Schema>		<rs:data>
+			<%
+				int cnt = 0;
+				while(cRsList.next()) {
 
-			String ERI_ITEM_CD_T = cRsList.getString("ERI_ITEM_CD");
-			String IIM_SNME_NM_T = cRsList.getString("IIM_SNME_NM");
-			String IIM_RSLT_KD_T = cRsList.getString("IIM_RSLT_KD");
-			String SEQ_T = cRsList.getString("SEQ");
-%>
+					cnt++;
+
+					String ROWID_T = cRsList.getString("ROWID");
+			%>
 			<z:row
-<%
-			if(! ERI_ITEM_CD_T.equals("")) {
-%>
-		 		ERI_ITEM_CD='<%= ERI_ITEM_CD_T%>'
-<%
-			}
-
-			if(! IIM_SNME_NM_T.equals("")) {
-%>
-		 		IIM_SNME_NM='<%= IIM_SNME_NM_T%>'
-<%
-			}
-
-			if(! IIM_RSLT_KD_T.equals("")) {
-%>
-		 		IIM_RSLT_KD='<%= IIM_RSLT_KD_T%>'
-<%
-			}
-
-			if(! SEQ_T.equals("")) {
-%>
-		 		SEQ='<%= SEQ_T%>'
-<%
-			}
-%>
+			<%
+				for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
+					String tempData = cRsList.getString(rsmd.getColumnName(colCnt));
+					if(! tempData.equals("")) {
+			%>
+			<%= rsmd.getColumnName(colCnt)%>='<%= tempData%>'
+			<%
+					}
+				}
+			%>
+			ROWID='<%= cnt%>'
 			/>
-<%
-		}
-%>
+			<%
+				}
+			%>
 		</rs:data>
 		</xml>
 	</resultXml>
@@ -183,10 +235,10 @@ ORDER BY SEQ, ERI_ITEM_CD
 </nurionXml>
 
 <%
-	} catch (Exception e) {
+} catch (Exception e) {
 
-		out.clear();		// include된 파일안의 공백 제거
-		response.addHeader("Content-type", "text/xml");
+	out.clear();		// include된 파일안의 공백 제거
+	response.addHeader("Content-type", "text/xml");
 %><?xml version="1.0" encoding="UTF-8"?>
 
 <%= G_INFO%>
@@ -199,17 +251,17 @@ ORDER BY SEQ, ERI_ITEM_CD
 </nurionXml>
 
 <%
-	} finally {
+} finally {
 
-		if(rsList != null) {
-			rsList.close();
-			rsList = null;
-		}
+	if(rsList != null) {
+		rsList.close();
+		rsList = null;
+	}
 
-		if(stmtList != null) {
-			stmtList.close();
-			stmtList = null;
-		}
+	if(stmtList != null) {
+		stmtList.close();
+		stmtList = null;
+	}
 %>
 <%@ include file="/inc_prg/disconnect.jsp"%>
 <%
