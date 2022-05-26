@@ -419,7 +419,9 @@
 		rsList = stmtList.executeQuery(sql);
 		cRsList = new CRs(rsList);
 
-		out.clear();		// include된 파일안의 공백 제거
+		rsmd = rsList.getMetaData();  //Select 결과의 Metadata 가져오기.
+
+	out.clear();		// include된 파일안의 공백 제거
 		response.addHeader("Content-type", "text/xml");
 %><?xml version="1.0" encoding="UTF-8"?>
 
@@ -473,16 +475,7 @@
 			<z:row
 			<%
 				for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
-
 					String tempData = cRsList.getString(rsmd.getColumnName(colCnt));
-
-					if (rsmd.getColumnTypeName(colCnt).equals("BLOB")){
-						byte[] buf_BLOB = rsList.getBytes(rsmd.getColumnName(colCnt));
-						if(buf_BLOB != null) {
-							tempData = new String(buf_BLOB);
-						}
-					}
-
 					if(! tempData.equals("")) {
 			%>
 			<%= rsmd.getColumnName(colCnt)%>='<%= tempData%>'
