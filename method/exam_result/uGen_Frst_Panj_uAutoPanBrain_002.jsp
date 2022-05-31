@@ -16,6 +16,9 @@
 	//
 	String G_INFO = "";
 
+	ResultSetMetaData rsmd = null;
+	int colCnt = 0;
+
 	try {
 %>
 <%@ include file="/inc_prg/connect.jsp"%>
@@ -53,7 +56,7 @@ SELECT A.ERI_ITEM_CD, A.ERI_RSLT_VL, A.ERI_HERT_CD, B.IIM_KNME_NM
 		sql += " WHERE ERI_EXAM_DT = '" + EXAM_DT + "'";
 		sql += " AND ERI_EXAM_SQ = '" + EXAM_SQ + "'";
 		sql += " AND NVL(ERI_CNCL_YN, 'N') <> 'Y'";
-		sql += " AND ERI_ITEM_CD IN ('A0009', 'A0006', 'A0014', 'A0015', 'BA014', 'BA009', 'S0253', 'BF007', 'BA012', 'BA011','A0002')";
+		sql += " AND ERI_ITEM_CD IN ('A0009', 'A0006', 'A0014', 'A0015', 'BA014', 'BA009', 'S0253', 'BF007', 'BA012', 'BA011', 'A0002', 'BA013')";
 
 			//
 			G_INFO += "<!-- \n";
@@ -72,7 +75,10 @@ SELECT A.ERI_ITEM_CD, A.ERI_RSLT_VL, A.ERI_HERT_CD, B.IIM_KNME_NM
 		rsList = stmtList.executeQuery(sql);
 		cRsList = new CRs(rsList);
 
-		out.clear();		// include된 파일안의 공백 제거
+		rsmd = rsList.getMetaData();  //Select 결과의 Metadata 가져오기.
+
+
+	out.clear();		// include된 파일안의 공백 제거
 		response.addHeader("Content-type", "text/xml");
 %><?xml version="1.0" encoding="UTF-8"?>
 
@@ -86,80 +92,68 @@ SELECT A.ERI_ITEM_CD, A.ERI_RSLT_VL, A.ERI_HERT_CD, B.IIM_KNME_NM
 			xmlns:rs='urn:schemas-microsoft-com:rowset'
 			xmlns:z='#RowsetSchema'>
 
-<s:Schema id='RowsetSchema'>
-	<s:ElementType name='row' content='eltOnly' rs:updatable='true'>
-		<s:AttributeType name='ERI_ITEM_CD' rs:number='1' rs:writeunknown='true' rs:basetable='ET_RSLT_ITEM' rs:basecolumn='ERI_ITEM_CD'>
-			<s:datatype dt:type='string' dt:maxLength='10' rs:maybenull='false'/>
-		</s:AttributeType>
-		<s:AttributeType name='ERI_RSLT_VL' rs:number='2' rs:nullable='true' rs:writeunknown='true' rs:basetable='ET_RSLT_ITEM'
-			 rs:basecolumn='ERI_RSLT_VL'>
-			<s:datatype dt:type='string' dt:maxLength='50'/>
-		</s:AttributeType>
-		<s:AttributeType name='ERI_HERT_CD' rs:number='3' rs:nullable='true' rs:writeunknown='true' rs:basetable='ET_RSLT_ITEM'
-			 rs:basecolumn='ERI_HERT_CD'>
-			<s:datatype dt:type='string' dt:maxLength='2'/>
-		</s:AttributeType>
-		<s:AttributeType name='IIM_KNME_NM' rs:number='4' rs:nullable='true' rs:writeunknown='true' rs:basetable='IT_ITEM'
-			 rs:basecolumn='IIM_KNME_NM'>
-			<s:datatype dt:type='string' dt:maxLength='200'/>
-		</s:AttributeType>
-		<s:AttributeType name='ROWID' rs:number='5' rs:rowid='true' rs:basetable='ET_RSLT_ITEM' rs:basecolumn='ROWID'
-			 rs:keycolumn='true' rs:hidden='true' rs:autoincrement='true'>
-			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
-		</s:AttributeType>
-		<s:AttributeType name='c5' rs:name='ROWID' rs:number='6' rs:rowid='true' rs:basetable='IT_ITEM' rs:basecolumn='ROWID'
-			 rs:keycolumn='true' rs:hidden='true' rs:autoincrement='true'>
-			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
-		</s:AttributeType>
-		<s:extends type='rs:rowbase'/>
-	</s:ElementType>
-</s:Schema>
-		<rs:data>
-<%
-		int cnt = 0;
-		while(cRsList.next()) {
+			<s:Schema id='RowsetSchema'>
+				<s:ElementType name='row' content='eltOnly' rs:updatable='true'>
+					<%
+						for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
+							String dataType = "string";
+							String maxLength = "4000";
 
-			cnt++;
+							if (rsmd.getColumnTypeName(colCnt).equals("BLOB")){
+								dataType = "bin.hex";
+								maxLength = "2147483647";
+								//<s:datatype dt:type='bin.hex' dt:maxLength='2147483647' rs:long='true'/>
+							} else if (rsmd.getColumnTypeName(colCnt).equals("CLOB")){
+								maxLength = "1073741823";
+								//<s:datatype dt:type='string' dt:maxLength='1073741823' rs:long='true'/>
+							}
+					%>
+					<s:AttributeType name='<%= rsmd.getColumnName(colCnt)%>' rs:number='<%= Integer.toString(colCnt)%>' rs:writeunknown='true' rs:basetable='DUAL' rs:basecolumn='<%= rsmd.getColumnName(colCnt)%>'>
+						<s:datatype dt:type='<%= dataType%>' dt:maxLength='<%= maxLength%>' <% if (! maxLength.equals("4000")) { %> rs:long='true' <% } %>/>
+					</s:AttributeType>
+					<%
+						}
+					%>
+					<s:AttributeType name='ROWID' rs:number='<%= Integer.toString(colCnt)%>' rs:rowid='true' rs:writeunknown='true' rs:basetable='DUAL'
+									 rs:basecolumn='ROWID' rs:keycolumn='true' rs:hidden='true' rs:autoincrement='true'>
+						<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
+					</s:AttributeType>
+					<s:extends type='rs:rowbase'/>
+				</s:ElementType>
+			</s:Schema>		<rs:data>
+			<%
+				int cnt = 0;
+				while(cRsList.next()) {
 
-			String ERI_ITEM_CD_T = cRsList.getString("ERI_ITEM_CD");
-			String ERI_RSLT_VL_T = cRsList.getString("ERI_RSLT_VL");
-			String ERI_HERT_CD_T = cRsList.getString("ERI_HERT_CD");
-			String IIM_KNME_NM_T = cRsList.getString("IIM_KNME_NM");
-			String ROWID_T = cRsList.getString("ROWID");
-			String c5_T = cRsList.getString("c5");
-%>
+					cnt++;
+
+					String ROWID_T = cRsList.getString("ROWID");
+			%>
 			<z:row
-<%
-			if(! ERI_ITEM_CD_T.equals("")) {
-%>
-		 		ERI_ITEM_CD='<%= ERI_ITEM_CD_T%>'
-<%
-			}
+			<%
+				for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
 
-			if(! ERI_RSLT_VL_T.equals("")) {
-%>
-		 		ERI_RSLT_VL='<%= ERI_RSLT_VL_T%>'
-<%
-			}
+					String tempData = cRsList.getString(rsmd.getColumnName(colCnt));
 
-			if(! ERI_HERT_CD_T.equals("")) {
-%>
-		 		ERI_HERT_CD='<%= ERI_HERT_CD_T%>'
-<%
-			}
+					if (rsmd.getColumnTypeName(colCnt).equals("BLOB")){
+						byte[] buf_BLOB = rsList.getBytes(rsmd.getColumnName(colCnt));
+						if(buf_BLOB != null) {
+							tempData = new String(buf_BLOB);
+						}
+					}
 
-			if(! IIM_KNME_NM_T.equals("")) {
-%>
-		 		IIM_KNME_NM='<%= IIM_KNME_NM_T%>'
-<%
-			}
-%>
-				ROWID='<%= cnt%>'
-				c5='<%= cnt%>'
+					if(! tempData.equals("")) {
+			%>
+			<%= rsmd.getColumnName(colCnt)%>='<%= tempData%>'
+			<%
+					}
+				}
+			%>
+			ROWID='<%= cnt%>'
 			/>
-<%
-		}
-%>
+			<%
+				}
+			%>
 		</rs:data>
 		</xml>
 	</resultXml>
@@ -167,10 +161,10 @@ SELECT A.ERI_ITEM_CD, A.ERI_RSLT_VL, A.ERI_HERT_CD, B.IIM_KNME_NM
 </nurionXml>
 
 <%
-	} catch (Exception e) {
+} catch (Exception e) {
 
-		out.clear();		// include된 파일안의 공백 제거
-		response.addHeader("Content-type", "text/xml");
+	out.clear();		// include된 파일안의 공백 제거
+	response.addHeader("Content-type", "text/xml");
 %><?xml version="1.0" encoding="UTF-8"?>
 
 <%= G_INFO%>
@@ -183,17 +177,17 @@ SELECT A.ERI_ITEM_CD, A.ERI_RSLT_VL, A.ERI_HERT_CD, B.IIM_KNME_NM
 </nurionXml>
 
 <%
-	} finally {
+} finally {
 
-		if(rsList != null) {
-			rsList.close();
-			rsList = null;
-		}
+	if(rsList != null) {
+		rsList.close();
+		rsList = null;
+	}
 
-		if(stmtList != null) {
-			stmtList.close();
-			stmtList = null;
-		}
+	if(stmtList != null) {
+		stmtList.close();
+		stmtList = null;
+	}
 %>
 <%@ include file="/inc_prg/disconnect.jsp"%>
 <%
