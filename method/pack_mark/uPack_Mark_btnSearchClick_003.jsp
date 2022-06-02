@@ -27,12 +27,16 @@
 		htData = (HashMap<String, Object>)request.getAttribute("htData");
 		htMethod = (HashMap<String, String>)request.getAttribute("htMethod_1");
 
-		String CBSRCH_MK = htMethod.get("CBSRCH_MK");
+
+		String CBSRCH_VW = htMethod.get("CBSRCH_VW");
 		String SSRCH_KD = htMethod.get("SSRCH_KD");
+		String CBNOUSE_VW  = htMethod.get("CBNOUSE_VW");
+
 
 		//
-		if(CBSRCH_MK == null) { CBSRCH_MK = ""; }
+		if(CBSRCH_VW == null) { CBSRCH_VW = ""; }
 		if(SSRCH_KD == null) { SSRCH_KD = ""; }
+		if(CBNOUSE_VW  == null) { CBNOUSE_VW = ""; }
 
 		// DB객체
 		stmtList = connect.createStatement();
@@ -59,10 +63,10 @@ order by epm_mark_cd, epm_mark_sq
 		sql += " FROM ET_PACK_MARK";
 		sql += " WHERE EPM_MARK_KD = '3'";
 
-		if(! CBSRCH_MK.equals("전체")) {
+		if(!CBSRCH_VW.equals("전체")) {
 			sql += " AND EPM_MARK_CD = '" + SSRCH_KD + "'";
 		}
-		if(SSRCH_KD.equals("1")) {
+		if(CBNOUSE_VW.equals("1")) {
 			sql += " AND EPM_USE_YN = 'Y'";
 		}
 
@@ -75,8 +79,9 @@ order by epm_mark_cd, epm_mark_sq
 			G_INFO += "\n\n";
 
 			G_INFO += "전달인자 : \n";
-			G_INFO += " CBSRCH_MK : " + CBSRCH_MK + " \n";
+			G_INFO += " CBSRCH_VW : " + CBSRCH_VW + " \n";
 			G_INFO += " SSRCH_KD : " + SSRCH_KD + " \n";
+			G_INFO += " CBNOUSE_VW : " + CBNOUSE_VW + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";
