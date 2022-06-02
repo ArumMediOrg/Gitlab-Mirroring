@@ -676,6 +676,10 @@
 <%@ include file="/func/func_uCRM_BASIC_btnS83_UpdateClick_001.jsp"%>
 <%@ include file="/func/func_uCRM_BASIC_btnS83_UpdateClick_002.jsp"%>
 <%@ include file="/func/func_uCRM_BASIC_btnS83_CopyClick_002.jsp"%>
+<%-- <%@ include file="/func/func_uPACK_ETOWEB_btnSave_Click_001.jsp"%>
+<%@ include file="/func/func_uPACK_ETOWEB_btnSave_Click_002.jsp"%>
+<%@ include file="/func/func_uPACK_ETOWEB_btnSave_Click_003.jsp"%>
+<%@ include file="/func/func_uPACK_ETOWEB_UF_ITEM_Del_001.jsp"%> --%>
 
 <%!
 	public String func_choice(String argMethodName, Statement argStmtExec, HashMap argHtMethod) throws Exception {
@@ -1356,6 +1360,10 @@
 		if(argMethodName.equals("uCRM_BASIC_btnS83_UpdateClick_001")) 	{ return func_uCRM_BASIC_btnS83_UpdateClick_001(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uCRM_BASIC_btnS83_UpdateClick_002")) 	{ return func_uCRM_BASIC_btnS83_UpdateClick_002(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uCRM_BASIC_btnS83_CopyClick_002")) 	{ return func_uCRM_BASIC_btnS83_CopyClick_002(argStmtExec, argHtMethod); }
+		//if(argMethodName.equals("uPACK_ETOWEB_btnSave_Click_001")) 	{ return func_uPACK_ETOWEB_btnSave_Click_001(argStmtExec, argHtMethod); }
+		//if(argMethodName.equals("uPACK_ETOWEB_btnSave_Click_002")) 	{ return func_uPACK_ETOWEB_btnSave_Click_002(argStmtExec, argHtMethod); }
+		//if(argMethodName.equals("uPACK_ETOWEB_btnSave_Click_003")) 	{ return func_uPACK_ETOWEB_btnSave_Click_003(argStmtExec, argHtMethod); }
+		//if(argMethodName.equals("uPACK_ETOWEB_UF_ITEM_Del_001")) 	{ return func_uPACK_ETOWEB_UF_ITEM_Del_001(argStmtExec, argHtMethod); }
 
 		return "";
 	}
