@@ -123,6 +123,7 @@
 <%@ include file="/func/func_uCancer_Rslt_2020_ufCancerLoadResult_005.jsp"%>
 <%@ include file="/func/func_uCancer_Rslt_2020_ufCancerLoadResult_008.jsp"%>
 <%@ include file="/func/func_uCancer_Rslt_2020_ufCancerLoadResult_010.jsp"%>
+<%@ include file="/func/func_uCancer_Rslt_2020_ufCancerLoadResult_011.jsp"%>
 <%@ include file="/func/func_uCancer_Rslt_2020_ufCancerSaveResult_001.jsp"%>
 <%@ include file="/func/func_uCancer_Rslt_2020_ufSaveBrstRslt_002.jsp"%>
 <%@ include file="/func/func_uCancer_Rslt_2020_ufSaveColoRslt_002.jsp"%>
@@ -807,6 +808,7 @@
 		if(argMethodName.equals("uCancer_Rslt_2020_ufCancerLoadResult_005")) 	{ return func_uCancer_Rslt_2020_ufCancerLoadResult_005(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uCancer_Rslt_2020_ufCancerLoadResult_008")) 	{ return func_uCancer_Rslt_2020_ufCancerLoadResult_008(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uCancer_Rslt_2020_ufCancerLoadResult_010")) 	{ return func_uCancer_Rslt_2020_ufCancerLoadResult_010(argStmtExec, argHtMethod); }
+		if(argMethodName.equals("uCancer_Rslt_2020_ufCancerLoadResult_011")) 	{ return func_uCancer_Rslt_2020_ufCancerLoadResult_011(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uCancer_Rslt_2020_ufCancerSaveResult_001")) 	{ return func_uCancer_Rslt_2020_ufCancerSaveResult_001(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uCancer_Rslt_2020_ufSaveBrstRslt_002")) 	{ return func_uCancer_Rslt_2020_ufSaveBrstRslt_002(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uCancer_Rslt_2020_ufSaveColoRslt_002")) 	{ return func_uCancer_Rslt_2020_ufSaveColoRslt_002(argStmtExec, argHtMethod); }
