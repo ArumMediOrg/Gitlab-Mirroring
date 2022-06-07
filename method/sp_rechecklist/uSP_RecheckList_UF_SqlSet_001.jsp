@@ -29,22 +29,24 @@
 
 		String EXAM_SDT = htMethod.get("EXAM_SDT");
 		String EXAM_EDT = htMethod.get("EXAM_EDT");
-		String PLCE_CD = htMethod.get("PLCE_CD");
+		String PLCE_CD1 = htMethod.get("PLCE_CD1");
 		String CHART_NO = htMethod.get("CHART_NO");
 		String PSNL_NM = htMethod.get("PSNL_NM");
 		String PARAM_TX1 = htMethod.get("PARAM_TX1");
 		String PARAM_TX2 = htMethod.get("PARAM_TX2");
 		String ORDER_BY = htMethod.get("ORDER_BY");
+		String PLCE_CD2 = htMethod.get("PLCE_CD2");
 
 		//
 		if(EXAM_SDT == null) { EXAM_SDT = ""; }
 		if(EXAM_EDT == null) { EXAM_EDT = ""; }
-		if(PLCE_CD == null) { PLCE_CD = ""; }
+		if(PLCE_CD1 == null) { PLCE_CD1 = ""; }
 		if(CHART_NO == null) { CHART_NO = ""; }
 		if(PSNL_NM == null) { PSNL_NM = ""; }
 		if(PARAM_TX1 == null) { PARAM_TX1 = ""; }
 		if(PARAM_TX2 == null) { PARAM_TX2 = ""; }
 		if(ORDER_BY == null) { ORDER_BY = ""; }
+		if(PLCE_CD2 == null) { PLCE_CD2 = ""; }
 
 		// DB객체
 		stmtList = connect.createStatement();
@@ -72,8 +74,12 @@
 		sql += " AND A.EEA_EXAM_DT <= '" + EXAM_EDT + "'";
 		sql += " AND A.EEA_ORDER_YN <> 'C'";
 
-		if(!PLCE_CD.equals("") && !PLCE_CD.equals("0")) {
-			sql += " AND SUBSTR(A.EEA_PLCE_CD,1,1) = '" + PLCE_CD + "'";
+		if(!PLCE_CD1.equals("") && !PLCE_CD1.equals("0")) {
+			sql += " AND SUBSTR(A.EEA_PLCE_CD,1,1) = '" + PLCE_CD1 + "'";
+		}
+
+		if(!PLCE_CD2.equals("") && !PLCE_CD2.equals("0")) {
+			sql += " AND SUBSTR(A.EEA_PLCE_CD,1,2) = '" + PLCE_CD2 + "'";
 		}
 
 		if(!CHART_NO.equals("")) {
@@ -103,12 +109,13 @@
 			G_INFO += "전달인자 : \n";
 			G_INFO += " EXAM_SDT : " + EXAM_SDT + " \n";
 			G_INFO += " EXAM_EDT : " + EXAM_EDT + " \n";
-			G_INFO += " PLCE_CD : " + PLCE_CD + " \n";
+			G_INFO += " PLCE_CD1 : " + PLCE_CD1 + " \n";
 			G_INFO += " CHART_NO : " + CHART_NO + " \n";
 			G_INFO += " PSNL_NM : " + PSNL_NM + " \n";
 			G_INFO += " PARAM_TX1 : " + PARAM_TX1 + " \n";
 			G_INFO += " PARAM_TX2 : " + PARAM_TX2 + " \n";
 			G_INFO += " ORDER_BY : " + ORDER_BY + " \n";
+			G_INFO += " PLCE_CD2 : " + PLCE_CD2 + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";
