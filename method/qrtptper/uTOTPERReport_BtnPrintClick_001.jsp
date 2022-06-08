@@ -84,6 +84,22 @@
 				sql += " AND ERI_ETC_KD <> '0'";
 			}
 
+			if(RZCOMBOBOX2.equals("3")) {
+				sql += " AND C.ERI_ADD_KD IN ('3')";
+			}
+
+			if(RZCOMBOBOX2.equals("4")) {
+				sql += " AND C.ERI_ADD_KD IN ('4', '5')";
+			}
+
+			if(RZCOMBOBOX2.equals("5")) {
+				sql += " AND C.ERI_ETC_KD <> '0'";
+			}
+
+			if(RZCOMBOBOX2.equals("6")) {
+				sql += " AND D.IIM_RSLT_KD IN ('6', '7')";
+			}
+
 			if(G_HOSP_NO.equals("11100761") && RZCOMBOBOX2.equals("1")) {
 				sql += " AND ERI_ITEM_CD NOT IN ('BZ159', 'BZ179', 'C0001', 'C0006', 'C0007', 'C0008', 'Z0267', 'Z0268')";
 			}
