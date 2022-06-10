@@ -27,16 +27,16 @@
 		htData = (HashMap<String, Object>)request.getAttribute("htData");
 		htMethod = (HashMap<String, String>)request.getAttribute("htMethod_1");
 
-		String PEXAM_DTS = htMethod.get("pExam_DtS");
-		String PEXAM_DTE = htMethod.get("pExam_DtE");
-		String PCOMP_CD = htMethod.get("pComp_Cd");
-		String PDIVI_CS = htMethod.get("pDivi_Cs");
-		String PCLSS_KD = htMethod.get("pClss_Kd");
-		String PDIVI_NO = htMethod.get("pDivi_No");
-		String PPSNL_NM = htMethod.get("pPsnl_Nm");
-		String PSEX_GB = htMethod.get("pSex_Gb");
-		String PCHUNG_KD = htMethod.get("pChung_Kd");
-		String PCHUNG_CASE = htMethod.get("pChung_Case");
+		String PEXAM_DTS = htMethod.get("PEXAM_DTS");
+		String PEXAM_DTE = htMethod.get("PEXAM_DTE");
+		String PCOMP_CD = htMethod.get("PCOMP_CD");
+		String PDIVI_CS = htMethod.get("PDIVI_CS");
+		String PCLSS_KD = htMethod.get("PCLSS_KD");
+		String PDIVI_NO = htMethod.get("PDIVI_NO");
+		String PPSNL_NM = htMethod.get("PPSNL_NM");
+		String PSEX_GB = htMethod.get("PSEX_GB");
+		String PCHUNG_KD = htMethod.get("PCHUNG_KD");
+		String PCHUNG_CASE = htMethod.get("PCHUNG_CASE");
 
 		//
 		if(PEXAM_DTS == null) { PEXAM_DTS = ""; }
@@ -55,7 +55,8 @@
 
 		//
 		sql =  " SELECT IIM_KNME_NM, IIP_JCSG_PR, SUM(MAN_CNT) MAN_CNT, SUM(WOMAN_CNT) WOMAN_CNT, SUM(TCNT) TCNT FROM ";
-		sql += " (SELECT DISTINCT IIM_KNME_NM, IIP_JCSG_PR, COUNT(CASE WHEN EEA_SEX_CD = '1' THEN 1 END) MAN_CNT, ";
+		sql += " (SELECT DISTINCT CASE WHEN NVL(IIM_SNME_NM, ' ') <> ' ' THEN IIM_SNME_NM ELSE IIM_KNME_NM END IIM_KNME_NM, ";
+		sql += " IIP_JCSG_PR, COUNT(CASE WHEN EEA_SEX_CD = '1' THEN 1 END) MAN_CNT, ";
 		sql += " COUNT(CASE WHEN EEA_SEX_CD = '2' THEN 1 END) WOMAN_CNT, COUNT(*) TCNT ";
 		sql += " FROM ET_RSLT_ITEM ";
 		sql += " INNER JOIN ET_EXAM_ACPT ON EEA_EXAM_DT = ERI_EXAM_DT AND EEA_EXAM_SQ = ERI_EXAM_SQ ";
@@ -100,7 +101,7 @@
 		if(PCHUNG_CASE.equals("2")) {
 			sql += " AND EEA_ORAL_YN <> '2' ";
 		}
-		sql += " GROUP BY IIM_KNME_NM, IIP_JCSG_PR) A GROUP BY IIM_KNME_NM, IIP_JCSG_PR ";
+		sql += " GROUP BY IIM_KNME_NM, IIM_SNME_NM, IIP_JCSG_PR) A GROUP BY IIM_KNME_NM, IIP_JCSG_PR ";
 
 			//
 			G_INFO += "<!-- \n";
