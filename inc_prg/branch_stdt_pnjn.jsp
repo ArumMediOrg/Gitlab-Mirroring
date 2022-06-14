@@ -17,6 +17,7 @@
 	htBranch.put("uStdt_Pnjn_UP_MunjinSave_002", 		"/method/stdt_pnjn/uStdt_Pnjn_UP_MunjinSave_002.jsp");
 	htBranch.put("uStdt_Pnjn_UP_MunjinSave_001", 		"/method/stdt_pnjn/uStdt_Pnjn_UP_MunjinSave_001.jsp");
 	htBranch.put("uStdt_Pnjn_Up_RsltDisplay_002", 		"/method/stdt_pnjn/uStdt_Pnjn_Up_RsltDisplay_002.jsp");
+	htBranch.put("uStdt_Pnjn_Up_RsltDisplay_002_ADD", 		"/method/stdt_pnjn/uStdt_Pnjn_Up_RsltDisplay_002_ADD.jsp");
 	htBranch.put("uStdt_Pnjn_UP_RsltSave_001", 		"/method/stdt_pnjn/uStdt_Pnjn_UP_RsltSave_001.jsp");
 	htBranch.put("uStdt_Pnjn_UP_OralRslt_Save_001", 		"/method/stdt_pnjn/uStdt_Pnjn_UP_OralRslt_Save_001.jsp");
 	htBranch.put("uStdt_Pnjn_AlvAcptSelectItem_001", 		"/method/stdt_pnjn/uStdt_Pnjn_AlvAcptSelectItem_001.jsp");
