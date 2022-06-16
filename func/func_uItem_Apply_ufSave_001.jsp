@@ -161,7 +161,7 @@
 			IIM_INPT_ID = CTr.Replace(IIM_INPT_ID, "'", "''");
 			IIM_MODI_ID = CTr.Replace(IIM_MODI_ID, "'", "''");
 			IIM_ETONME_NM = CTr.Replace(IIM_ETONME_NM, "'", "''");
-			IIM_SPSORT_SQ = CTr.Replace(IIM_SPSORT_SQ, "'", "''");
+//			IIM_SPSORT_SQ = CTr.Replace(IIM_SPSORT_SQ, "'", "''");
 
 			if(SMODE.equals("INSERT")) {
 
