@@ -57,6 +57,7 @@
 			String IIM_INPT_ID = (String) argHtMethod.get("IIM_INPT_ID");
 			String IIM_MODI_ID = (String) argHtMethod.get("IIM_MODI_ID");
 			String IIM_ETONME_NM = (String) argHtMethod.get("IIM_ETONME_NM");
+			String IIM_SPSORT_SQ = (String) argHtMethod.get("IIM_SPSORT_SQ");
 
 			//
 			if(SMODE == null) { SMODE = ""; }
@@ -108,6 +109,7 @@
 			if(IIM_INPT_ID == null) { IIM_INPT_ID = ""; }
 			if(IIM_MODI_ID == null) { IIM_MODI_ID = ""; }
 			if(IIM_ETONME_NM == null) { IIM_ETONME_NM = ""; }
+			if(IIM_SPSORT_SQ == null) { IIM_SPSORT_SQ = ""; }
 
 			//
 			SMODE = CTr.Replace(SMODE, "'", "''");
@@ -159,10 +161,11 @@
 			IIM_INPT_ID = CTr.Replace(IIM_INPT_ID, "'", "''");
 			IIM_MODI_ID = CTr.Replace(IIM_MODI_ID, "'", "''");
 			IIM_ETONME_NM = CTr.Replace(IIM_ETONME_NM, "'", "''");
+			IIM_SPSORT_SQ = CTr.Replace(IIM_SPSORT_SQ, "'", "''");
 
 			if(SMODE.equals("INSERT")) {
 
-				sql = "INSERT INTO IT_ITEM (IIM_ITEM_CD, IIM_NITEM_CD, IIM_KNME_NM, IIM_ENME_NM, IIM_CNME_NM, IIM_RNME_NM, IIM_JNME_NM, IIM_SNME_NM, IIM_OSCD_CD, IIM_GBCD_CD, IIM_SBCD_CD, IIM_EXGN_CD, IIM_RSLT_KD, IIM_SORT_SQ, IIM_BLPT_CD, IIM_REJH_EX, IIM_OSSB_CD, IIM_OSRL_CD, IIM_ACAL_YN, IIM_SAMP_CD, IIM_CANCER_CD, IIM_CNIT_CD, IIM_SUTK_YN, IIM_SUTK_CD, IIM_PNUM_CD, IIM_TUSE_YN, IIM_TPRT_CD, IIM_TRTP_CD, IIM_TRLT_CD, IIM_TRNM_CD, IIM_TXRAY_YN, IIM_TBIO_YN, IIM_TSND_YN, IIM_TETC_YN, IIM_THPR_YN, IIM_THPR1_CD, IIM_THPR2_CD, IIM_TEDT_YR, IIM_MIN_VL, IIM_MAX_VL, IIM_DFLT_VL, IIM_SANBO_KD, IIM_SANBO_CD, IIM_SANBO_CAL, IIM_USE_YN, IIM_INPT_DTT, IIM_INPT_ID, IIM_ETONME_NM ) VALUES (";
+				sql = "INSERT INTO IT_ITEM (IIM_ITEM_CD, IIM_NITEM_CD, IIM_KNME_NM, IIM_ENME_NM, IIM_CNME_NM, IIM_RNME_NM, IIM_JNME_NM, IIM_SNME_NM, IIM_OSCD_CD, IIM_GBCD_CD, IIM_SBCD_CD, IIM_EXGN_CD, IIM_RSLT_KD, IIM_SORT_SQ, IIM_BLPT_CD, IIM_REJH_EX, IIM_OSSB_CD, IIM_OSRL_CD, IIM_ACAL_YN, IIM_SAMP_CD, IIM_CANCER_CD, IIM_CNIT_CD, IIM_SUTK_YN, IIM_SUTK_CD, IIM_PNUM_CD, IIM_TUSE_YN, IIM_TPRT_CD, IIM_TRTP_CD, IIM_TRLT_CD, IIM_TRNM_CD, IIM_TXRAY_YN, IIM_TBIO_YN, IIM_TSND_YN, IIM_TETC_YN, IIM_THPR_YN, IIM_THPR1_CD, IIM_THPR2_CD, IIM_TEDT_YR, IIM_MIN_VL, IIM_MAX_VL, IIM_DFLT_VL, IIM_SANBO_KD, IIM_SANBO_CD, IIM_SANBO_CAL, IIM_USE_YN, IIM_INPT_DTT, IIM_INPT_ID, IIM_ETONME_NM, IIM_SPSORT_SQ ) VALUES (";
 				sql += "  '" + IIM_ITEM_CD + "'";
 				sql += ", '" + IIM_NITEM_CD + "'";
 				sql += ", '" + IIM_KNME_NM + "'";
@@ -211,6 +214,7 @@
 				sql += ", SYSDATE";
 				sql += ", '" + IIM_INPT_ID + "'";
 				sql += ", '" + IIM_ETONME_NM + "'";
+				sql += ", '" + IIM_SPSORT_SQ + "'";
 				sql += ")";
 
 				argStmtExec.executeUpdate(sql);
@@ -264,6 +268,7 @@
 				sql += ", IIM_MODI_DTT = SYSDATE";
 				sql += ", IIM_MODI_ID = '" + IIM_MODI_ID + "'";
 				sql += ", IIM_ETONME_NM = '" + IIM_ETONME_NM + "'";
+				sql += ", IIM_SPSORT_SQ = '" + IIM_SPSORT_SQ + "'";
 				sql += " WHERE IIM_ITEM_CD = '" + IIM_ITEM_CD + "'";
 
 				argStmtExec.executeUpdate(sql);

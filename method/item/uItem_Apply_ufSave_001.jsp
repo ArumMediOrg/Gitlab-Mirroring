@@ -70,6 +70,7 @@
 	String IIM_INPT_ID = htMethod.get("IIM_INPT_ID");
 	String IIM_MODI_ID = htMethod.get("IIM_MODI_ID");
 	String IIM_ETONME_NM = htMethod.get("IIM_ETONME_NM");
+	String IIM_SPSORT_SQ = htMethod.get("IIM_SPSORT_SQ");
 
 	//
 	if(SMODE == null) { SMODE = ""; }
@@ -121,6 +122,7 @@
 	if(IIM_INPT_ID == null) { IIM_INPT_ID = ""; }
 	if(IIM_MODI_ID == null) { IIM_MODI_ID = ""; }
 	if(IIM_ETONME_NM == null) { IIM_ETONME_NM = ""; }
+	if(IIM_SPSORT_SQ == null) { IIM_SPSORT_SQ = ""; }
 
 	// DB객체
 	stmtExec = connect.createStatement();
@@ -183,6 +185,9 @@
 	G_INFO += " IIM_MODI_ID : " + IIM_MODI_ID + " \n";
 	G_INFO += " IIM_INPT_ID : " + IIM_INPT_ID + " \n";
 	G_INFO += " IIM_ETONME_NM : " + IIM_ETONME_NM + " \n";
+	G_INFO += " IIM_SPSORT_SQ : " + IIM_SPSORT_SQ + " \n";
+
+
 	G_INFO += "\n\n";
 
 	G_INFO += "질의문 : " + sql + " \n";
