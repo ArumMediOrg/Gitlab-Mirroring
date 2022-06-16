@@ -32,6 +32,8 @@
 		String IIM_BLPT_CD = htMethod.get("IIM_BLPT_CD");
 		String LIIM_USE_YN = htMethod.get("LIIM_USE_YN");
 		String IIM_USE_YN = htMethod.get("IIM_USE_YN");
+		String SP_CODE = htMethod.get("SP_CODE");
+		String SPSORT_SQ = htMethod.get("SPSORT_SQ");
 
 		//
 		if(SEARCH_TEXT == null) { SEARCH_TEXT = ""; }
@@ -39,6 +41,8 @@
 		if(IIM_BLPT_CD == null) { IIM_BLPT_CD = ""; }
 		if(LIIM_USE_YN == null) { LIIM_USE_YN = ""; }
 		if(IIM_USE_YN == null) { IIM_USE_YN = ""; }
+		if(SP_CODE == null) { SP_CODE = ""; }
+		if(SPSORT_SQ == null) { SPSORT_SQ = ""; }
 
 		// DB객체
 		stmtList = connect.createStatement();
@@ -74,7 +78,17 @@
 			sql += " AND IIM_USE_YN = '" + IIM_USE_YN + "'";
 		}
 
-		sql += " ORDER BY IIM_ITEM_CD, IIM_SORT_SQ";
+		if(SP_CODE.equals("Y")) {
+			sql += "AND (IIM_SBCD_CD <> ' ' AND IIM_SBCD_CD IS NOT NULL) ";
+		}
+
+		if(SPSORT_SQ.equals("0")) {
+			sql += " ORDER BY IIM_ITEM_CD, IIM_SORT_SQ ";
+		} else if(SPSORT_SQ.equals("1")){
+			sql += " ORDER BY IIM_KNME_NM ";
+		} else if(SPSORT_SQ.equals("2")){
+			sql += " ORDER BY IIM_SPSORT_SQ, IIM_ITEM_CD ";
+		}
 
 			//
 			G_INFO += "<!-- \n";
