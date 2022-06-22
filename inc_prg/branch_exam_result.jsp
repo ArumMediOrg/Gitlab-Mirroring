@@ -324,4 +324,5 @@
 	htBranch.put("QRDietitianReport_DetailBand1_001", 		"/method/exam_result/QRDietitianReport_DetailBand1_001.jsp");
 	htBranch.put("uBld_Rslt_ufGetPanJungItemSP_001", 		"/method/exam_result/uBld_Rslt_ufGetPanJungItemSP_001.jsp");
 	htBranch.put("uQuestion_UP_Score_Sum_EQuestionnaire_001", 		"/method/exam_result/uQuestion_UP_Score_Sum_EQuestionnaire_001.jsp");
+	htBranch.put("uExam_Result_miDevRsltClick_001", 		"/method/exam_result/uExam_Result_miDevRsltClick_001.jsp");
 %>
