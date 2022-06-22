@@ -51,7 +51,7 @@
 		sql += " LEFT OUTER JOIN IT_COMPANY ICY ON A.EEA_COMP_CD = ICY.ICY_COMP_CD ";
 		sql += " WHERE ";
 		sql += " ((a.EEA_EXAM_DT < '" + EXAM_DT + "')  AND (a.EEA_EXAM_CD LIKE '2%') AND (a.EEA_ORDER_YN <> 'C') ) ";
-   		sql += " or   (a.EEA_EXAM_DT = '" + EXAM_DT + "') ";
+   		sql += " or   ((a.EEA_EXAM_DT = '" + EXAM_DT + "') AND (a.EEA_EXAM_SQ = '" + EXAM_SQ + "')) ";
 		sql += " ORDER BY EEA_EXAM_DT DESC";
 
 
