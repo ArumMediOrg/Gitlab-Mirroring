@@ -50,8 +50,8 @@
 		G_INFO += "\n\n";
 
 		G_INFO += "전달인자 : \n";
-		G_INFO += " CHECKBOX1 : " + CHECKBOX1 " \n";
-		G_INFO += " SSEND_KD : " + SSEND_KD " \n";
+		G_INFO += " CHECKBOX1 : " + CHECKBOX1 + " \n";
+		G_INFO += " SSEND_KD : " + SSEND_KD + " \n";
 		G_INFO += "\n\n";
 
 		G_INFO += "질의문 : " + sql + " \n";
@@ -59,6 +59,8 @@
 
 		rsList = stmtList.executeQuery(sql);
 		cRsList = new CRs(rsList);
+
+		rsmd = rsList.getMetaData();  //Select 결과의 Metadata 가져오기
 
 		out.clear();		// include된 파일안의 공백 제거
 		response.addHeader("Content-type", "text/xml");
