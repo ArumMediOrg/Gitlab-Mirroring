@@ -75,6 +75,7 @@
 			xmlns:dt='uuid:C2F41010-65B3-11d1-A29F-00AA00C14882'
 			xmlns:rs='urn:schemas-microsoft-com:rowset'
 			xmlns:z='#RowsetSchema'>
+
 <s:Schema id='RowsetSchema'>
 	<s:ElementType name='row' content='eltOnly' rs:updatable='true'>
 <%
@@ -97,7 +98,7 @@
 <%
 		}
 %>
-		<s:AttributeType name='ROWID' rs:number='16' rs:rowid='true' rs:writeunknown='true' rs:basetable='CR_SMS_AUTO_SET'
+		<s:AttributeType name='ROWID' rs:number='<%= Integer.toString(colCnt)%>' rs:rowid='true' rs:writeunknown='true' rs:basetable='DUAL'
 			 rs:basecolumn='ROWID' rs:keycolumn='true' rs:hidden='true' rs:autoincrement='true'>
 			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
 		</s:AttributeType>
@@ -147,6 +148,7 @@
 	<resultCode>400</resultCode>
 	<resultXml></resultXml>
 	<errorMsg><![CDATA[<%= e.toString()%>]]></errorMsg>
+	<sql><![CDATA[<%= sql%>]]></sql>
 </nurionXml>
 
 <%
@@ -166,3 +168,4 @@
 <%
 	}
 %>
+
