@@ -16,6 +16,9 @@
 	//
 	String G_INFO = "";
 
+	ResultSetMetaData rsmd = null;
+	int colCnt = 0;
+
 	try {
 %>
 <%@ include file="/inc_prg/connect.jsp"%>
@@ -28,7 +31,7 @@
 
 		//
 		if(GUID_KD == null) { GUID_KD = ""; }
-		
+
 
 		// DB객체
 		stmtList = connect.createStatement();
@@ -53,7 +56,10 @@
 		rsList = stmtList.executeQuery(sql);
 		cRsList = new CRs(rsList);
 
-		out.clear();		// include된 파일안의 공백 제거
+		rsmd = rsList.getMetaData();  //Select 결과의 Metadata 가져오기
+
+
+	out.clear();		// include된 파일안의 공백 제거
 		response.addHeader("Content-type", "text/xml");
 %><?xml version="1.0" encoding="UTF-8"?>
 
@@ -63,211 +69,72 @@
 	<resultCode>200</resultCode>
 	<resultXml>
 		<xml xmlns:s='uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882'
-			xmlns:dt='uuid:C2F41010-65B3-11d1-A29F-00AA00C14882'
-			xmlns:rs='urn:schemas-microsoft-com:rowset'
-			xmlns:z='#RowsetSchema'>
-<s:Schema id='RowsetSchema'>
-	<s:ElementType name='row' content='eltOnly' rs:updatable='true'>
-		<s:AttributeType name='CSA_GUID_KD' rs:number='1' rs:writeunknown='true' rs:basetable='CR_SMS_AUTO_SET' rs:basecolumn='CSA_GUID_KD'>
-			<s:datatype dt:type='string' dt:maxLength='4000' rs:maybenull='false'/>
-		</s:AttributeType>
-		
-		<s:AttributeType name='CSA_GUID_NM' rs:number='2' rs:writeunknown='true' rs:basetable='CR_SMS_AUTO_SET' rs:basecolumn='CSA_GUID_NM'>
-			<s:datatype dt:type='string' dt:maxLength='4000' rs:maybenull='false'/>
-		</s:AttributeType>
+			 xmlns:dt='uuid:C2F41010-65B3-11d1-A29F-00AA00C14882'
+			 xmlns:rs='urn:schemas-microsoft-com:rowset'
+			 xmlns:z='#RowsetSchema'>
 
-		<s:AttributeType name='CSA_SEND_KD' rs:number='3' rs:writeunknown='true' rs:basetable='CR_SMS_AUTO_SET' rs:basecolumn='CSA_SEND_KD'>
-			<s:datatype dt:type='string' dt:maxLength='4000' rs:maybenull='false'/>
-		</s:AttributeType>
+			<s:Schema id='RowsetSchema'>
+				<s:ElementType name='row' content='eltOnly' rs:updatable='true'>
+					<%
+						for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
+							String dataType = "string";
+							String maxLength = "4000";
 
-		<s:AttributeType name='CSA_STAND_HH' rs:number='4' rs:writeunknown='true' rs:basetable='CR_SMS_AUTO_SET' rs:basecolumn='CSA_STAND_HH'>
-			<s:datatype dt:type='string' dt:maxLength='4000' rs:maybenull='false'/>
-		</s:AttributeType>
+							if (rsmd.getColumnTypeName(colCnt).equals("BLOB")){
+								dataType = "bin.hex";
+								maxLength = "2147483647";
+								//<s:datatype dt:type='bin.hex' dt:maxLength='2147483647' rs:long='true'/>
+							} else if (rsmd.getColumnTypeName(colCnt).equals("CLOB")){
+								maxLength = "1073741823";
+								//<s:datatype dt:type='string' dt:maxLength='1073741823' rs:long='true'/>
+							}
+					%>
+					<s:AttributeType name='<%= rsmd.getColumnName(colCnt)%>' rs:number='<%= Integer.toString(colCnt)%>' rs:writeunknown='true' rs:basetable='DUAL' rs:basecolumn='<%= rsmd.getColumnName(colCnt)%>'>
+						<s:datatype dt:type='<%= dataType%>' dt:maxLength='<%= maxLength%>' <% if (! maxLength.equals("4000")) { %> rs:long='true' <% } %>/>
+					</s:AttributeType>
+					<%
+						}
+					%>
+					<s:AttributeType name='ROWID' rs:number='<%= Integer.toString(colCnt)%>' rs:rowid='true' rs:writeunknown='true' rs:basetable='DUAL'
+									 rs:basecolumn='ROWID' rs:keycolumn='true' rs:hidden='true' rs:autoincrement='true'>
+						<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
+					</s:AttributeType>
+					<s:extends type='rs:rowbase'/>
+				</s:ElementType>
+			</s:Schema>		<rs:data>
+			<%
+				int cnt = 0;
+				while(cRsList.next()) {
 
-		<s:AttributeType name='CSA_STAND_MM' rs:number='5' rs:writeunknown='true' rs:basetable='CR_SMS_AUTO_SET' rs:basecolumn='CSA_STAND_MM'>
-			<s:datatype dt:type='string' dt:maxLength='4000' rs:maybenull='false'/>
-		</s:AttributeType>
+					cnt++;
 
-		<s:AttributeType name='CSA_BEFOR_DT' rs:number='6' rs:writeunknown='true' rs:basetable='CR_SMS_AUTO_SET' rs:basecolumn='CSA_BEFOR_DT'>
-			<s:datatype dt:type='string' dt:maxLength='4000' rs:maybenull='false'/>
-		</s:AttributeType>
-
-		<s:AttributeType name='CSA_BEFOR_HH' rs:number='7' rs:writeunknown='true' rs:basetable='CR_SMS_AUTO_SET' rs:basecolumn='CSA_BEFOR_HH'>
-			<s:datatype dt:type='string' dt:maxLength='4000' rs:maybenull='false'/>
-		</s:AttributeType>
-
-		<s:AttributeType name='CSA_SEND_MSG' rs:number='8' rs:writeunknown='true' rs:basetable='CR_SMS_AUTO_SET' rs:basecolumn='CSA_SEND_MSG'>
-			<s:datatype dt:type='string' dt:maxLength='4000' rs:maybenull='false'/>
-		</s:AttributeType>
-
-		<s:AttributeType name='CSA_SEND_TEL' rs:number='9' rs:writeunknown='true' rs:basetable='CR_SMS_AUTO_SET' rs:basecolumn='CSA_SEND_TEL'>
-			<s:datatype dt:type='string' dt:maxLength='4000' rs:maybenull='false'/>
-		</s:AttributeType>
-
-		<s:AttributeType name='CSA_USE_YN' rs:number='10' rs:writeunknown='true' rs:basetable='CR_SMS_AUTO_SET' rs:basecolumn='CSA_USE_YN'>
-			<s:datatype dt:type='string' dt:maxLength='4000' rs:maybenull='false'/>
-		</s:AttributeType>
-
-		<s:AttributeType name='CSA_INPUT_ID' rs:number='11' rs:writeunknown='true' rs:basetable='CR_SMS_AUTO_SET' rs:basecolumn='CSA_INPUT_ID'>
-			<s:datatype dt:type='string' dt:maxLength='4000' rs:maybenull='false'/>
-		</s:AttributeType>
-
-		<s:AttributeType name='CSA_INPUT_DTT' rs:number='12' rs:writeunknown='true' rs:basetable='CR_SMS_AUTO_SET' rs:basecolumn='CSA_INPUT_DTT'>
-			<s:datatype dt:type='string' dt:maxLength='4000' rs:maybenull='false'/>
-		</s:AttributeType>
-
-		<s:AttributeType name='CSA_MODI_ID' rs:number='13' rs:writeunknown='true' rs:basetable='CR_SMS_AUTO_SET' rs:basecolumn='CSA_MODI_ID'>
-			<s:datatype dt:type='string' dt:maxLength='4000' rs:maybenull='false'/>
-		</s:AttributeType>
-
-		<s:AttributeType name='CSA_MODI_DTT' rs:number='14' rs:writeunknown='true' rs:basetable='CR_SMS_AUTO_SET' rs:basecolumn='CSA_MODI_DTT'>
-			<s:datatype dt:type='string' dt:maxLength='4000' rs:maybenull='false'/>
-		</s:AttributeType>
-
-		<s:AttributeType name='CSA_TMPL_CD' rs:number='15' rs:writeunknown='true' rs:basetable='CR_SMS_AUTO_SET' rs:basecolumn='CSA_TMPL_CD'>
-			<s:datatype dt:type='string' dt:maxLength='4000' rs:maybenull='false'/>
-		</s:AttributeType>
-		
-		
-		<s:AttributeType name='ROWID' rs:number='16' rs:rowid='true' rs:writeunknown='true' rs:basetable='CR_SMS_AUTO_SET'
-			 rs:basecolumn='ROWID' rs:keycolumn='true' rs:hidden='true' rs:autoincrement='true'>
-			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
-		</s:AttributeType>
-		<s:extends type='rs:rowbase'/>
-	</s:ElementType>
-</s:Schema>		<rs:data>
-<%
-		int cnt = 0;
-		while(cRsList.next()) {
-
-			cnt++;
-
-			String CSA_GUID_KD = cRsList.getString("CSA_GUID_KD");
-			String CSA_GUID_NM = cRsList.getString("CSA_GUID_NM");
-			String CSA_SEND_KD = cRsList.getString("CSA_SEND_KD");
-			String CSA_STAND_HH = cRsList.getString("CSA_STAND_HH");
-			String CSA_STAND_MM = cRsList.getString("CSA_STAND_MM");
-
-			String CSA_BEFOR_DT = cRsList.getString("CSA_BEFOR_DT");
-			String CSA_BEFOR_HH = cRsList.getString("CSA_BEFOR_HH");
-			String CSA_SEND_MSG = cRsList.getString("CSA_SEND_MSG");
-			String CSA_SEND_TEL = cRsList.getString("CSA_SEND_TEL");
-			String CSA_USE_YN = cRsList.getString("CSA_USE_YN");
-
-			String CSA_INPUT_ID = cRsList.getString("CSA_INPUT_ID");
-			String CSA_INPUT_DTT = cRsList.getString("CSA_INPUT_DTT");
-			String CSA_MODI_ID = cRsList.getString("CSA_MODI_ID");
-			String CSA_MODI_DTT = cRsList.getString("CSA_MODI_DTT");
-			String CSA_TMPL_CD = cRsList.getString("CSA_TMPL_CD");
-			
-			String ROWID_T = cRsList.getString("ROWID");
-%>
+					String ROWID_T = cRsList.getString("ROWID");
+			%>
 			<z:row
-<%
-			if(! CSA_GUID_KD.equals("")) {
-%>
-		 		CSA_GUID_KD='<%= CSA_GUID_KD%>'
-<%
-			}
+			<%
+				for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
 
-			if(! CSA_GUID_NM.equals("")) {
-%>
-		 		CSA_GUID_NM='<%= CSA_GUID_NM%>'
-<%
-			}
+					String tempData = cRsList.getString(rsmd.getColumnName(colCnt));
 
-			if(! CSA_SEND_KD.equals("")) {
-%>
-		 		CSA_SEND_KD='<%= CSA_SEND_KD%>'
-<%
-			}
+					if (rsmd.getColumnTypeName(colCnt).equals("BLOB")){
+						byte[] buf_BLOB = rsList.getBytes(rsmd.getColumnName(colCnt));
+						if(buf_BLOB != null) {
+							tempData = new String(buf_BLOB);
+						}
+					}
 
-			if(! CSA_STAND_HH.equals("")) {
-%>
-				CSA_STAND_HH='<%= CSA_STAND_HH%>'
-<%
-			}
-			
-			if(! CSA_STAND_MM.equals("")) {
-%>
-				CSA_STAND_MM='<%= CSA_STAND_MM%>'
-<%
-			}
-			
-			if(! CSA_BEFOR_DT.equals("")) {
-%>
-				CSA_BEFOR_DT='<%= CSA_BEFOR_DT%>'
-<%
-			}
-
-			
-			if(! CSA_BEFOR_HH.equals("")) {
-%>
-				CSA_BEFOR_HH='<%= CSA_BEFOR_HH%>'
-<%
-			}
-
-			
-			if(! CSA_SEND_MSG.equals("")) {
-%>
-				CSA_SEND_MSG='<%= CSA_SEND_MSG%>'
-<%
-			}
-
-			
-			if(! CSA_SEND_TEL.equals("")) {
-%>
-				CSA_SEND_TEL='<%= CSA_SEND_TEL%>'
-<%
-			}
-
-			
-			if(! CSA_USE_YN.equals("")) {
-%>
-				CSA_USE_YN='<%= CSA_USE_YN%>'
-<%
-			}
-
-			
-			if(! CSA_INPUT_ID.equals("")) {
-%>
-				CSA_INPUT_ID='<%= CSA_INPUT_ID%>'
-<%
-			}
-
-			
-			if(! CSA_INPUT_DTT.equals("")) {
-%>
-				CSA_INPUT_DTT='<%= CSA_INPUT_DTT%>'
-<%
-			}
-
-			
-			if(! CSA_MODI_ID.equals("")) {
-%>
-				CSA_MODI_ID='<%= CSA_MODI_ID%>'
-<%
-			}
-
-			
-			if(! CSA_MODI_DTT.equals("")) {
-%>
-				CSA_MODI_DTT='<%= CSA_MODI_DTT%>'
-<%
-			}
-
-			
-			if(! CSA_TMPL_CD.equals("")) {
-%>
-				CSA_TMPL_CD='<%= CSA_TMPL_CD%>'
-<%
-			}
-%>
-				ROWID='<%= cnt%>'
+					if(! tempData.equals("")) {
+			%>
+			<%= rsmd.getColumnName(colCnt)%>='<%= tempData%>'
+			<%
+					}
+				}
+			%>
+			ROWID='<%= cnt%>'
 			/>
-<%
-		}
-%>
+			<%
+				}
+			%>
 		</rs:data>
 		</xml>
 	</resultXml>
@@ -275,10 +142,10 @@
 </nurionXml>
 
 <%
-	} catch (Exception e) {
+} catch (Exception e) {
 
-		out.clear();		// include된 파일안의 공백 제거
-		response.addHeader("Content-type", "text/xml");
+	out.clear();		// include된 파일안의 공백 제거
+	response.addHeader("Content-type", "text/xml");
 %><?xml version="1.0" encoding="UTF-8"?>
 
 <%= G_INFO%>
@@ -287,20 +154,21 @@
 	<resultCode>400</resultCode>
 	<resultXml></resultXml>
 	<errorMsg><![CDATA[<%= e.toString()%>]]></errorMsg>
+	<sql><![CDATA[<%= sql%>]]></sql>
 </nurionXml>
 
 <%
-	} finally {
+} finally {
 
-		if(rsList != null) {
-			rsList.close();
-			rsList = null;
-		}
+	if(rsList != null) {
+		rsList.close();
+		rsList = null;
+	}
 
-		if(stmtList != null) {
-			stmtList.close();
-			stmtList = null;
-		}
+	if(stmtList != null) {
+		stmtList.close();
+		stmtList = null;
+	}
 %>
 <%@ include file="/inc_prg/disconnect.jsp"%>
 <%
