@@ -74,6 +74,7 @@ ORDER BY SEQ, ERI_ITEM_CD
 		sql += " AND A.ERI_EXAM_DT = EEA_EXAM_DT";
 		sql += " AND A.ERI_EXAM_SQ = EEA_EXAM_SQ";
 		sql += " AND NVL(A.ERI_CNCL_YN, 'N') <> 'Y' )";
+
 		sql += " UNION";
 		sql += " SELECT 'TOTAL' ERI_ITEM_CD, '종합소견' IIM_SNME_NM, '7' IIM_RSLT_KD, '1' AS SEQ";
 		sql += " FROM DUAL";
@@ -91,52 +92,88 @@ ORDER BY SEQ, ERI_ITEM_CD
 		sql += " FROM DUAL";
 
 		sql += " UNION";
-		sql += " SELECT STMCCHECK ERI_ITEM_CD, '기존위암자' IIM_SNME_NM,  '8' IIM_RSLT_KD, '4' AS SEQ";
-		sql += " UNION";
-		sql += " SELECT STMCPAN ERI_ITEM_CD, '위암판정' IIM_SNME_NM,  '8' IIM_RSLT_KD, '4' AS SEQ";
-		sql += " UNION";
-		sql += " SELECT STMCSO ERI_ITEM_CD, '위암소견' IIM_SNME_NM,  '8' IIM_RSLT_KD, '4' AS SEQ";
+		sql += " SELECT 'STMCCHECK' ERI_ITEM_CD, '기존위암자' IIM_SNME_NM,  '8' IIM_RSLT_KD, '4' AS SEQ";
+		sql += " FROM DUAL ";
 
 		sql += " UNION";
-		sql += " SELECT COLOCHECK ERI_ITEM_CD, '기존대장암자' IIM_SNME_NM,  '8' IIM_RSLT_KD, '5' AS SEQ";
-		sql += " UNION";
-		sql += " SELECT COLOPAN ERI_ITEM_CD, '대장암판정' IIM_SNME_NM,  '8' IIM_RSLT_KD, '5' AS SEQ";
-		sql += " UNION";
-		sql += " SELECT COLOSO ERI_ITEM_CD, '대장암판정소견' IIM_SNME_NM,  '8' IIM_RSLT_KD, '5' AS SEQ";
+		sql += " SELECT 'STMCPAN' ERI_ITEM_CD, '위암판정' IIM_SNME_NM,  '8' IIM_RSLT_KD, '4' AS SEQ";
+		sql += " FROM DUAL ";
 
 		sql += " UNION";
-		sql += " SELECT LIVERCHECK ERI_ITEM_CD, '기존간암자' IIM_SNME_NM,  '8' IIM_RSLT_KD, '6' AS SEQ";
-		sql += " UNION";
-		sql += " SELECT LIVERPAN ERI_ITEM_CD, '간암판정' IIM_SNME_NM,  '8' IIM_RSLT_KD, '6' AS SEQ";
-		sql += " UNION";
-		sql += " SELECT LIVERSO ERI_ITEM_CD, '간암판정소견' IIM_SNME_NM,  '8' IIM_RSLT_KD, '6' AS SEQ";
+		sql += " SELECT 'STMCSO' ERI_ITEM_CD, '위암소견' IIM_SNME_NM,  '8' IIM_RSLT_KD, '4' AS SEQ";
+		sql += " FROM DUAL ";
 
 		sql += " UNION";
-		sql += " SELECT BRSTCHECK ERI_ITEM_CD, '기존유방암자' IIM_SNME_NM,  '8' IIM_RSLT_KD, '7' AS SEQ";
-		sql += " UNION";
-		sql += " SELECT BRSTPAN ERI_ITEM_CD, '유방암판정' IIM_SNME_NM,  '8'' IIM_RSLT_KD, '7' AS SEQ";
-		sql += " UNION";
-		sql += " SELECT BRSTSO ERI_ITEM_CD, '유방암판정소견' IIM_SNME_NM,  '8' IIM_RSLT_KD, '7' AS SEQ";
+		sql += " SELECT 'COLOCHECK' ERI_ITEM_CD, '기존대장암자' IIM_SNME_NM,  '8' IIM_RSLT_KD, '5' AS SEQ";
+		sql += " FROM DUAL ";
 
 		sql += " UNION";
-		sql += " SELECT CRVCCHECK ERI_ITEM_CD, '기존자궁암자' IIM_SNME_NM,  '8' IIM_RSLT_KD, '8'' AS SEQ";
-		sql += " UNION";
-		sql += " SELECT CRVCPAN ERI_ITEM_CD, '자궁암판정' IIM_SNME_NM,  '8' IIM_RSLT_KD, '8' AS SEQ";
-		sql += " UNION";
-		sql += " SELECT CRVCSO ERI_ITEM_CD, '자궁암판정소견' IIM_SNME_NM,  '8' IIM_RSLT_KD, '8' AS SEQ";
+		sql += " SELECT 'COLOPAN' ERI_ITEM_CD, '대장암판정' IIM_SNME_NM,  '8' IIM_RSLT_KD, '5' AS SEQ";
+		sql += " FROM DUAL ";
 
 		sql += " UNION";
-		sql += " SELECT LUNGCHECK ERI_ITEM_CD, '기존폐암자' IIM_SNME_NM,  '8' IIM_RSLT_KD, '9' AS SEQ";
+		sql += " SELECT 'COLOSO' ERI_ITEM_CD, '대장암판정소견' IIM_SNME_NM,  '8' IIM_RSLT_KD, '5' AS SEQ";
+		sql += " FROM DUAL ";
+
 		sql += " UNION";
-		sql += " SELECT LUNGPAN ERI_ITEM_CD, '폐암판정' IIM_SNME_NM,  '8' IIM_RSLT_KD, '9' AS SEQ";
+		sql += " SELECT 'LIVERCHECK' ERI_ITEM_CD, '기존간암자' IIM_SNME_NM,  '8' IIM_RSLT_KD, '6' AS SEQ";
+		sql += " FROM DUAL ";
+
 		sql += " UNION";
-		sql += " SELECT LUNGPANS ERI_ITEM_CD, '폐암범주' IIM_SNME_NM,  '8' IIM_RSLT_KD, '9' AS SEQ";
+		sql += " SELECT 'LIVERPAN' ERI_ITEM_CD, '간암판정' IIM_SNME_NM,  '8' IIM_RSLT_KD, '6' AS SEQ";
+		sql += " FROM DUAL ";
+
 		sql += " UNION";
-		sql += " SELECT LUNGPANT ERI_ITEM_CD, '폐암기타폐결절외 의미있는 소견' IIM_SNME_NM,  '8' IIM_RSLT_KD, '9' AS SEQ";
+		sql += " SELECT 'LIVERSO' ERI_ITEM_CD, '간암판정소견' IIM_SNME_NM,  '8' IIM_RSLT_KD, '6' AS SEQ";
+		sql += " FROM DUAL ";
+
 		sql += " UNION";
-		sql += " SELECT LUNGSO ERI_ITEM_CD, '폐암판정권고' IIM_SNME_NM,  '8' IIM_RSLT_KD, '9' AS SEQ";
+		sql += " SELECT 'BRSTCHECK' ERI_ITEM_CD, '기존유방암자' IIM_SNME_NM,  '8' IIM_RSLT_KD, '7' AS SEQ";
+		sql += " FROM DUAL ";
+
 		sql += " UNION";
-		sql += " SELECT LUNGSOS ERI_ITEM_CD, '폐암판정권고(폐결절)' IIM_SNME_NM,  '8' IIM_RSLT_KD, '9' AS SEQ";
+		sql += " SELECT 'BRSTPAN' ERI_ITEM_CD, '유방암판정' IIM_SNME_NM, '8' IIM_RSLT_KD, '7' AS SEQ";
+		sql += " FROM DUAL ";
+
+		sql += " UNION";
+		sql += " SELECT 'BRSTSO' ERI_ITEM_CD, '유방암판정소견' IIM_SNME_NM,  '8' IIM_RSLT_KD, '7' AS SEQ";
+		sql += " FROM DUAL ";
+
+		sql += " UNION";
+		sql += " SELECT 'CRVCCHECK' ERI_ITEM_CD, '기존자궁암자' IIM_SNME_NM,  '8' IIM_RSLT_KD, '8' AS SEQ";
+		sql += " FROM DUAL ";
+
+		sql += " UNION";
+		sql += " SELECT 'CRVCPAN' ERI_ITEM_CD, '자궁암판정' IIM_SNME_NM,  '8' IIM_RSLT_KD, '8' AS SEQ";
+		sql += " FROM DUAL ";
+
+		sql += " UNION";
+		sql += " SELECT 'CRVCSO' ERI_ITEM_CD, '자궁암판정소견' IIM_SNME_NM,  '8' IIM_RSLT_KD, '8' AS SEQ";
+		sql += " FROM DUAL ";
+
+		sql += " UNION";
+		sql += " SELECT 'LUNGCHECK' ERI_ITEM_CD, '기존폐암자' IIM_SNME_NM,  '8' IIM_RSLT_KD, '9' AS SEQ";
+		sql += " FROM DUAL ";
+
+		sql += " UNION";
+		sql += " SELECT 'LUNGPAN' ERI_ITEM_CD, '폐암판정' IIM_SNME_NM,  '8' IIM_RSLT_KD, '9' AS SEQ";
+		sql += " FROM DUAL ";
+
+		sql += " UNION";
+		sql += " SELECT 'LUNGPANS' ERI_ITEM_CD, '폐암범주' IIM_SNME_NM,  '8' IIM_RSLT_KD, '9' AS SEQ";
+		sql += " FROM DUAL ";
+
+		sql += " UNION";
+		sql += " SELECT 'LUNGPANT' ERI_ITEM_CD, '폐암기타폐결절외 의미있는 소견' IIM_SNME_NM,  '8' IIM_RSLT_KD, '9' AS SEQ";
+		sql += " FROM DUAL ";
+
+		sql += " UNION";
+		sql += " SELECT 'LUNGSO' ERI_ITEM_CD, '폐암판정권고' IIM_SNME_NM,  '8' IIM_RSLT_KD, '9' AS SEQ";
+		sql += " FROM DUAL ";
+
+		sql += " UNION";
+		sql += " SELECT 'LUNGSOS' ERI_ITEM_CD, '폐암판정권고(폐결절)' IIM_SNME_NM,  '8' IIM_RSLT_KD, '9' AS SEQ";
+		sql += " FROM DUAL ";
 
 		sql += " ORDER BY SEQ, ERI_ITEM_CD";
 
