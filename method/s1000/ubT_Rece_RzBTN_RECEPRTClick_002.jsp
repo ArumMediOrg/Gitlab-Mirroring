@@ -60,7 +60,8 @@
 
 		sql += " (select MAX(EEA_EXAM_DT) from ET_EXAM_ACPT where EEA_RECE_NO = RRM_RECE_NO) EEA_EXAM_DT, ";
 		sql += " RRM_CUST_NM,   RRM_RECE_DT, MAX(IAU_PENL_NM) IAU_PENL_NM, ";
-		sql += " MAX(RRM_CHARGE_PR) RRM_CHARGE_PR, SUM(SUM_AMT) SUM_AMT,     SUM(SALEAMT) SALEAMT, ";
+		sql += " (select MAX(EEA_PSNLR_PR) from ET_EXAM_ACPT where EEA_RECE_NO = RRM_RECE_NO)  RRM_CHARGE_PR, SUM(SUM_AMT) SUM_AMT, ";
+		sql += " SUM(SALEAMT) SALEAMT, ";
 
 		if(CHBXRETRUN_PR.equals("Y")){
 			if(CHBXPNT_GROUP.equals("Y")){
