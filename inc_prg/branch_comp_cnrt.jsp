@@ -76,4 +76,5 @@
 	htBranch.put("uCOMP_CNRT_PROF_TRNS_UP_Save_004", 		"/method/comp_cnrt/uCOMP_CNRT_PROF_TRNS_UP_Save_004.jsp");
 	htBranch.put("uCOMP_CNRT_PROF_TRNS_UP_Save_007", 		"/method/comp_cnrt/uCOMP_CNRT_PROF_TRNS_UP_Save_007.jsp");
 	htBranch.put("uCOMP_CNRT_OPTN_GETEXEC_001", 		"/method/comp_cnrt/uCOMP_CNRT_OPTN_GETEXEC_001.jsp");
+	htBranch.put("uCOMP_CNRT_XML_SP_001", 		"/method/comp_cnrt/uCOMP_CNRT_XML_SP_001.jsp");
 %>
