@@ -8,35 +8,35 @@
 
 		try {
 
-			String SMS_Code = (String) argHtMethod.get("SMS_Code");
+			String SMS_CODE = (String) argHtMethod.get("SMS_CODE");
 			String SEND_MSG = (String) argHtMethod.get("SEND_MSG");
 			String INPUT_ID = (String) argHtMethod.get("INPUT_ID");
-			String CheckBox1 = (String) argHtMethod.get("CheckBox1");
+			String CHECKBOX1 = (String) argHtMethod.get("CHECKBOX1");
 
 			//
-			if(SMS_Code == null) { SMS_Code = ""; }
+			if(SMS_CODE == null) { SMS_CODE = ""; }
 			if(SEND_MSG == null) { SEND_MSG = ""; }
 			if(INPUT_ID == null) { INPUT_ID = ""; }
-			if(CheckBox1 == null) { CheckBox1 = ""; }
+			if(CHECKBOX1 == null) { CHECKBOX1 = ""; }
 
 			//
-			SMS_Code = CTr.Replace(SMS_Code, "'", "''");
+			SMS_CODE = CTr.Replace(SMS_CODE, "'", "''");
 			SEND_MSG = CTr.Replace(SEND_MSG, "'", "''");
 			INPUT_ID = CTr.Replace(INPUT_ID, "'", "''");
-			CheckBox1 = CTr.Replace(CheckBox1, "'", "''");
+			CHECKBOX1 = CTr.Replace(CHECKBOX1, "'", "''");
 
-			sql = "Update CR_SMS_AUTO_SET      ";
-			sql += " Set CSA_SEND_MSG = '" + SEND_MSG + "'";
-			sql += "  ,  CSA_MODI_ID  = '" + INPUT_ID + "'";
-			sql += "  ,  CSA_MODI_DTT  = SYSDATE  ";
-			
-			if(CheckBox1.equals("1")) {
+			sql = " UPDATE CR_SMS_AUTO_SET SET";
+			sql += "  CSA_SEND_MSG = '" + SEND_MSG + "'";
+			sql += ", CSA_MODI_ID = '" + INPUT_ID + "'";
+			sql += ", CSA_MODI_DTT = SYSDATE  ";
+
+			if(CHECKBOX1.equals("1")) {
 				sql += "  ,  CSA_USE_YN = 'N'  ";
 			} else {
 				sql += "  ,  CSA_USE_YN = 'Y'  ";
 			}
-			
-			sql += " Where CSA_GUID_KD = '" + SMS_Code + "'";
+
+			sql += " WHERE CSA_GUID_KD = '" + SMS_CODE + "'";
 
 			argStmtExec.executeUpdate(sql);
 
