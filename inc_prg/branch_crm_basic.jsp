@@ -81,6 +81,8 @@
 	htBranch.put("uCRM_BASIC_MAIN_BtnS3_Schedule_SearchClick_001", "/method/crm_basic/uCRM_BASIC_MAIN_BtnS3_Schedule_SearchClick_001.jsp");
 	htBranch.put("uSchedule_Apply_BtnSaveClick_001", "/method/crm_basic/uSchedule_Apply_BtnSaveClick_001.jsp");
 	htBranch.put("uCRM_BASIC_MAIN_UP_Save_001", "/method/crm_basic/uCRM_BASIC_MAIN_UP_Save_001.jsp");
+	htBranch.put("uCRM_BASIC_MAIN_UP_Save_002", "/method/crm_basic/uCRM_BASIC_MAIN_UP_Save_002.jsp");
+	htBranch.put("uCRM_BASIC_MAIN_UP_Save_003", "/method/crm_basic/uCRM_BASIC_MAIN_UP_Save_003.jsp");
 	htBranch.put("uCRM_BASIC_MAIN_btnS2_DeleteClick_001", "/method/crm_basic/uCRM_BASIC_MAIN_btnS2_DeleteClick_001.jsp");
 	htBranch.put("uSchedule_Apply_UF_GridDisplay_001", "/method/crm_basic/uSchedule_Apply_UF_GridDisplay_001.jsp");
 	htBranch.put("uSchedule_Customer_Search_UP_Main_GridDisplay_001", "/method/crm_basic/uSchedule_Customer_Search_UP_Main_GridDisplay_001.jsp");
