@@ -625,6 +625,8 @@
 <%@ include file="/func/func_frameSetCustomExamResult_targetItemSave_003.jsp"%>
 <%@ include file="/func/func_uSchedule_Apply_BtnSaveClick_001.jsp"%>
 <%@ include file="/func/func_uCRM_BASIC_MAIN_UP_Save_001.jsp"%>
+<%@ include file="/func/func_uCRM_BASIC_MAIN_UP_Save_002.jsp"%>
+<%@ include file="/func/func_uCRM_BASIC_MAIN_UP_Save_003.jsp"%>
 <%@ include file="/func/func_uCRM_BASIC_MAIN_btnS2_DeleteClick_001.jsp"%>
 <%@ include file="/func/func_uKUMC_Point_Management_usePoint_001.jsp"%>
 <%@ include file="/func/func_uKUMC_Point_Management_usePointNew_001.jsp"%>
@@ -1310,6 +1312,8 @@
 		if(argMethodName.equals("frameSetCustomExamResult_targetItemSave_003")) 	{ return func_frameSetCustomExamResult_targetItemSave_003(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uSchedule_Apply_BtnSaveClick_001")) 	{ return func_uSchedule_Apply_BtnSaveClick_001(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uCRM_BASIC_MAIN_UP_Save_001")) 	{ return func_uCRM_BASIC_MAIN_UP_Save_001(argStmtExec, argHtMethod); }
+		if(argMethodName.equals("uCRM_BASIC_MAIN_UP_Save_002")) 	{ return func_uCRM_BASIC_MAIN_UP_Save_002(argStmtExec, argHtMethod); }
+		if(argMethodName.equals("uCRM_BASIC_MAIN_UP_Save_003")) 	{ return func_uCRM_BASIC_MAIN_UP_Save_003(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uCRM_BASIC_MAIN_btnS2_DeleteClick_001")) 	{ return func_uCRM_BASIC_MAIN_btnS2_DeleteClick_001(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uKUMC_Point_Management_usePoint_001")) 	{ return func_uKUMC_Point_Management_usePoint_001(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uKUMC_Point_Management_usePointNew_001")) 	{ return func_uKUMC_Point_Management_usePointNew_001(argStmtExec, argHtMethod); }
