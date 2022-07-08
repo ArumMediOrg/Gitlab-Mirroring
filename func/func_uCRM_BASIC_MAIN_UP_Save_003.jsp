@@ -27,7 +27,6 @@
 			sql += " CAP_MODI_ID = '" + INPT_ID + "', ";
 			sql += " CAP_MODI_DTT = SYSDATE ";
 			sql += " WHERE CAP_EXAM_DT = '9999-12-31'";
-			sql += " AND CAP_EXAM_SQ = '999999'";
 			sql += " AND CAP_RSVN_DT = '" + RSVN_DT + "'";
 
 
