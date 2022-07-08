@@ -23,10 +23,12 @@
 
 		String RSVN_DT = htMethod.get("RSVN_DT");
 		String INPT_ID = htMethod.get("INPT_ID");
+		String SEXAM_SQ = htMethod.get("SEXAM_SQ");
 
 		//
 		if(RSVN_DT == null) { RSVN_DT = ""; }
 		if(INPT_ID == null) { INPT_ID = ""; }
+		if(SEXAM_SQ == null) { SEXAM_SQ = ""; }
 
 		// DB객체
 		stmtExec = connect.createStatement();
@@ -42,6 +44,7 @@
 			G_INFO += "전달인자 : \n";
 			G_INFO += " RSVN_DT : " + RSVN_DT + " \n";
 			G_INFO += " INPT_ID : " + INPT_ID + " \n";
+			G_INFO += " SEXAM_SQ : " + SEXAM_SQ + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";
