@@ -35,24 +35,13 @@
     // DB객체
     stmtList = connect.createStatement();
 
-		/*
-
-select A.aliasField1, A.aliasField2, A.aliasField3, A.aliasField4, A.aliasField5, A.aliasField6, A.aliasField7, A.aliasField8, A.aliasField9, A.aliasField10,
-       A.aliasField11, A.aliasField12, A.aliasField13, A.aliasField14, A.aliasField15, A.aliasField16, A.aliasField17, A.aliasField18, A.aliasField19, A.aliasField20 from
-(
-  :sSql
-) A
-
-		*/
-
-    sql = "  SELECT ";
-    sql += " * ";
+    sql =  " SELECT * ";
     sql += " FROM (" + SSQL + ") A";
 
     //
     G_INFO += "<!-- \n";
     G_INFO += "서비스명 : uCommon_XML_userCustomQuery_004 \n";
-    G_INFO += "설명 : 알리아싱된 데이터 출력을 위한 쿼리 - maxlength를 크게 잡아주시기 바랍니다. \n";
+    G_INFO += "설명 : 데이터 출력을 위한 쿼리 \n";
     G_INFO += "\n\n";
 
     G_INFO += "전달인자 : \n";
@@ -64,6 +53,8 @@ select A.aliasField1, A.aliasField2, A.aliasField3, A.aliasField4, A.aliasField5
 
     rsList = stmtList.executeQuery(sql);
     cRsList = new CRs(rsList);
+
+    rsmd = rsList.getMetaData();  //Select 결과의 Metadata 가져오기.
 
     out.clear();		// include된 파일안의 공백 제거
     response.addHeader("Content-type", "text/xml");
@@ -84,7 +75,7 @@ select A.aliasField1, A.aliasField2, A.aliasField3, A.aliasField4, A.aliasField5
                     <%
                         for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
                             String dataType = "string";
-                            String maxLength = "30000";
+                            String maxLength = "35000";
 
                             if (rsmd.getColumnTypeName(colCnt).equals("BLOB")){
                                 dataType = "bin.hex";
@@ -96,7 +87,7 @@ select A.aliasField1, A.aliasField2, A.aliasField3, A.aliasField4, A.aliasField5
                             }
                     %>
                     <s:AttributeType name='<%= rsmd.getColumnName(colCnt)%>' rs:number='<%= Integer.toString(colCnt)%>' rs:writeunknown='true' rs:basetable='DUAL' rs:basecolumn='<%= rsmd.getColumnName(colCnt)%>'>
-                        <s:datatype dt:type='<%= dataType%>' dt:maxLength='<%= maxLength%>' <% if (! maxLength.equals("30000")) { %> rs:long='true' <% } %>/>
+                        <s:datatype dt:type='<%= dataType%>' dt:maxLength='<%= maxLength%>' <% if (! maxLength.equals("35000")) { %> rs:long='true' <% } %>/>
                     </s:AttributeType>
                     <%
                         }
@@ -107,40 +98,39 @@ select A.aliasField1, A.aliasField2, A.aliasField3, A.aliasField4, A.aliasField5
                     </s:AttributeType>
                     <s:extends type='rs:rowbase'/>
                 </s:ElementType>
-            </s:Schema>
-            <rs:data>
-                <%
-                    int cnt = 0;
-                    while(cRsList.next()) {
+            </s:Schema>		<rs:data>
+            <%
+                int cnt = 0;
+                while(cRsList.next()) {
 
-                        cnt++;
+                    cnt++;
 
-                        String ROWID_T = cRsList.getString("ROWID");
-                %>
-                <z:row
-                <%
-                    for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
-                        String tempData = cRsList.getString(rsmd.getColumnName(colCnt));
-                        if(! tempData.equals("")) {
-                %>
-                <%= rsmd.getColumnName(colCnt)%>='<%= tempData%>'
-                <%
-                        }
+                    String ROWID_T = cRsList.getString("ROWID");
+            %>
+            <z:row
+            <%
+                for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
+                    String tempData = cRsList.getString(rsmd.getColumnName(colCnt));
+                    if(! tempData.equals("")) {
+            %>
+            <%= rsmd.getColumnName(colCnt)%>='<%= tempData%>'
+            <%
                     }
-                %>
-                ROWID='<%= cnt%>'
-                />
-                <%
-                    }
-                %>
-            </rs:data>
+                }
+            %>
+            ROWID='<%= cnt%>'
+            />
+            <%
+                }
+            %>
+        </rs:data>
         </xml>
     </resultXml>
     <errorMsg></errorMsg>
 </nurionXml>
 
 <%
-        } catch (Exception e) {
+} catch (Exception e) {
 
     out.clear();		// include된 파일안의 공백 제거
     response.addHeader("Content-type", "text/xml");
@@ -156,7 +146,7 @@ select A.aliasField1, A.aliasField2, A.aliasField3, A.aliasField4, A.aliasField5
 </nurionXml>
 
 <%
-    } finally {
+} finally {
 
     if(rsList != null) {
         rsList.close();
@@ -172,3 +162,4 @@ select A.aliasField1, A.aliasField2, A.aliasField3, A.aliasField4, A.aliasField5
 <%
     }
 %>
+
