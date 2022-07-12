@@ -67,6 +67,7 @@
 		String ROAD_AR2 = htMethod.get("ROAD_AR2");
 		String HOSP_IMG2 = htMethod.get("HOSP_IMG2");
 		String HOSP_CD = htMethod.get("HOSP_CD");
+		String NETDOWN_PATH = htMethod.get("NETDOWN_PATH");
 
 		//
 		if(HOSP_NO == null) { HOSP_NO = ""; }
@@ -115,6 +116,7 @@
 		if(ROAD_AR2 == null) { ROAD_AR2 = ""; }
 		if(HOSP_IMG2 == null) { HOSP_IMG2 = ""; }
 		if(HOSP_CD == null) { HOSP_CD = ""; }
+		if(NETDOWN_PATH == null) { NETDOWN_PATH = ""; }
 
 		// DB객체
 		stmtExec = connect.createStatement();
@@ -174,6 +176,7 @@
 			G_INFO += " ROAD_AR2 : " + ROAD_AR2 + " \n";
 			G_INFO += " HOSP_IMG2 : " + HOSP_IMG2 + " \n";
 			G_INFO += " HOSP_CD : " + HOSP_CD + " \n";
+			G_INFO += " NETDOWN_PATH : " + NETDOWN_PATH + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";
