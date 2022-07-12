@@ -54,6 +54,8 @@
 			String RTKN_KEY = (String) argHtMethod.get("RTKN_KEY");
 			String STKN_KEY = (String) argHtMethod.get("STKN_KEY");
 			String NETDOWN_PATH = (String) argHtMethod.get("NETDOWN_PATH");
+			String NETDOWN_ID = (String) argHtMethod.get("NETDOWN_ID");
+			String NETDOWN_PW = (String) argHtMethod.get("NETDOWN_PW");
 
 			//
 			if(HOSP_NO == null) { HOSP_NO = ""; }
@@ -103,6 +105,8 @@
 			if(RTKN_KEY == null) { RTKN_KEY = ""; }
 			if(STKN_KEY == null) { STKN_KEY = ""; }
 			if(NETDOWN_PATH == null) { NETDOWN_PATH = ""; }
+			if(NETDOWN_ID == null) { NETDOWN_ID = ""; }
+			if(NETDOWN_PW == null) { NETDOWN_PW = ""; }
 
 			sql = "UPDATE IT_HOSPITAL SET IHL_HOSP_NO = ?, IHL_HOSP_NM = ?, IHL_BUSI_NO = ?, IHL_BUCO_NO = ?, IHL_BUCA_NO = ?, IHL_PRES_NM = ?, IHL_ZIP_CD = ?, IHL_ZIP_AR = ?, IHL_ROAD_AR = ?, IHL_ASSO_NO = ?, IHL_ASSO_NM = ?, IHL_STAN_CD = ?, IHL_HECK_CD = ?, IHL_SYCK_CD = ?, IHL_SUCK_CD = ?, IHL_EOCK_CD = ?, IHL_EBCK_CD = ?, IHL_SACK_CD = ?, IHL_GUCK_CD = ?, IHL_HYCK_CD = ?, IHL_SPCK_CD = ?, IHL_MACK_CD = ?, IHL_BLCK_CD = ?, IHL_SECK_CD = ?, IHL_BUSI_CD = ?, IHL_CHAR_YN = ?, IHL_SUBO_CD = ?, IHL_JTEL_NO = ?, IHL_HOSP_IMG = ?, IHL_GTEL_NO = ?, IHL_STEL_NO = ?, IHL_ACNU1_NO = ?, IHL_ACNU2_NO = ?, IHL_ACNU3_NO = ?, IHL_MODI_ID = ?, IHL_MODI_DTT = ?, IHL_HOSP_NO2 = ?, IHL_HOSP_NM2 = ?, IHL_DTTEL_NO = ?, IHL_ZIP_CD2 = ?, IHL_ZIP_AR2 = ?, IHL_ROAD_AR2 = ?, IHL_HOSP_IMG2 = ?, IHL_HOSP_CD = ?, IHL_NETDOWN_PATH = ?";
 			if(! RTKN_KEY.equals("")) {
@@ -159,17 +163,19 @@
 			pstmt.setString(42, ROAD_AR2);
 			pstmt.setBytes(43, HOSP_IMG2.getBytes());
 			pstmt.setString(44, HOSP_CD);
-			pstmt.setString(45, NETDOWN_PATH);
+			pstmt.setString(47, NETDOWN_PATH);
+			pstmt.setString(48, NETDOWN_ID);
+			pstmt.setString(49, NETDOWN_PW);
 
 			if(! RTKN_KEY.equals("")) {
-				pstmt.setString(46, RTKN_KEY);
+				pstmt.setString(45, RTKN_KEY);
 			}
 
 			if(! STKN_KEY.equals("")) {
 				if(! RTKN_KEY.equals("")) {
-						pstmt.setString(47, STKN_KEY);
-				} else {
 						pstmt.setString(46, STKN_KEY);
+				} else {
+						pstmt.setString(45, STKN_KEY);
 				}
 			}
 
