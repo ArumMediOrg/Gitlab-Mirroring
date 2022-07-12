@@ -67,6 +67,7 @@
 		String HOSP_CD = htMethod.get("HOSP_CD");
 		String RTKN_KEY = htMethod.get("RTKN_KEY");
 		String STKN_KEY = htMethod.get("STKN_KEY");
+		String NETDOWN_PATH = htMethod.get("NETDOWN_PATH");
 
 		//
 		if(HOSP_NO == null) { HOSP_NO = ""; }
@@ -115,21 +116,22 @@
 		if(HOSP_CD == null) { HOSP_CD = ""; }
 		if(RTKN_KEY == null) { RTKN_KEY = ""; }
 		if(STKN_KEY == null) { STKN_KEY = ""; }
+		if(NETDOWN_PATH == null) { NETDOWN_PATH = ""; }
 
 		// DB객체
 		stmtExec = connect.createStatement();
 
 		/*
 
- UPDATE IT_HOSPITAL SET                                                                                                                                                                   
-IHL_HOSP_NO= :HOSP_NO ,IHL_HOSP_NM= :HOSP_NM,        IHL_BUSI_NO=:BUSI_NO,IHL_BUCO_NO=:BUCO_NO,IHL_BUCA_NO=:BUCA_NO,IHL_PRES_NM=:PRES_NM, IHL_ZIP_CD=:ZIP_CD,       
-IHL_ZIP_AR =:ZIP_AR,         IHL_ROAD_AR=:ROAD_AR,        IHL_ASSO_NO=:ASSO_NO, IHL_ASSO_NM=:ASSO_NM,        IHL_STAN_CD=:STAN_CD, IHL_HECK_CD=:HECK_CD,        IHL_SYCK_CD=:SYCK_CD,    
-IHL_SUCK_CD=:SUCK_CD, IHL_EOCK_CD=:EOCK_CD,        IHL_EBCK_CD=:EBCK_CD, IHL_SACK_CD=:SACK_CD, IHL_GUCK_CD=:GUCK_CD, IHL_HYCK_CD=:HYCK_CD,        IHL_SPCK_CD=:SPCK_CD,    
-IHL_MACK_CD=:MACK_CD, IHL_BLCK_CD=:BLCK_CD, IHL_SECK_CD=:SECK_CD, IHL_BUSI_CD=:BUSI_CD, IHL_CHAR_YN=:CHAR_YN, IHL_SUBO_CD=:SUBO_CD, IHL_JTEL_NO=:JTEL_NO,     
-IHL_HOSP_IMG=:HOSP_IMG,                                                                                                                                                               
+ UPDATE IT_HOSPITAL SET
+IHL_HOSP_NO= :HOSP_NO ,IHL_HOSP_NM= :HOSP_NM,        IHL_BUSI_NO=:BUSI_NO,IHL_BUCO_NO=:BUCO_NO,IHL_BUCA_NO=:BUCA_NO,IHL_PRES_NM=:PRES_NM, IHL_ZIP_CD=:ZIP_CD,
+IHL_ZIP_AR =:ZIP_AR,         IHL_ROAD_AR=:ROAD_AR,        IHL_ASSO_NO=:ASSO_NO, IHL_ASSO_NM=:ASSO_NM,        IHL_STAN_CD=:STAN_CD, IHL_HECK_CD=:HECK_CD,        IHL_SYCK_CD=:SYCK_CD,
+IHL_SUCK_CD=:SUCK_CD, IHL_EOCK_CD=:EOCK_CD,        IHL_EBCK_CD=:EBCK_CD, IHL_SACK_CD=:SACK_CD, IHL_GUCK_CD=:GUCK_CD, IHL_HYCK_CD=:HYCK_CD,        IHL_SPCK_CD=:SPCK_CD,
+IHL_MACK_CD=:MACK_CD, IHL_BLCK_CD=:BLCK_CD, IHL_SECK_CD=:SECK_CD, IHL_BUSI_CD=:BUSI_CD, IHL_CHAR_YN=:CHAR_YN, IHL_SUBO_CD=:SUBO_CD, IHL_JTEL_NO=:JTEL_NO,
+IHL_HOSP_IMG=:HOSP_IMG,
 IHL_GTEL_NO=:GTEL_NO, IHL_STEL_NO=:STEL_NO, IHL_ACNU1_NO=:ACNU1_NO,IHL_ACNU2_NO=:ACNU2_NO,IHL_ACNU3_NO=:ACNU3_NO,IHL_MODI_ID=:MODI_ID,IHL_MODI_DTT= :MODI_DTT,
-IHL_HOSP_NO2=:HOSP_NO2,IHL_HOSP_NM2=:HOSP_NM2,IHL_DTTEL_NO=:DTTEL_NO,                                                                                                         
-IHL_ZIP_CD2=:ZIP_CD2, IHL_ZIP_AR2=:ZIP_AR2, IHL_ROAD_AR2=:ROAD_AR2,IHL_HOSP_IMG2=:HOSP_IMG2,                                                                              
+IHL_HOSP_NO2=:HOSP_NO2,IHL_HOSP_NM2=:HOSP_NM2,IHL_DTTEL_NO=:DTTEL_NO,
+IHL_ZIP_CD2=:ZIP_CD2, IHL_ZIP_AR2=:ZIP_AR2, IHL_ROAD_AR2=:ROAD_AR2,IHL_HOSP_IMG2=:HOSP_IMG2,
 IHL_HOSP_CD = :HOSP_CD
 
 IF (:RTKN_KEY <> '') THEN
@@ -139,7 +141,7 @@ IF (:STKN_KEY <> '') THEN
   , IHL_STKN_KEY = :STKN_KEY
 		*/
 
-		sql = "UPDATE IT_HOSPITAL SET IHL_HOSP_NO = ?, IHL_HOSP_NM = ?, IHL_BUSI_NO = ?, IHL_BUCO_NO = ?, IHL_BUCA_NO = ?, IHL_PRES_NM = ?, IHL_ZIP_CD = ?, IHL_ZIP_AR = ?, IHL_ROAD_AR = ?, IHL_ASSO_NO = ?, IHL_ASSO_NM = ?, IHL_STAN_CD = ?, IHL_HECK_CD = ?, IHL_SYCK_CD = ?, IHL_SUCK_CD = ?, IHL_EOCK_CD = ?, IHL_EBCK_CD = ?, IHL_SACK_CD = ?, IHL_GUCK_CD = ?, IHL_HYCK_CD = ?, IHL_SPCK_CD = ?, IHL_MACK_CD = ?, IHL_BLCK_CD = ?, IHL_SECK_CD = ?, IHL_BUSI_CD = ?, IHL_CHAR_YN = ?, IHL_SUBO_CD = ?, IHL_JTEL_NO = ?, IHL_HOSP_IMG = ?, IHL_GTEL_NO = ?, IHL_STEL_NO = ?, IHL_ACNU1_NO = ?, IHL_ACNU2_NO = ?, IHL_ACNU3_NO = ?, IHL_MODI_ID = ?, IHL_MODI_DTT = ?, IHL_HOSP_NO2 = ?, IHL_HOSP_NM2 = ?, IHL_DTTEL_NO = ?, IHL_ZIP_CD2 = ?, IHL_ZIP_AR2 = ?, IHL_ROAD_AR2 = ?, IHL_HOSP_IMG2 = ?, IHL_HOSP_CD = ?";
+		sql = "UPDATE IT_HOSPITAL SET IHL_HOSP_NO = ?, IHL_HOSP_NM = ?, IHL_BUSI_NO = ?, IHL_BUCO_NO = ?, IHL_BUCA_NO = ?, IHL_PRES_NM = ?, IHL_ZIP_CD = ?, IHL_ZIP_AR = ?, IHL_ROAD_AR = ?, IHL_ASSO_NO = ?, IHL_ASSO_NM = ?, IHL_STAN_CD = ?, IHL_HECK_CD = ?, IHL_SYCK_CD = ?, IHL_SUCK_CD = ?, IHL_EOCK_CD = ?, IHL_EBCK_CD = ?, IHL_SACK_CD = ?, IHL_GUCK_CD = ?, IHL_HYCK_CD = ?, IHL_SPCK_CD = ?, IHL_MACK_CD = ?, IHL_BLCK_CD = ?, IHL_SECK_CD = ?, IHL_BUSI_CD = ?, IHL_CHAR_YN = ?, IHL_SUBO_CD = ?, IHL_JTEL_NO = ?, IHL_HOSP_IMG = ?, IHL_GTEL_NO = ?, IHL_STEL_NO = ?, IHL_ACNU1_NO = ?, IHL_ACNU2_NO = ?, IHL_ACNU3_NO = ?, IHL_MODI_ID = ?, IHL_MODI_DTT = ?, IHL_HOSP_NO2 = ?, IHL_HOSP_NM2 = ?, IHL_DTTEL_NO = ?, IHL_ZIP_CD2 = ?, IHL_ZIP_AR2 = ?, IHL_ROAD_AR2 = ?, IHL_HOSP_IMG2 = ?, IHL_HOSP_CD = ?, IHL_NETDOWN_PATH = ?";
 		if(! RTKN_KEY.equals("")) {
 			sql += ", IHL_RTKN_KEY = ?";
 		}
@@ -194,15 +196,16 @@ IF (:STKN_KEY <> '') THEN
 		pstmt.setString(42, ROAD_AR2);
 		pstmt.setBytes(43, HOSP_IMG2.getBytes());
 		pstmt.setString(44, HOSP_CD);
+		pstmt.setString(45, NETDOWN_PATH);
 
 		if(! RTKN_KEY.equals("")) {
-			pstmt.setString(45, RTKN_KEY);
+			pstmt.setString(46, RTKN_KEY);
 		}
 		if(! STKN_KEY.equals("")) {
 			if(! RTKN_KEY.equals("")) {
-				pstmt.setString(46, STKN_KEY);
+				pstmt.setString(47, STKN_KEY);
 			} else {
-				pstmt.setString(45, STKN_KEY);
+				pstmt.setString(46, STKN_KEY);
 			}
 		}
 
@@ -260,6 +263,7 @@ IF (:STKN_KEY <> '') THEN
 			G_INFO += " HOSP_CD : " + HOSP_CD + " \n";
 			G_INFO += " RTKN_KEY : " + RTKN_KEY + " \n";
 			G_INFO += " STKN_KEY : " + STKN_KEY + " \n";
+			G_INFO += " NETDOWN_PATH : " + NETDOWN_PATH + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";
