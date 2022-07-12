@@ -104,7 +104,7 @@
 			if(STKN_KEY == null) { STKN_KEY = ""; }
 			if(NETDOWN_PATH == null) { NETDOWN_PATH = ""; }
 
-			sql = "UPDATE IT_HOSPITAL SET IHL_HOSP_NO = ?, IHL_HOSP_NM = ?, IHL_BUSI_NO = ?, IHL_BUCO_NO = ?, IHL_BUCA_NO = ?, IHL_PRES_NM = ?, IHL_ZIP_CD = ?, IHL_ZIP_AR = ?, IHL_ROAD_AR = ?, IHL_ASSO_NO = ?, IHL_ASSO_NM = ?, IHL_STAN_CD = ?, IHL_HECK_CD = ?, IHL_SYCK_CD = ?, IHL_SUCK_CD = ?, IHL_EOCK_CD = ?, IHL_EBCK_CD = ?, IHL_SACK_CD = ?, IHL_GUCK_CD = ?, IHL_HYCK_CD = ?, IHL_SPCK_CD = ?, IHL_MACK_CD = ?, IHL_BLCK_CD = ?, IHL_SECK_CD = ?, IHL_BUSI_CD = ?, IHL_CHAR_YN = ?, IHL_SUBO_CD = ?, IHL_JTEL_NO = ?, IHL_HOSP_IMG = ?, IHL_GTEL_NO = ?, IHL_STEL_NO = ?, IHL_ACNU1_NO = ?, IHL_ACNU2_NO = ?, IHL_ACNU3_NO = ?, IHL_MODI_ID = ?, IHL_MODI_DTT = ?, IHL_HOSP_NO2 = ?, IHL_HOSP_NM2 = ?, IHL_DTTEL_NO = ?, IHL_ZIP_CD2 = ?, IHL_ZIP_AR2 = ?, IHL_ROAD_AR2 = ?, IHL_HOSP_IMG2 = ?, IHL_HOSP_CD = ?, NETDOWN_PATH = ?";
+			sql = "UPDATE IT_HOSPITAL SET IHL_HOSP_NO = ?, IHL_HOSP_NM = ?, IHL_BUSI_NO = ?, IHL_BUCO_NO = ?, IHL_BUCA_NO = ?, IHL_PRES_NM = ?, IHL_ZIP_CD = ?, IHL_ZIP_AR = ?, IHL_ROAD_AR = ?, IHL_ASSO_NO = ?, IHL_ASSO_NM = ?, IHL_STAN_CD = ?, IHL_HECK_CD = ?, IHL_SYCK_CD = ?, IHL_SUCK_CD = ?, IHL_EOCK_CD = ?, IHL_EBCK_CD = ?, IHL_SACK_CD = ?, IHL_GUCK_CD = ?, IHL_HYCK_CD = ?, IHL_SPCK_CD = ?, IHL_MACK_CD = ?, IHL_BLCK_CD = ?, IHL_SECK_CD = ?, IHL_BUSI_CD = ?, IHL_CHAR_YN = ?, IHL_SUBO_CD = ?, IHL_JTEL_NO = ?, IHL_HOSP_IMG = ?, IHL_GTEL_NO = ?, IHL_STEL_NO = ?, IHL_ACNU1_NO = ?, IHL_ACNU2_NO = ?, IHL_ACNU3_NO = ?, IHL_MODI_ID = ?, IHL_MODI_DTT = ?, IHL_HOSP_NO2 = ?, IHL_HOSP_NM2 = ?, IHL_DTTEL_NO = ?, IHL_ZIP_CD2 = ?, IHL_ZIP_AR2 = ?, IHL_ROAD_AR2 = ?, IHL_HOSP_IMG2 = ?, IHL_HOSP_CD = ?, IHL_NETDOWN_PATH = ?";
 			if(! RTKN_KEY.equals("")) {
 				sql += ", IHL_RTKN_KEY = ?";
 			}
@@ -164,6 +164,7 @@
 			if(! RTKN_KEY.equals("")) {
 				pstmt.setString(46, RTKN_KEY);
 			}
+
 			if(! STKN_KEY.equals("")) {
 				if(! RTKN_KEY.equals("")) {
 						pstmt.setString(47, STKN_KEY);
