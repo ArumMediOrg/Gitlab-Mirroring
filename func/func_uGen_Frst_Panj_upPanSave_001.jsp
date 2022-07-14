@@ -320,11 +320,11 @@
 				sql += ", PFP_RESULT_DATE = '" + RESULT_DATE + "'";
 				sql += ", PFP_RESULT8_ETC = '" + RESULT8_ETC + "'";
 				sql += ", PFP_DOCTORFIR = '" + DOCTORFIR + "'";
-				sql += ", PFP_DOCTORQQN = CASE WHEN '" + DOCTORQQN + "' <> ' ' ";
-				sql += " 					   THEN '" + DOCTORQQN + "' ";
-				sql += "        		  ELSE (SELECT PFP_DOCTORQQN FROM PT_FIR_PANJUNG ";
-				sql += " 				 		WHERE PFP_EXAM_DT = '" + EXAM_DT + "' ";
-				sql += " 						AND   PFP_EXAM_SQ = '" + EXAM_SQ + "') END ";
+				sql += ", PFP_DOCTORQQN = CASE WHEN (SELECT NVL(PFP_DOCTORQQN, ' ') FROM PT_FIR_PANJUNG ";
+				sql += "  WHERE PFP_EXAM_DT = '" + EXAM_DT + "'";
+				sql += "  AND PFP_EXAM_SQ = '" + EXAM_SQ + "') <> ' ' THEN PFP_DOCTORQQN";
+				sql += "  ELSE '" + DOCTORQQN + "' END ";
+
 				sql += ", PFP_PANRETA = '" + PANRETA + "'";
 				sql += ", PFP_PANRETB = '" + PANRETB + "'";
 				sql += ", PFP_PANRETR1 = '" + PANRETR1 + "'";
