@@ -4,6 +4,7 @@
 	htBranch.put("uGetExam_SelectResult_001", 		"/method/nurionpnt_11100184/uGetExam_SelectResult_001.jsp");
 	htBranch.put("uGetExamPaperInfo_getPersonInfo_001", 		"/method/nurionpnt_11100184/uGetExamPaperInfo_getPersonInfo_001.jsp");
 	htBranch.put("uGetExam_SelectPerinfo_002", 		"/method/nurionpnt_11100184/uGetExam_SelectPerinfo_002.jsp");
+	htBranch.put("uGetExam_SelectPerinfo_003", 		"/method/nurionpnt_11100184/uGetExam_SelectPerinfo_003.jsp");
 	htBranch.put("uGetExam_SelectMarkcd_002", 		"/method/nurionpnt_11100184/uGetExam_SelectMarkcd_002.jsp");
 	htBranch.put("uGetExam_SelectResultSokyun_001", 		"/method/nurionpnt_11100184/uGetExam_SelectResultSokyun_001.jsp");
 	htBranch.put("uGet_Result_Report_001", 		"/method/nurionpnt_11100184/uGet_Result_Report_001.jsp");
