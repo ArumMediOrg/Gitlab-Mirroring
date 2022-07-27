@@ -16,6 +16,9 @@
 	//
 	String G_INFO = "";
 
+	ResultSetMetaData rsmd = null;
+	int colCnt = 0;
+
 	try {
 %>
 <%@ include file="/inc_prg/connect.jsp"%>
@@ -45,6 +48,7 @@ SELECT RRL_EXAM_DT,   MAX(ECM_RSVT_TX) ECM_RSVT_TX,
        SUM(EQUIP_R00) R00, SUM(EQUIP_R01) R01, SUM(EQUIP_R02) R02,
        SUM(EQUIP_R03) R03, SUM(EQUIP_R04) R04, SUM(EQUIP_R05) R05,
        SUM(EQUIP_R06) R06, SUM(EQUIP_R07) R07, SUM(EQUIP_R08) R08,
+       SUM(EQUIP_R09) R09, SUM(EQUIP_R10) R10, SUM(EQUIP_R11) R11,
        F_LPAD(CASE WHEN SUM(EQUIP_R00) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R00)) END, 3, ' ') || ' | ' ||
        F_LPAD(CASE WHEN SUM(EQUIP_R01) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R01)) END, 4, ' ') || ' | ' ||
        F_LPAD(CASE WHEN SUM(EQUIP_R02) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R02)) END, 3, ' ') || ' ' DIS_CNT1,
@@ -54,9 +58,13 @@ SELECT RRL_EXAM_DT,   MAX(ECM_RSVT_TX) ECM_RSVT_TX,
        F_LPAD(CASE WHEN SUM(EQUIP_R06) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R06)) END, 3, ' ') || ' | ' ||
        F_LPAD(CASE WHEN SUM(EQUIP_R07) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R07)) END, 4, ' ') || ' | ' ||
        F_LPAD(CASE WHEN SUM(EQUIP_R08) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R08)) END, 3, ' ') || ' ' DIS_CNT3,
+       F_LPAD(CASE WHEN SUM(EQUIP_R09) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R09)) END, 3, ' ') || ' | ' ||
+       F_LPAD(CASE WHEN SUM(EQUIP_R10) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R10)) END, 4, ' ') || ' | ' ||
+       F_LPAD(CASE WHEN SUM(EQUIP_R11) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R11)) END, 3, ' ') || ' ' DIS_CNT4,
        SUM(EQUIP_P00) P00, SUM(EQUIP_P01) P01, SUM(EQUIP_P02) P02,
        SUM(EQUIP_P03) P03, SUM(EQUIP_P04) P04, SUM(EQUIP_P05) P05,
        SUM(EQUIP_P06) P06, SUM(EQUIP_P07) P07, SUM(EQUIP_P08) P08,
+       SUM(EQUIP_P09) P09, SUM(EQUIP_P10) P10, SUM(EQUIP_P11) P11,
        F_LPAD(CASE WHEN SUM(EQUIP_P00) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P00)) END, 3, ' ') || ' | ' ||
        F_LPAD(CASE WHEN SUM(EQUIP_P01) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P01)) END, 4, ' ') || ' | ' ||
        F_LPAD(CASE WHEN SUM(EQUIP_P02) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P02)) END, 3, ' ') || ' ' DIS_PCNT1,
@@ -65,8 +73,11 @@ SELECT RRL_EXAM_DT,   MAX(ECM_RSVT_TX) ECM_RSVT_TX,
        F_LPAD(CASE WHEN SUM(EQUIP_P05) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P05)) END, 3, ' ') || ' ' DIS_PCNT2,
        F_LPAD(CASE WHEN SUM(EQUIP_P06) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P06)) END, 3, ' ') || ' | ' ||
        F_LPAD(CASE WHEN SUM(EQUIP_P07) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P07)) END, 4, ' ') || ' | ' ||
-       F_LPAD(CASE WHEN SUM(EQUIP_P08) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P08)) END, 3, ' ') || ' ' DIS_PCNT3
-  FROM (SELECT RRL_EXAM_DT, 
+       F_LPAD(CASE WHEN SUM(EQUIP_P08) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P08)) END, 3, ' ') || ' ' DIS_PCNT3,
+       F_LPAD(CASE WHEN SUM(EQUIP_P09) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P09)) END, 3, ' ') || ' | ' ||
+       F_LPAD(CASE WHEN SUM(EQUIP_P10) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P10)) END, 4, ' ') || ' | ' ||
+       F_LPAD(CASE WHEN SUM(EQUIP_P11) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P11)) END, 3, ' ') || ' ' DIS_PCNT4
+  FROM (SELECT RRL_EXAM_DT,
                CASE WHEN ECM_RSVT_TX = '' OR ECM_RSVT_TX IS NULL THEN 'X' ELSE '★메모' END ECM_RSVT_TX,
                CASE WHEN RRL_EQUI_CD = '00' THEN RRL_HOLI_CD ELSE '0' END RRL_HOLI_CD,
                CASE WHEN RRL_EQUI_CD = '00' THEN RRL_HOLI_NM ELSE ''  END RRL_HOLI_NM,
@@ -78,7 +89,10 @@ SELECT RRL_EXAM_DT,   MAX(ECM_RSVT_TX) ECM_RSVT_TX,
                CASE WHEN RRL_EQUI_CD = '05' AND RRE_USE_YN = 'Y' THEN RRL_TOT_CNT-RRL_RSVN_CNT ELSE 0 END EQUIP_R05,
                CASE WHEN RRL_EQUI_CD = '06' AND RRE_USE_YN = 'Y' THEN RRL_TOT_CNT-RRL_RSVN_CNT ELSE 0 END EQUIP_R06,
                CASE WHEN RRL_EQUI_CD = '07' AND RRE_USE_YN = 'Y' THEN RRL_TOT_CNT-RRL_RSVN_CNT ELSE 0 END EQUIP_R07,
-               CASE WHEN RRL_EQUI_CD = '08' AND RRE_USE_YN = 'Y' THEN RRL_TOT_CNT-RRL_RSVN_CNT ELSE 0 END EQUIP_R08, 
+               CASE WHEN RRL_EQUI_CD = '08' AND RRE_USE_YN = 'Y' THEN RRL_TOT_CNT-RRL_RSVN_CNT ELSE 0 END EQUIP_R08,
+               CASE WHEN RRL_EQUI_CD = '09' AND RRE_USE_YN = 'Y' THEN RRL_TOT_CNT-RRL_RSVN_CNT ELSE 0 END EQUIP_R09,
+               CASE WHEN RRL_EQUI_CD = '10' AND RRE_USE_YN = 'Y' THEN RRL_TOT_CNT-RRL_RSVN_CNT ELSE 0 END EQUIP_R10,
+               CASE WHEN RRL_EQUI_CD = '11' AND RRE_USE_YN = 'Y' THEN RRL_TOT_CNT-RRL_RSVN_CNT ELSE 0 END EQUIP_R11,
                CASE WHEN RRL_EQUI_CD = '00' AND RRE_USE_YN = 'Y' THEN NVL(RRL_RSVN_CNT,0) ELSE 0 END EQUIP_P00,
                CASE WHEN RRL_EQUI_CD = '01' AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P01,
                CASE WHEN RRL_EQUI_CD = '02' AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P02,
@@ -87,24 +101,27 @@ SELECT RRL_EXAM_DT,   MAX(ECM_RSVT_TX) ECM_RSVT_TX,
                CASE WHEN RRL_EQUI_CD = '05' AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P05,
                CASE WHEN RRL_EQUI_CD = '06' AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P06,
                CASE WHEN RRL_EQUI_CD = '07' AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P07,
-               CASE WHEN RRL_EQUI_CD = '08' AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P08 
+               CASE WHEN RRL_EQUI_CD = '08' AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P08,
+               CASE WHEN RRL_EQUI_CD = '09' AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P09,
+               CASE WHEN RRL_EQUI_CD = '10' AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P10,
+               CASE WHEN RRL_EQUI_CD = '11' AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P11
           FROM RT_RSVT_EQUIP B, RT_RSVT_EQUIP_LIMIT C
                LEFT OUTER JOIN ET_CLDR_MEMO D
             ON D.ECM_MEMO_DT = C.RRL_EXAM_DT
            AND D.ECM_MEMO_SQ = 0
          WHERE RRL_EXAM_DT BETWEEN :EXAM_DTS AND :EXAM_DTE
            AND RRL_EQUI_CD = RRE_EQUI_CD
-           
+
         IF (:AM_YN = 'Y') THEN
            AND NVL(RRL_TIME_CD, ' ') IN (' ', '1', '2')
         ELSE IF (:PM_YN = 'Y') THEN
            AND NVL(RRL_TIME_CD, ' ') IN (' ', '1', '3')
-           
+
        ) A
  GROUP BY RRL_EXAM_DT
 		*/
 
-		sql = " SELECT RRL_EXAM_DT, MAX(ECM_RSVT_TX) ECM_RSVT_TX, MAX(RRL_HOLI_CD) RRL_HOLI_CD, MAX(RRL_HOLI_NM) RRL_HOLI_NM, SUM(EQUIP_R00) R00, SUM(EQUIP_R01) R01, SUM(EQUIP_R02) R02, SUM(EQUIP_R03) R03, SUM(EQUIP_R04) R04, SUM(EQUIP_R05) R05, SUM(EQUIP_R06) R06, SUM(EQUIP_R07) R07, SUM(EQUIP_R08) R08, F_LPAD(CASE WHEN SUM(EQUIP_R00) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R00)) END, 3, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_R01) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R01)) END, 4, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_R02) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R02)) END, 3, ' ') || ' ' DIS_CNT1, F_LPAD(CASE WHEN SUM(EQUIP_R03) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R03)) END, 3, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_R04) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R04)) END, 4, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_R05) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R05)) END, 3, ' ') || ' ' DIS_CNT2, F_LPAD(CASE WHEN SUM(EQUIP_R06) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R06)) END, 3, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_R07) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R07)) END, 4, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_R08) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R08)) END, 3, ' ') || ' ' DIS_CNT3, SUM(EQUIP_P00) P00, SUM(EQUIP_P01) P01, SUM(EQUIP_P02) P02, SUM(EQUIP_P03) P03, SUM(EQUIP_P04) P04, SUM(EQUIP_P05) P05, SUM(EQUIP_P06) P06, SUM(EQUIP_P07) P07, SUM(EQUIP_P08) P08, F_LPAD(CASE WHEN SUM(EQUIP_P00) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P00)) END, 3, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_P01) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P01)) END, 4, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_P02) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P02)) END, 3, ' ') || ' ' DIS_PCNT1, F_LPAD(CASE WHEN SUM(EQUIP_P03) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P03)) END, 3, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_P04) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P04)) END, 4, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_P05) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P05)) END, 3, ' ') || ' ' DIS_PCNT2, F_LPAD(CASE WHEN SUM(EQUIP_P06) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P06)) END, 3, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_P07) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P07)) END, 4, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_P08) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P08)) END, 3, ' ') || ' ' DIS_PCNT3";
+		sql = " SELECT RRL_EXAM_DT, MAX(ECM_RSVT_TX) ECM_RSVT_TX, MAX(RRL_HOLI_CD) RRL_HOLI_CD, MAX(RRL_HOLI_NM) RRL_HOLI_NM, SUM(EQUIP_R00) R00, SUM(EQUIP_R01) R01, SUM(EQUIP_R02) R02, SUM(EQUIP_R03) R03, SUM(EQUIP_R04) R04, SUM(EQUIP_R05) R05, SUM(EQUIP_R06) R06, SUM(EQUIP_R07) R07, SUM(EQUIP_R08) R08, SUM(EQUIP_R09) R09, SUM(EQUIP_R10) R10, SUM(EQUIP_R11) R11, F_LPAD(CASE WHEN SUM(EQUIP_R00) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R00)) END, 3, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_R01) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R01)) END, 4, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_R02) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R02)) END, 3, ' ') || ' ' DIS_CNT1, F_LPAD(CASE WHEN SUM(EQUIP_R03) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R03)) END, 3, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_R04) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R04)) END, 4, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_R05) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R05)) END, 3, ' ') || ' ' DIS_CNT2, F_LPAD(CASE WHEN SUM(EQUIP_R06) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R06)) END, 3, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_R07) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R07)) END, 4, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_R08) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R08)) END, 3, ' ') || ' ' DIS_CNT3, F_LPAD(CASE WHEN SUM(EQUIP_R09) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R09)) END, 3, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_R10) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R10)) END, 4, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_R11) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R11)) END, 3, ' ') || ' ' DIS_CNT4, F_LPAD(CASE WHEN SUM(EQUIP_R10) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R10)) END, 4, ' ') || ' | ' ||F_LPAD(CASE WHEN SUM(EQUIP_R11) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_R11)) END, 3, ' ') || ' ' DIS_CNT4,SUM(EQUIP_P00) P00, SUM(EQUIP_P01) P01, SUM(EQUIP_P02) P02, SUM(EQUIP_P03) P03, SUM(EQUIP_P04) P04, SUM(EQUIP_P05) P05, SUM(EQUIP_P06) P06, SUM(EQUIP_P07) P07, SUM(EQUIP_P08) P08, SUM(EQUIP_P09) P09, SUM(EQUIP_P10) P10, SUM(EQUIP_P11) P11, F_LPAD(CASE WHEN SUM(EQUIP_P00) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P00)) END, 3, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_P01) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P01)) END, 4, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_P02) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P02)) END, 3, ' ') || ' ' DIS_PCNT1, F_LPAD(CASE WHEN SUM(EQUIP_P03) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P03)) END, 3, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_P04) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P04)) END, 4, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_P05) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P05)) END, 3, ' ') || ' ' DIS_PCNT2, F_LPAD(CASE WHEN SUM(EQUIP_P06) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P06)) END, 3, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_P07) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P07)) END, 4, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_P08) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P08)) END, 3, ' ') || ' ' DIS_PCNT3, F_LPAD(CASE WHEN SUM(EQUIP_P09) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P09)) END, 3, ' ') || ' | ' ||F_LPAD(CASE WHEN SUM(EQUIP_P10) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P10)) END, 4, ' ') || ' | ' || F_LPAD(CASE WHEN SUM(EQUIP_P11) = 0 THEN ' ' ELSE TO_CHAR(SUM(EQUIP_P11)) END, 3, ' ') || ' ' DIS_PCNT4";
 		sql += " FROM (SELECT RRL_EXAM_DT, CASE WHEN ECM_RSVT_TX = ''";
 		sql += " OR ECM_RSVT_TX IS NULL THEN 'X' ELSE '★메모' END ECM_RSVT_TX, CASE WHEN RRL_EQUI_CD = '00' THEN RRL_HOLI_CD ELSE '0' END RRL_HOLI_CD, CASE WHEN RRL_EQUI_CD = '00' THEN RRL_HOLI_NM ELSE '' END RRL_HOLI_NM, CASE WHEN RRL_EQUI_CD = '00'";
 		sql += " AND RRE_USE_YN = 'Y' THEN NVL(RRL_TOT_CNT, 0) - NVL(RRL_RSVN_CNT,0) ELSE 0 END EQUIP_R00, CASE WHEN RRL_EQUI_CD = '01'";
@@ -115,7 +132,10 @@ SELECT RRL_EXAM_DT,   MAX(ECM_RSVT_TX) ECM_RSVT_TX,
 		sql += " AND RRE_USE_YN = 'Y' THEN RRL_TOT_CNT-RRL_RSVN_CNT ELSE 0 END EQUIP_R05, CASE WHEN RRL_EQUI_CD = '06'";
 		sql += " AND RRE_USE_YN = 'Y' THEN RRL_TOT_CNT-RRL_RSVN_CNT ELSE 0 END EQUIP_R06, CASE WHEN RRL_EQUI_CD = '07'";
 		sql += " AND RRE_USE_YN = 'Y' THEN RRL_TOT_CNT-RRL_RSVN_CNT ELSE 0 END EQUIP_R07, CASE WHEN RRL_EQUI_CD = '08'";
-		sql += " AND RRE_USE_YN = 'Y' THEN RRL_TOT_CNT-RRL_RSVN_CNT ELSE 0 END EQUIP_R08, CASE WHEN RRL_EQUI_CD = '00'";
+		sql += " AND RRE_USE_YN = 'Y' THEN RRL_TOT_CNT-RRL_RSVN_CNT ELSE 0 END EQUIP_R08, CASE WHEN RRL_EQUI_CD = '09'";
+		sql += " AND RRE_USE_YN = 'Y' THEN RRL_TOT_CNT-RRL_RSVN_CNT ELSE 0 END EQUIP_R09, CASE WHEN RRL_EQUI_CD = '10'";
+		sql += " AND RRE_USE_YN = 'Y' THEN RRL_TOT_CNT-RRL_RSVN_CNT ELSE 0 END EQUIP_R10, CASE WHEN RRL_EQUI_CD = '11'";
+		sql += " AND RRE_USE_YN = 'Y' THEN RRL_TOT_CNT-RRL_RSVN_CNT ELSE 0 END EQUIP_R11, CASE WHEN RRL_EQUI_CD = '00'";
 		sql += " AND RRE_USE_YN = 'Y' THEN NVL(RRL_RSVN_CNT,0) ELSE 0 END EQUIP_P00, CASE WHEN RRL_EQUI_CD = '01'";
 		sql += " AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P01, CASE WHEN RRL_EQUI_CD = '02'";
 		sql += " AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P02, CASE WHEN RRL_EQUI_CD = '03'";
@@ -124,7 +144,11 @@ SELECT RRL_EXAM_DT,   MAX(ECM_RSVT_TX) ECM_RSVT_TX,
 		sql += " AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P05, CASE WHEN RRL_EQUI_CD = '06'";
 		sql += " AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P06, CASE WHEN RRL_EQUI_CD = '07'";
 		sql += " AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P07, CASE WHEN RRL_EQUI_CD = '08'";
-		sql += " AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P08";
+		sql += " AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P07, CASE WHEN RRL_EQUI_CD = '09'";
+		sql += " AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P09, CASE WHEN RRL_EQUI_CD = '10'";
+		sql += " AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P07, CASE WHEN RRL_EQUI_CD = '08'";
+		sql += " AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P10, CASE WHEN RRL_EQUI_CD = '11'";
+		sql += " AND RRE_USE_YN = 'Y' THEN RRL_RSVN_CNT ELSE 0 END EQUIP_P11";
 		sql += " FROM RT_RSVT_EQUIP B, RT_RSVT_EQUIP_LIMIT C LEFT OUTER JOIN ET_CLDR_MEMO D";
 		sql += " ON D.ECM_MEMO_DT = C.RRL_EXAM_DT";
 		sql += " AND D.ECM_MEMO_SQ = 0";
@@ -160,6 +184,8 @@ SELECT RRL_EXAM_DT,   MAX(ECM_RSVT_TX) ECM_RSVT_TX,
 		rsList = stmtList.executeQuery(sql);
 		cRsList = new CRs(rsList);
 
+		rsmd = rsList.getMetaData();  //Select 결과의 Metadata 가져오기.
+
 		out.clear();		// include된 파일안의 공백 제거
 		response.addHeader("Content-type", "text/xml");
 %><?xml version="1.0" encoding="UTF-8"?>
@@ -176,299 +202,62 @@ SELECT RRL_EXAM_DT,   MAX(ECM_RSVT_TX) ECM_RSVT_TX,
 
 <s:Schema id='RowsetSchema'>
 	<s:ElementType name='row' content='eltOnly' rs:updatable='true'>
-		<s:AttributeType name='RRL_EXAM_DT' rs:number='1'>
-			<s:datatype dt:type='string' dt:maxLength='10' rs:maybenull='false'/>
+<%
+		for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
+			String dataType = "string";
+			String maxLength = "4000";
+
+			if (rsmd.getColumnTypeName(colCnt).equals("BLOB")){
+				dataType = "bin.hex";
+				maxLength = "2147483647";
+				//<s:datatype dt:type='bin.hex' dt:maxLength='2147483647' rs:long='true'/>
+			} else if (rsmd.getColumnTypeName(colCnt).equals("CLOB")){
+				maxLength = "1073741823";
+				//<s:datatype dt:type='string' dt:maxLength='1073741823' rs:long='true'/>
+			}
+%>
+		<s:AttributeType name='<%= rsmd.getColumnName(colCnt)%>' rs:number='<%= Integer.toString(colCnt)%>' rs:writeunknown='true' rs:basetable='DUAL' rs:basecolumn='<%= rsmd.getColumnName(colCnt)%>'>
+			<s:datatype dt:type='<%= dataType%>' dt:maxLength='<%= maxLength%>' <% if (! maxLength.equals("4000")) { %> rs:long='true' <% } %>/>
 		</s:AttributeType>
-		<s:AttributeType name='ECM_RSVT_TX' rs:number='2' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='6'/>
-		</s:AttributeType>
-		<s:AttributeType name='RRL_HOLI_CD' rs:number='3' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='1'/>
-		</s:AttributeType>
-		<s:AttributeType name='RRL_HOLI_NM' rs:number='4' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='100'/>
-		</s:AttributeType>
-		<s:AttributeType name='R00' rs:number='5' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='R01' rs:number='6' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='R02' rs:number='7' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='R03' rs:number='8' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='R04' rs:number='9' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='R05' rs:number='10' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='R06' rs:number='11' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='R07' rs:number='12' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='R08' rs:number='13' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='DIS_CNT1' rs:number='14' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='4000'/>
-		</s:AttributeType>
-		<s:AttributeType name='DIS_CNT2' rs:number='15' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='4000'/>
-		</s:AttributeType>
-		<s:AttributeType name='DIS_CNT3' rs:number='16' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='4000'/>
-		</s:AttributeType>
-		<s:AttributeType name='P00' rs:number='17' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='P01' rs:number='18' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='P02' rs:number='19' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='P03' rs:number='20' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='P04' rs:number='21' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='P05' rs:number='22' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='P06' rs:number='23' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='P07' rs:number='24' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='P08' rs:number='25' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='DIS_PCNT1' rs:number='26' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='4000'/>
-		</s:AttributeType>
-		<s:AttributeType name='DIS_PCNT2' rs:number='27' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='4000'/>
-		</s:AttributeType>
-		<s:AttributeType name='DIS_PCNT3' rs:number='28' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='4000'/>
+<%
+		}
+%>
+		<s:AttributeType name='ROWID' rs:number='<%= Integer.toString(colCnt)%>' rs:rowid='true' rs:writeunknown='true' rs:basetable='DUAL'
+			 rs:basecolumn='ROWID' rs:keycolumn='true' rs:hidden='true' rs:autoincrement='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
 		</s:AttributeType>
 		<s:extends type='rs:rowbase'/>
 	</s:ElementType>
-</s:Schema>
-		<rs:data>
+</s:Schema>		<rs:data>
 <%
 		int cnt = 0;
 		while(cRsList.next()) {
 
 			cnt++;
 
-			String RRL_EXAM_DT_T = cRsList.getString("RRL_EXAM_DT");
-			String ECM_RSVT_TX_T = cRsList.getString("ECM_RSVT_TX");
-			String RRL_HOLI_CD_T = cRsList.getString("RRL_HOLI_CD");
-			String RRL_HOLI_NM_T = cRsList.getString("RRL_HOLI_NM");
-			String R00_T = cRsList.getString("R00");
-			String R01_T = cRsList.getString("R01");
-			String R02_T = cRsList.getString("R02");
-			String R03_T = cRsList.getString("R03");
-			String R04_T = cRsList.getString("R04");
-			String R05_T = cRsList.getString("R05");
-			String R06_T = cRsList.getString("R06");
-			String R07_T = cRsList.getString("R07");
-			String R08_T = cRsList.getString("R08");
-			String DIS_CNT1_T = cRsList.getString("DIS_CNT1");
-			String DIS_CNT2_T = cRsList.getString("DIS_CNT2");
-			String DIS_CNT3_T = cRsList.getString("DIS_CNT3");
-			String P00_T = cRsList.getString("P00");
-			String P01_T = cRsList.getString("P01");
-			String P02_T = cRsList.getString("P02");
-			String P03_T = cRsList.getString("P03");
-			String P04_T = cRsList.getString("P04");
-			String P05_T = cRsList.getString("P05");
-			String P06_T = cRsList.getString("P06");
-			String P07_T = cRsList.getString("P07");
-			String P08_T = cRsList.getString("P08");
-			String DIS_PCNT1_T = cRsList.getString("DIS_PCNT1");
-			String DIS_PCNT2_T = cRsList.getString("DIS_PCNT2");
-			String DIS_PCNT3_T = cRsList.getString("DIS_PCNT3");
+			String ROWID_T = cRsList.getString("ROWID");
 %>
 			<z:row
 <%
-			if(! RRL_EXAM_DT_T.equals("")) {
-%>
-		 		RRL_EXAM_DT='<%= RRL_EXAM_DT_T%>'
-<%
-			}
+			for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
 
-			if(! ECM_RSVT_TX_T.equals("")) {
-%>
-		 		ECM_RSVT_TX='<%= ECM_RSVT_TX_T%>'
-<%
-			}
+				String tempData = cRsList.getString(rsmd.getColumnName(colCnt));
 
-			if(! RRL_HOLI_CD_T.equals("")) {
-%>
-		 		RRL_HOLI_CD='<%= RRL_HOLI_CD_T%>'
-<%
-			}
+				if (rsmd.getColumnTypeName(colCnt).equals("BLOB")){
+					byte[] buf_BLOB = rsList.getBytes(rsmd.getColumnName(colCnt));
+					if(buf_BLOB != null) {
+						tempData = new String(buf_BLOB);
+					}
+				}
 
-			if(! RRL_HOLI_NM_T.equals("")) {
+				if(! tempData.equals("")) {
 %>
-		 		RRL_HOLI_NM='<%= RRL_HOLI_NM_T%>'
+		 			<%= rsmd.getColumnName(colCnt)%>='<%= tempData%>'
 <%
-			}
-
-			if(! R00_T.equals("")) {
-%>
-		 		R00='<%= R00_T%>'
-<%
-			}
-
-			if(! R01_T.equals("")) {
-%>
-		 		R01='<%= R01_T%>'
-<%
-			}
-
-			if(! R02_T.equals("")) {
-%>
-		 		R02='<%= R02_T%>'
-<%
-			}
-
-			if(! R03_T.equals("")) {
-%>
-		 		R03='<%= R03_T%>'
-<%
-			}
-
-			if(! R04_T.equals("")) {
-%>
-		 		R04='<%= R04_T%>'
-<%
-			}
-
-			if(! R05_T.equals("")) {
-%>
-		 		R05='<%= R05_T%>'
-<%
-			}
-
-			if(! R06_T.equals("")) {
-%>
-		 		R06='<%= R06_T%>'
-<%
-			}
-
-			if(! R07_T.equals("")) {
-%>
-		 		R07='<%= R07_T%>'
-<%
-			}
-
-			if(! R08_T.equals("")) {
-%>
-		 		R08='<%= R08_T%>'
-<%
-			}
-
-			if(! DIS_CNT1_T.equals("")) {
-%>
-		 		DIS_CNT1='<%= DIS_CNT1_T%>'
-<%
-			}
-
-			if(! DIS_CNT2_T.equals("")) {
-%>
-		 		DIS_CNT2='<%= DIS_CNT2_T%>'
-<%
-			}
-
-			if(! DIS_CNT3_T.equals("")) {
-%>
-		 		DIS_CNT3='<%= DIS_CNT3_T%>'
-<%
-			}
-
-			if(! P00_T.equals("")) {
-%>
-		 		P00='<%= P00_T%>'
-<%
-			}
-
-			if(! P01_T.equals("")) {
-%>
-		 		P01='<%= P01_T%>'
-<%
-			}
-
-			if(! P02_T.equals("")) {
-%>
-		 		P02='<%= P02_T%>'
-<%
-			}
-
-			if(! P03_T.equals("")) {
-%>
-		 		P03='<%= P03_T%>'
-<%
-			}
-
-			if(! P04_T.equals("")) {
-%>
-		 		P04='<%= P04_T%>'
-<%
-			}
-
-			if(! P05_T.equals("")) {
-%>
-		 		P05='<%= P05_T%>'
-<%
-			}
-
-			if(! P06_T.equals("")) {
-%>
-		 		P06='<%= P06_T%>'
-<%
-			}
-
-			if(! P07_T.equals("")) {
-%>
-		 		P07='<%= P07_T%>'
-<%
-			}
-
-			if(! P08_T.equals("")) {
-%>
-		 		P08='<%= P08_T%>'
-<%
-			}
-
-			if(! DIS_PCNT1_T.equals("")) {
-%>
-		 		DIS_PCNT1='<%= DIS_PCNT1_T%>'
-<%
-			}
-
-			if(! DIS_PCNT2_T.equals("")) {
-%>
-		 		DIS_PCNT2='<%= DIS_PCNT2_T%>'
-<%
-			}
-
-			if(! DIS_PCNT3_T.equals("")) {
-%>
-		 		DIS_PCNT3='<%= DIS_PCNT3_T%>'
-<%
+				}
 			}
 %>
+				ROWID='<%= cnt%>'
 			/>
 <%
 		}
