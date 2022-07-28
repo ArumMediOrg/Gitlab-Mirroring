@@ -140,83 +140,443 @@
 	<resultCode>200</resultCode>
 	<resultXml>
 		<xml xmlns:s='uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882'
-			xmlns:dt='uuid:C2F41010-65B3-11d1-A29F-00AA00C14882'
-			xmlns:rs='urn:schemas-microsoft-com:rowset'
-			xmlns:z='#RowsetSchema'>
+			 xmlns:dt='uuid:C2F41010-65B3-11d1-A29F-00AA00C14882'
+			 xmlns:rs='urn:schemas-microsoft-com:rowset'
+			 xmlns:z='#RowsetSchema'>
 
-<s:Schema id='RowsetSchema'>
-	<s:ElementType name='row' content='eltOnly' rs:updatable='true'>
-<%
-		for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
-			String dataType = "string";
-			String maxLength = "4000";
+			<s:Schema id='RowsetSchema'>
+				<s:ElementType name='row' content='eltOnly' rs:updatable='true'>
+					<s:AttributeType name='ORDER_BY' rs:number='1' rs:nullable='true'>
+						<s:datatype dt:type='string' dt:maxLength='11' rs:fixedlength='true'/>
+					</s:AttributeType>
+					<s:AttributeType name='TIME_TERM' rs:number='2' rs:nullable='true'>
+						<s:datatype dt:type='string' dt:maxLength='11'/>
+					</s:AttributeType>
+					<s:AttributeType name='EQUIP_RMK' rs:number='3' rs:nullable='true'>
+						<s:datatype dt:type='string' dt:maxLength='1000'/>
+					</s:AttributeType>
+					<s:AttributeType name='RRL_HOLI_CD' rs:number='4' rs:nullable='true'>
+						<s:datatype dt:type='string' dt:maxLength='1'/>
+					</s:AttributeType>
+					<s:AttributeType name='R00' rs:number='5' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='T00' rs:number='6' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='R01' rs:number='7' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='T01' rs:number='8' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='R02' rs:number='9' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='T02' rs:number='10' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='R03' rs:number='11' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='T03' rs:number='12' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='R04' rs:number='13' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='T04' rs:number='14' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='R05' rs:number='15' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='T05' rs:number='16' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='R06' rs:number='17' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='T06' rs:number='18' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='R07' rs:number='19' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='T07' rs:number='20' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='R08' rs:number='21' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='T08' rs:number='22' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='R09' rs:number='23' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='T09' rs:number='24' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='R10' rs:number='25' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='T10' rs:number='26' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='R11' rs:number='27' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='T11' rs:number='28' rs:nullable='true'>
+						<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
+					</s:AttributeType>
+					<s:AttributeType name='DIS_CNT00' rs:number='29' rs:nullable='true'>
+						<s:datatype dt:type='string' dt:maxLength='4000'/>
+					</s:AttributeType>
+					<s:AttributeType name='DIS_CNT01' rs:number='30' rs:nullable='true'>
+						<s:datatype dt:type='string' dt:maxLength='4000'/>
+					</s:AttributeType>
+					<s:AttributeType name='DIS_CNT02' rs:number='31' rs:nullable='true'>
+						<s:datatype dt:type='string' dt:maxLength='4000'/>
+					</s:AttributeType>
+					<s:AttributeType name='DIS_CNT03' rs:number='32' rs:nullable='true'>
+						<s:datatype dt:type='string' dt:maxLength='4000'/>
+					</s:AttributeType>
+					<s:AttributeType name='DIS_CNT04' rs:number='33' rs:nullable='true'>
+						<s:datatype dt:type='string' dt:maxLength='4000'/>
+					</s:AttributeType>
+					<s:AttributeType name='DIS_CNT05' rs:number='34' rs:nullable='true'>
+						<s:datatype dt:type='string' dt:maxLength='4000'/>
+					</s:AttributeType>
+					<s:AttributeType name='DIS_CNT06' rs:number='35' rs:nullable='true'>
+						<s:datatype dt:type='string' dt:maxLength='4000'/>
+					</s:AttributeType>
+					<s:AttributeType name='DIS_CNT07' rs:number='36' rs:nullable='true'>
+						<s:datatype dt:type='string' dt:maxLength='4000'/>
+					</s:AttributeType>
+					<s:AttributeType name='DIS_CNT08' rs:number='37' rs:nullable='true'>
+						<s:datatype dt:type='string' dt:maxLength='4000'/>
+					</s:AttributeType>
+					<s:AttributeType name='DIS_CNT09' rs:number='38' rs:nullable='true'>
+						<s:datatype dt:type='string' dt:maxLength='4000'/>
+					</s:AttributeType>
+					<s:AttributeType name='DIS_CNT10' rs:number='39' rs:nullable='true'>
+						<s:datatype dt:type='string' dt:maxLength='4000'/>
+					</s:AttributeType>
+					<s:AttributeType name='DIS_CNT11' rs:number='40' rs:nullable='true'>
+						<s:datatype dt:type='string' dt:maxLength='4000'/>
+					</s:AttributeType>
+					<s:extends type='rs:rowbase'/>
+				</s:ElementType>
+			</s:Schema>
+			<rs:data>
+				<%
+					int cnt = 0;
+					while(cRsList.next()) {
 
-			if (rsmd.getColumnTypeName(colCnt).equals("BLOB")){
-				dataType = "bin.hex";
-				maxLength = "2147483647";
-				//<s:datatype dt:type='bin.hex' dt:maxLength='2147483647' rs:long='true'/>
-			} else if (rsmd.getColumnTypeName(colCnt).equals("CLOB")){
-				maxLength = "1073741823";
-				//<s:datatype dt:type='string' dt:maxLength='1073741823' rs:long='true'/>
-			}
-%>
-		<s:AttributeType name='<%= rsmd.getColumnName(colCnt)%>' rs:number='<%= Integer.toString(colCnt)%>' rs:writeunknown='true' rs:basetable='DUAL' rs:basecolumn='<%= rsmd.getColumnName(colCnt)%>'>
-			<s:datatype dt:type='<%= dataType%>' dt:maxLength='<%= maxLength%>' <% if (! maxLength.equals("4000")) { %> rs:long='true' <% } %>/>
-		</s:AttributeType>
-<%
-		}
-%>
-		<s:AttributeType name='ROWID' rs:number='<%= Integer.toString(colCnt)%>' rs:rowid='true' rs:writeunknown='true' rs:basetable='DUAL'
-			 rs:basecolumn='ROWID' rs:keycolumn='true' rs:hidden='true' rs:autoincrement='true'>
-			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
-		</s:AttributeType>
-		<s:extends type='rs:rowbase'/>
-	</s:ElementType>
-</s:Schema>		<rs:data>
-<%
-		int cnt = 0;
-		while(cRsList.next()) {
+						cnt++;
 
-			cnt++;
+						String ORDER_BY_T = cRsList.getString("ORDER_BY");
+						String TIME_TERM_T = cRsList.getString("TIME_TERM");
+						String EQUIP_RMK_T = cRsList.getString("EQUIP_RMK");
+						String RRL_HOLI_CD_T = cRsList.getString("RRL_HOLI_CD");
+						String R00_T = cRsList.getString("R00");
+						String T00_T = cRsList.getString("T00");
+						String R01_T = cRsList.getString("R01");
+						String T01_T = cRsList.getString("T01");
+						String R02_T = cRsList.getString("R02");
+						String T02_T = cRsList.getString("T02");
+						String R03_T = cRsList.getString("R03");
+						String T03_T = cRsList.getString("T03");
+						String R04_T = cRsList.getString("R04");
+						String T04_T = cRsList.getString("T04");
+						String R05_T = cRsList.getString("R05");
+						String T05_T = cRsList.getString("T05");
+						String R06_T = cRsList.getString("R06");
+						String T06_T = cRsList.getString("T06");
+						String R07_T = cRsList.getString("R07");
+						String T07_T = cRsList.getString("T07");
+						String R08_T = cRsList.getString("R08");
+						String T08_T = cRsList.getString("T08");
+						String R09_T = cRsList.getString("R09");
+						String T09_T = cRsList.getString("T09");
+						String R10_T = cRsList.getString("R10");
+						String T10_T = cRsList.getString("T10");
+						String R11_T = cRsList.getString("R11");
+						String T11_T = cRsList.getString("T11");
+						String DIS_CNT00_T = cRsList.getString("DIS_CNT00");
+						String DIS_CNT01_T = cRsList.getString("DIS_CNT01");
+						String DIS_CNT02_T = cRsList.getString("DIS_CNT02");
+						String DIS_CNT03_T = cRsList.getString("DIS_CNT03");
+						String DIS_CNT04_T = cRsList.getString("DIS_CNT04");
+						String DIS_CNT05_T = cRsList.getString("DIS_CNT05");
+						String DIS_CNT06_T = cRsList.getString("DIS_CNT06");
+						String DIS_CNT07_T = cRsList.getString("DIS_CNT07");
+						String DIS_CNT08_T = cRsList.getString("DIS_CNT08");
+						String DIS_CNT09_T = cRsList.getString("DIS_CNT09");
+						String DIS_CNT10_T = cRsList.getString("DIS_CNT10");
+						String DIS_CNT11_T = cRsList.getString("DIS_CNT11");
+				%>
+				<z:row
+						<%
+							if(! ORDER_BY_T.equals("")) {
+						%>
+						ORDER_BY='<%= ORDER_BY_T%>'
+						<%
+							}
 
-			String ROWID_T = cRsList.getString("ROWID");
-%>
-			<z:row
-<%
-			for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
+							if(! TIME_TERM_T.equals("")) {
+						%>
+						TIME_TERM='<%= TIME_TERM_T%>'
+						<%
+							}
 
-				String tempData = cRsList.getString(rsmd.getColumnName(colCnt));
+							if(! EQUIP_RMK_T.equals("")) {
+						%>
+						EQUIP_RMK='<%= EQUIP_RMK_T%>'
+						<%
+							}
 
-				if (rsmd.getColumnTypeName(colCnt).equals("BLOB")){
-					byte[] buf_BLOB = rsList.getBytes(rsmd.getColumnName(colCnt));
-					if(buf_BLOB != null) {
-						tempData = new String(buf_BLOB);
+							if(! RRL_HOLI_CD_T.equals("")) {
+						%>
+						RRL_HOLI_CD='<%= RRL_HOLI_CD_T%>'
+						<%
+							}
+
+							if(! R00_T.equals("")) {
+						%>
+						R00='<%= R00_T%>'
+						<%
+							}
+
+							if(! T00_T.equals("")) {
+						%>
+						T00='<%= T00_T%>'
+						<%
+							}
+
+							if(! R01_T.equals("")) {
+						%>
+						R01='<%= R01_T%>'
+						<%
+							}
+
+							if(! T01_T.equals("")) {
+						%>
+						T01='<%= T01_T%>'
+						<%
+							}
+
+							if(! R02_T.equals("")) {
+						%>
+						R02='<%= R02_T%>'
+						<%
+							}
+
+							if(! T02_T.equals("")) {
+						%>
+						T02='<%= T02_T%>'
+						<%
+							}
+
+							if(! R03_T.equals("")) {
+						%>
+						R03='<%= R03_T%>'
+						<%
+							}
+
+							if(! T03_T.equals("")) {
+						%>
+						T03='<%= T03_T%>'
+						<%
+							}
+
+							if(! R04_T.equals("")) {
+						%>
+						R04='<%= R04_T%>'
+						<%
+							}
+
+							if(! T04_T.equals("")) {
+						%>
+						T04='<%= T04_T%>'
+						<%
+							}
+
+							if(! R05_T.equals("")) {
+						%>
+						R05='<%= R05_T%>'
+						<%
+							}
+
+							if(! T05_T.equals("")) {
+						%>
+						T05='<%= T05_T%>'
+						<%
+							}
+
+							if(! R06_T.equals("")) {
+						%>
+						R06='<%= R06_T%>'
+						<%
+							}
+
+							if(! T06_T.equals("")) {
+						%>
+						T06='<%= T06_T%>'
+						<%
+							}
+
+							if(! R07_T.equals("")) {
+						%>
+						R07='<%= R07_T%>'
+						<%
+							}
+
+							if(! T07_T.equals("")) {
+						%>
+						T07='<%= T07_T%>'
+						<%
+							}
+
+							if(! R08_T.equals("")) {
+						%>
+						R08='<%= R08_T%>'
+						<%
+							}
+
+							if(! T08_T.equals("")) {
+						%>
+						T08='<%= T08_T%>'
+						<%
+							}
+
+							if(! R09_T.equals("")) {
+						%>
+						R09='<%= R09_T%>'
+						<%
+							}
+
+							if(! T09_T.equals("")) {
+						%>
+						T09='<%= T09_T%>'
+						<%
+							}
+
+							if(! R10_T.equals("")) {
+						%>
+						R10='<%= R10_T%>'
+						<%
+							}
+
+							if(! T10_T.equals("")) {
+						%>
+						T10='<%= T10_T%>'
+						<%
+							}
+
+							if(! R11_T.equals("")) {
+						%>
+						R11='<%= R11_T%>'
+						<%
+							}
+
+							if(! T11_T.equals("")) {
+						%>
+						T11='<%= T11_T%>'
+						<%
+							}
+
+
+
+							if(! DIS_CNT00_T.equals("")) {
+						%>
+						DIS_CNT00='<%= DIS_CNT00_T%>'
+						<%
+							}
+
+							if(! DIS_CNT01_T.equals("")) {
+						%>
+						DIS_CNT01='<%= DIS_CNT01_T%>'
+						<%
+							}
+
+							if(! DIS_CNT02_T.equals("")) {
+						%>
+						DIS_CNT02='<%= DIS_CNT02_T%>'
+						<%
+							}
+
+							if(! DIS_CNT03_T.equals("")) {
+						%>
+						DIS_CNT03='<%= DIS_CNT03_T%>'
+						<%
+							}
+
+							if(! DIS_CNT04_T.equals("")) {
+						%>
+						DIS_CNT04='<%= DIS_CNT04_T%>'
+						<%
+							}
+
+							if(! DIS_CNT05_T.equals("")) {
+						%>
+						DIS_CNT05='<%= DIS_CNT05_T%>'
+						<%
+							}
+
+							if(! DIS_CNT06_T.equals("")) {
+						%>
+						DIS_CNT06='<%= DIS_CNT06_T%>'
+						<%
+							}
+
+							if(! DIS_CNT07_T.equals("")) {
+						%>
+						DIS_CNT07='<%= DIS_CNT07_T%>'
+						<%
+							}
+
+							if(! DIS_CNT08_T.equals("")) {
+						%>
+
+						DIS_CNT08='<%= DIS_CNT08_T%>'
+						<%
+							}
+							if(! DIS_CNT09_T.equals("")) {
+						%>
+						DIS_CNT09='<%= DIS_CNT09_T%>'
+						<%
+							}
+
+							if(! DIS_CNT10_T.equals("")) {
+						%>
+						DIS_CNT10='<%= DIS_CNT10_T%>'
+						<%
+							}
+
+							if(! DIS_CNT11_T.equals("")) {
+						%>
+						DIS_CNT11='<%= DIS_CNT11_T%>'
+						<%
+							}
+						%>
+
+				/>
+				<%
 					}
-				}
-
-				if(! tempData.equals("")) {
-%>
-		 			<%= rsmd.getColumnName(colCnt)%>='<%= tempData%>'
-<%
-				}
-			}
-%>
-				ROWID='<%= cnt%>'
-			/>
-<%
-		}
-%>
-		</rs:data>
+				%>
+			</rs:data>
 		</xml>
 	</resultXml>
 	<errorMsg></errorMsg>
 </nurionXml>
 
 <%
-	} catch (Exception e) {
+} catch (Exception e) {
 
-		out.clear();		// include된 파일안의 공백 제거
-		response.addHeader("Content-type", "text/xml");
+	out.clear();		// include된 파일안의 공백 제거
+	response.addHeader("Content-type", "text/xml");
 %><?xml version="1.0" encoding="UTF-8"?>
 
 <%= G_INFO%>
@@ -229,17 +589,17 @@
 </nurionXml>
 
 <%
-	} finally {
+} finally {
 
-		if(rsList != null) {
-			rsList.close();
-			rsList = null;
-		}
+	if(rsList != null) {
+		rsList.close();
+		rsList = null;
+	}
 
-		if(stmtList != null) {
-			stmtList.close();
-			stmtList = null;
-		}
+	if(stmtList != null) {
+		stmtList.close();
+		stmtList = null;
+	}
 %>
 <%@ include file="/inc_prg/disconnect.jsp"%>
 <%
