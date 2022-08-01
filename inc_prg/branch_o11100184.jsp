@@ -128,4 +128,5 @@
 	htBranch.put("Sp_Select_Common_007", 		"/method/o11100184/sp_Select_Common_007.jsp");
 	htBranch.put("omr_updateetrsltitem_002", 		"/method/o11100184/omr_updateetrsltitem_002.jsp");
 	htBranch.put("printInfo_getERIITEM_001", 		"/method/o11100184/printInfo_getERIITEM_001.jsp");
+	htBranch.put("uMain_btnSearchClick_008", 		"/method/o11100184/uMain_btnSearchClick_008.jsp");
 %>
