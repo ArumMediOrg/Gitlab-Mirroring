@@ -16,6 +16,9 @@
 	//
 	String G_INFO = "";
 
+	ResultSetMetaData rsmd = null;
+	int colCnt = 0;
+
 	try {
 %>
 <%@ include file="/inc_prg/connect.jsp"%>
@@ -51,6 +54,7 @@
 		String ADD_AFPR_YN = htMethod.get("ADD_AFPR_YN");
 		String RZ_CMBPLE1 = htMethod.get("RZ_CMBPLE1");
 		String RZ_CMBPLE2 = htMethod.get("RZ_CMBPLE2");
+		String DISC_KD = htMethod.get("DISC_KD");
 
 		//
 		if(AREXAMNM1 == null) { AREXAMNM1 = ""; }
@@ -80,13 +84,14 @@
 		if(ADD_AFPR_YN == null) { ADD_AFPR_YN = ""; }
 		if(RZ_CMBPLE1 == null) { RZ_CMBPLE1 = ""; }
 		if(RZ_CMBPLE2 == null) { RZ_CMBPLE2 = ""; }
+		if(DISC_KD == null) { DISC_KD = ""; }
 
 		// DB객체
 		stmtList = connect.createStatement();
 
 		/*
 
- select mm.OCCUR_DT, mm.EEA_EXAM_DT, mm.EEA_EXAM_SQ, EEA_PSNL_NM, EEA_CUST_NO
+  select mm.OCCUR_DT, mm.EEA_EXAM_DT, mm.EEA_EXAM_SQ, EEA_PSNL_NM, EEA_CUST_NO
       ,F_COMP_FIND(EEA_COMP_CD) COMP_NM
       ,case
          when EEA_EXAM_CD in ('11001','12001','12003') then :arExamNm1
@@ -132,7 +137,13 @@ if :Rz_Select_Kd = '5' then
                  , EEA_EXAM_CD  EXAM_CD
 
                  ,EEP_HDMD_PR,  EEP_SDMD_PR, EEP_COMPS_PR ,EEP_COMP_PR, EEP_PSNL_PR ,EEP_PSNLP_PR
-                 ,0 RRM_SALE_TD_PR, 0 RRM_TRUNC_TD_PR, 0 RRM_RESEREPL_PR, 0 RRM_OVERPAY_PR, 0 RRM_RECE_TD_PR
+
+                 if :Disc_Kd = '1' then
+                     , NVL(EEP_DISC_PR,0)  RRM_SALE_TD_PR
+                else
+                     , NVL(EEP_DISC_PR,0) + NVL(EEP_DISC_CPR ,0)  RRM_SALE_TD_PR
+
+                 , 0 RRM_TRUNC_TD_PR, 0 RRM_RESEREPL_PR, 0 RRM_OVERPAY_PR, 0 RRM_RECE_TD_PR
                  ,0 RRM_RECE_CARD_PR, 0 RRM_RECE_CASH_PR
                  ,0 RRM_RETURN_PR_71, 0 RRM_RETURN_PR_72
             from ET_EXAM_PRICE left outer join  ET_EXAM_ACPT on EEP_EXAM_DT = EEA_EXAM_DT and EEP_EXAM_SQ = EEA_EXAM_SQ
@@ -213,6 +224,7 @@ else if :Rz_Select_Kd = '8' then
 
 order by mm.OCCUR_DT, mm.EEA_EXAM_DT, mm.EEA_EXAM_SQ
 
+* 20201021 : Add_Afpr_YN 조건 추가
 		*/
 
 		sql = " SELECT MM.OCCUR_DT, MM.EEA_EXAM_DT, MM.EEA_EXAM_SQ, EEA_PSNL_NM, EEA_CUST_NO ,F_COMP_FIND(EEA_COMP_CD) COMP_NM ,CASE WHEN EEA_EXAM_CD IN ('11001','12001','12003') THEN '" + AREXAMNM1 + "' WHEN EEA_EXAM_CD IN ('11002','12002','12004') THEN '" + AREXAMNM2 + "' WHEN EEA_EXAM_CD IN ('13001') THEN '" + AREXAMNM3 + "' WHEN EEA_EXAM_CD IN ('15001') THEN '" + AREXAMNM4 + "' WHEN EEA_EXAM_CD IN ('14001','14002') THEN '" + AREXAMNM5 + "' WHEN EEA_EXAM_CD IN ('21001') THEN '" + AREXAMNM6 + "' WHEN EEA_EXAM_CD IN ('51001') THEN '" + AREXAMNM7 + "' WHEN EEA_EXAM_CD IN ('61001') THEN '" + AREXAMNM8 + "' WHEN EEA_EXAM_CD IN ('32001') THEN '" + AREXAMNM9 + "' WHEN EEA_EXAM_CD IN ('31001') THEN '" + AREXAMNM10 + "' WHEN EEA_EXAM_CD IN ('31006') THEN '" + AREXAMNM11 + "' WHEN EEA_EXAM_CD IN ('91002') THEN '" + AREXAMNM12 + "' WHEN EEA_EXAM_CD IN ('91005') THEN '" + AREXAMNM13 + "' WHEN EEA_EXAM_CD IN ('91003') THEN '" + AREXAMNM14 + "' WHEN EEA_EXAM_CD IN ('91004') THEN '" + AREXAMNM15 + "' WHEN EEA_EXAM_CD IN ('91099' ,'91006','91001','81001') THEN '" + AREXAMNM16 + "' WHEN EEA_EXAM_CD IN ('41001') THEN '" + AREXAMNM17 + "' WHEN EEA_EXAM_CD IN ('42001') THEN '" + AREXAMNM18 + "' WHEN EEA_EXAM_CD IN ('71001') THEN '" + AREXAMNM19 + "' WHEN EEA_EXAM_CD IN ('91007') THEN '" + AREXAMNM20 + "' ELSE '" + AREXAMNM21 + "' END EXAM_NM ,EEP_HDMD_PR+EEP_SDMD_PR+EEP_COMPS_PR+EEP_COMP_PR+EEP_PSNL_PR+EEP_PSNLP_PR TOT_PR ,EEP_HDMD_PR,EEP_SDMD_PR,(EEP_COMPS_PR+EEP_COMP_PR) EEP_COMP_PR ,EEP_PSNL_PR ,EEP_PSNLP_PR ,RRM_SALE_TD_PR,RRM_TRUNC_TD_PR,RRM_RESEREPL_PR ,RRM_OVERPAY_PR,RRM_RECE_TD_PR,RRM_RETURN_PR_71,RRM_RETURN_PR_72, DIMISU_PR ,RRM_RECE_CARD_PR ,RRM_RECE_CASH_PR";
@@ -223,7 +235,14 @@ order by mm.OCCUR_DT, mm.EEA_EXAM_DT, mm.EEA_EXAM_SQ
 			sql += " , EEA_EXAM_CD EXAM_CD";
 		}
 
-		sql += " ,EEP_HDMD_PR, EEP_SDMD_PR, EEP_COMPS_PR ,EEP_COMP_PR, EEP_PSNL_PR ,EEP_PSNLP_PR ,0 RRM_SALE_TD_PR, 0 RRM_TRUNC_TD_PR, 0 RRM_RESEREPL_PR, 0 RRM_OVERPAY_PR, 0 RRM_RECE_TD_PR ,0 RRM_RECE_CARD_PR, 0 RRM_RECE_CASH_PR ,0 RRM_RETURN_PR_71, 0 RRM_RETURN_PR_72";
+		sql += " ,EEP_HDMD_PR, EEP_SDMD_PR, EEP_COMPS_PR ,EEP_COMP_PR, EEP_PSNL_PR ,EEP_PSNLP_PR ";
+
+		if(DISC_KD.equals("1")) {
+			sql += ", NVL(EEP_DISC_PR,0) RRM_SALE_TD_PR";
+		} else {
+			sql += ", NVL(EEP_DISC_PR,0) + NVL(EEP_DISC_CPR ,0) RRM_SALE_TD_PR ";
+		}
+		sql += ", 0 RRM_TRUNC_TD_PR, 0 RRM_RESEREPL_PR, 0 RRM_OVERPAY_PR, 0 RRM_RECE_TD_PR ,0 RRM_RECE_CARD_PR, 0 RRM_RECE_CASH_PR ,0 RRM_RETURN_PR_71, 0 RRM_RETURN_PR_72 ";
 		sql += " FROM ET_EXAM_PRICE LEFT OUTER JOIN ET_EXAM_ACPT";
 		sql += " ON EEP_EXAM_DT = EEA_EXAM_DT";
 		sql += " AND EEP_EXAM_SQ = EEA_EXAM_SQ";
@@ -333,6 +352,7 @@ order by mm.OCCUR_DT, mm.EEA_EXAM_DT, mm.EEA_EXAM_SQ
 			G_INFO += " ADD_AFPR_YN : " + ADD_AFPR_YN + " \n";
 			G_INFO += " RZ_CMBPLE1 : " + RZ_CMBPLE1 + " \n";
 			G_INFO += " RZ_CMBPLE2 : " + RZ_CMBPLE2 + " \n";
+			G_INFO += " DISC_KD : " + DISC_KD + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";
@@ -340,6 +360,8 @@ order by mm.OCCUR_DT, mm.EEA_EXAM_DT, mm.EEA_EXAM_SQ
 
 		rsList = stmtList.executeQuery(sql);
 		cRsList = new CRs(rsList);
+
+		rsmd = rsList.getMetaData();  //Select 결과의 Metadata 가져오기.
 
 		out.clear();		// include된 파일안의 공백 제거
 		response.addHeader("Content-type", "text/xml");
@@ -351,259 +373,72 @@ order by mm.OCCUR_DT, mm.EEA_EXAM_DT, mm.EEA_EXAM_SQ
 	<resultCode>200</resultCode>
 	<resultXml>
 		<xml xmlns:s='uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882'
-			xmlns:dt='uuid:C2F41010-65B3-11d1-A29F-00AA00C14882'
-			xmlns:rs='urn:schemas-microsoft-com:rowset'
-			xmlns:z='#RowsetSchema'>
+			 xmlns:dt='uuid:C2F41010-65B3-11d1-A29F-00AA00C14882'
+			 xmlns:rs='urn:schemas-microsoft-com:rowset'
+			 xmlns:z='#RowsetSchema'>
 
-<s:Schema id='RowsetSchema'>
-	<s:ElementType name='row' content='eltOnly' rs:updatable='true'>
-		<s:AttributeType name='OCCUR_DT' rs:number='1' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='10'/>
-		</s:AttributeType>
-		<s:AttributeType name='EEA_EXAM_DT' rs:number='2' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='10'/>
-		</s:AttributeType>
-		<s:AttributeType name='EEA_EXAM_SQ' rs:number='3' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='1004'/>
-		</s:AttributeType>
-		<s:AttributeType name='EEA_PSNL_NM' rs:number='4' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='100'/>
-		</s:AttributeType>
-		<s:AttributeType name='EEA_CUST_NO' rs:number='5' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='10'/>
-		</s:AttributeType>
-		<s:AttributeType name='COMP_NM' rs:number='6' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='4000'/>
-		</s:AttributeType>
-		<s:AttributeType name='EXAM_NM' rs:number='7' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='1004' rs:fixedlength='true'/>
-		</s:AttributeType>
-		<s:AttributeType name='TOT_PR' rs:number='8' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='EEP_HDMD_PR' rs:number='9' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='EEP_SDMD_PR' rs:number='10' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='EEP_COMP_PR' rs:number='11' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='EEP_PSNL_PR' rs:number='12' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='EEP_PSNLP_PR' rs:number='13' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='RRM_SALE_TD_PR' rs:number='14' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='RRM_TRUNC_TD_PR' rs:number='15' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='RRM_RESEREPL_PR' rs:number='16' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='RRM_OVERPAY_PR' rs:number='17' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='RRM_RECE_TD_PR' rs:number='18' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='RRM_RETURN_PR_71' rs:number='19' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='RRM_RETURN_PR_72' rs:number='20' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='DIMISU_PR' rs:number='21' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='RRM_RECE_CARD_PR' rs:number='22' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='RRM_RECE_CASH_PR' rs:number='23' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:extends type='rs:rowbase'/>
-	</s:ElementType>
-</s:Schema>
-		<rs:data>
-<%
-		int cnt = 0;
-		while(cRsList.next()) {
+			<s:Schema id='RowsetSchema'>
+				<s:ElementType name='row' content='eltOnly' rs:updatable='true'>
+					<%
+						for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
+							String dataType = "string";
+							String maxLength = "4000";
 
-			cnt++;
+							if (rsmd.getColumnTypeName(colCnt).equals("BLOB")){
+								dataType = "bin.hex";
+								maxLength = "2147483647";
+								//<s:datatype dt:type='bin.hex' dt:maxLength='2147483647' rs:long='true'/>
+							} else if (rsmd.getColumnTypeName(colCnt).equals("CLOB")){
+								maxLength = "1073741823";
+								//<s:datatype dt:type='string' dt:maxLength='1073741823' rs:long='true'/>
+							}
+					%>
+					<s:AttributeType name='<%= rsmd.getColumnName(colCnt)%>' rs:number='<%= Integer.toString(colCnt)%>' rs:writeunknown='true' rs:basetable='DUAL' rs:basecolumn='<%= rsmd.getColumnName(colCnt)%>'>
+						<s:datatype dt:type='<%= dataType%>' dt:maxLength='<%= maxLength%>' <% if (! maxLength.equals("4000")) { %> rs:long='true' <% } %>/>
+					</s:AttributeType>
+					<%
+						}
+					%>
+					<s:AttributeType name='ROWID' rs:number='<%= Integer.toString(colCnt)%>' rs:rowid='true' rs:writeunknown='true' rs:basetable='DUAL'
+									 rs:basecolumn='ROWID' rs:keycolumn='true' rs:hidden='true' rs:autoincrement='true'>
+						<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
+					</s:AttributeType>
+					<s:extends type='rs:rowbase'/>
+				</s:ElementType>
+			</s:Schema>		<rs:data>
+			<%
+				int cnt = 0;
+				while(cRsList.next()) {
 
-			String OCCUR_DT_T = cRsList.getString("OCCUR_DT");
-			String EEA_EXAM_DT_T = cRsList.getString("EEA_EXAM_DT");
-			String EEA_EXAM_SQ_T = cRsList.getString("EEA_EXAM_SQ");
-			String EEA_PSNL_NM_T = cRsList.getString("EEA_PSNL_NM");
-			String EEA_CUST_NO_T = cRsList.getString("EEA_CUST_NO");
-			String COMP_NM_T = cRsList.getString("COMP_NM");
-			String EXAM_NM_T = cRsList.getString("EXAM_NM");
-			String TOT_PR_T = cRsList.getString("TOT_PR");
-			String EEP_HDMD_PR_T = cRsList.getString("EEP_HDMD_PR");
-			String EEP_SDMD_PR_T = cRsList.getString("EEP_SDMD_PR");
-			String EEP_COMP_PR_T = cRsList.getString("EEP_COMP_PR");
-			String EEP_PSNL_PR_T = cRsList.getString("EEP_PSNL_PR");
-			String EEP_PSNLP_PR_T = cRsList.getString("EEP_PSNLP_PR");
-			String RRM_SALE_TD_PR_T = cRsList.getString("RRM_SALE_TD_PR");
-			String RRM_TRUNC_TD_PR_T = cRsList.getString("RRM_TRUNC_TD_PR");
-			String RRM_RESEREPL_PR_T = cRsList.getString("RRM_RESEREPL_PR");
-			String RRM_OVERPAY_PR_T = cRsList.getString("RRM_OVERPAY_PR");
-			String RRM_RECE_TD_PR_T = cRsList.getString("RRM_RECE_TD_PR");
-			String RRM_RETURN_PR_71_T = cRsList.getString("RRM_RETURN_PR_71");
-			String RRM_RETURN_PR_72_T = cRsList.getString("RRM_RETURN_PR_72");
-			String DIMISU_PR_T = cRsList.getString("DIMISU_PR");
-			String RRM_RECE_CARD_PR_T = cRsList.getString("RRM_RECE_CARD_PR");
-			String RRM_RECE_CASH_PR_T = cRsList.getString("RRM_RECE_CASH_PR");
-%>
+					cnt++;
+
+					String ROWID_T = cRsList.getString("ROWID");
+			%>
 			<z:row
-<%
-			if(! OCCUR_DT_T.equals("")) {
-%>
-		 		OCCUR_DT='<%= OCCUR_DT_T%>'
-<%
-			}
+			<%
+				for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
 
-			if(! EEA_EXAM_DT_T.equals("")) {
-%>
-		 		EEA_EXAM_DT='<%= EEA_EXAM_DT_T%>'
-<%
-			}
+					String tempData = cRsList.getString(rsmd.getColumnName(colCnt));
 
-			if(! EEA_EXAM_SQ_T.equals("")) {
-%>
-		 		EEA_EXAM_SQ='<%= EEA_EXAM_SQ_T%>'
-<%
-			}
+					if (rsmd.getColumnTypeName(colCnt).equals("BLOB")){
+						byte[] buf_BLOB = rsList.getBytes(rsmd.getColumnName(colCnt));
+						if(buf_BLOB != null) {
+							tempData = new String(buf_BLOB);
+						}
+					}
 
-			if(! EEA_PSNL_NM_T.equals("")) {
-%>
-		 		EEA_PSNL_NM='<%= EEA_PSNL_NM_T%>'
-<%
-			}
-
-			if(! EEA_CUST_NO_T.equals("")) {
-%>
-		 		EEA_CUST_NO='<%= EEA_CUST_NO_T%>'
-<%
-			}
-
-			if(! COMP_NM_T.equals("")) {
-%>
-		 		COMP_NM='<%= COMP_NM_T%>'
-<%
-			}
-
-			if(! EXAM_NM_T.equals("")) {
-%>
-		 		EXAM_NM='<%= EXAM_NM_T%>'
-<%
-			}
-
-			if(! TOT_PR_T.equals("")) {
-%>
-		 		TOT_PR='<%= TOT_PR_T%>'
-<%
-			}
-
-			if(! EEP_HDMD_PR_T.equals("")) {
-%>
-		 		EEP_HDMD_PR='<%= EEP_HDMD_PR_T%>'
-<%
-			}
-
-			if(! EEP_SDMD_PR_T.equals("")) {
-%>
-		 		EEP_SDMD_PR='<%= EEP_SDMD_PR_T%>'
-<%
-			}
-
-			if(! EEP_COMP_PR_T.equals("")) {
-%>
-		 		EEP_COMP_PR='<%= EEP_COMP_PR_T%>'
-<%
-			}
-
-			if(! EEP_PSNL_PR_T.equals("")) {
-%>
-		 		EEP_PSNL_PR='<%= EEP_PSNL_PR_T%>'
-<%
-			}
-
-			if(! EEP_PSNLP_PR_T.equals("")) {
-%>
-		 		EEP_PSNLP_PR='<%= EEP_PSNLP_PR_T%>'
-<%
-			}
-
-			if(! RRM_SALE_TD_PR_T.equals("")) {
-%>
-		 		RRM_SALE_TD_PR='<%= RRM_SALE_TD_PR_T%>'
-<%
-			}
-
-			if(! RRM_TRUNC_TD_PR_T.equals("")) {
-%>
-		 		RRM_TRUNC_TD_PR='<%= RRM_TRUNC_TD_PR_T%>'
-<%
-			}
-
-			if(! RRM_RESEREPL_PR_T.equals("")) {
-%>
-		 		RRM_RESEREPL_PR='<%= RRM_RESEREPL_PR_T%>'
-<%
-			}
-
-			if(! RRM_OVERPAY_PR_T.equals("")) {
-%>
-		 		RRM_OVERPAY_PR='<%= RRM_OVERPAY_PR_T%>'
-<%
-			}
-
-			if(! RRM_RECE_TD_PR_T.equals("")) {
-%>
-		 		RRM_RECE_TD_PR='<%= RRM_RECE_TD_PR_T%>'
-<%
-			}
-
-			if(! RRM_RETURN_PR_71_T.equals("")) {
-%>
-		 		RRM_RETURN_PR_71='<%= RRM_RETURN_PR_71_T%>'
-<%
-			}
-
-			if(! RRM_RETURN_PR_72_T.equals("")) {
-%>
-		 		RRM_RETURN_PR_72='<%= RRM_RETURN_PR_72_T%>'
-<%
-			}
-
-			if(! DIMISU_PR_T.equals("")) {
-%>
-		 		DIMISU_PR='<%= DIMISU_PR_T%>'
-<%
-			}
-
-			if(! RRM_RECE_CARD_PR_T.equals("")) {
-%>
-		 		RRM_RECE_CARD_PR='<%= RRM_RECE_CARD_PR_T%>'
-<%
-			}
-
-			if(! RRM_RECE_CASH_PR_T.equals("")) {
-%>
-		 		RRM_RECE_CASH_PR='<%= RRM_RECE_CASH_PR_T%>'
-<%
-			}
-%>
+					if(! tempData.equals("")) {
+			%>
+			<%= rsmd.getColumnName(colCnt)%>='<%= tempData%>'
+			<%
+					}
+				}
+			%>
+			ROWID='<%= cnt%>'
 			/>
-<%
-		}
-%>
+			<%
+				}
+			%>
 		</rs:data>
 		</xml>
 	</resultXml>
@@ -611,10 +446,10 @@ order by mm.OCCUR_DT, mm.EEA_EXAM_DT, mm.EEA_EXAM_SQ
 </nurionXml>
 
 <%
-	} catch (Exception e) {
+} catch (Exception e) {
 
-		out.clear();		// include된 파일안의 공백 제거
-		response.addHeader("Content-type", "text/xml");
+	out.clear();		// include된 파일안의 공백 제거
+	response.addHeader("Content-type", "text/xml");
 %><?xml version="1.0" encoding="UTF-8"?>
 
 <%= G_INFO%>
@@ -627,17 +462,17 @@ order by mm.OCCUR_DT, mm.EEA_EXAM_DT, mm.EEA_EXAM_SQ
 </nurionXml>
 
 <%
-	} finally {
+} finally {
 
-		if(rsList != null) {
-			rsList.close();
-			rsList = null;
-		}
+	if(rsList != null) {
+		rsList.close();
+		rsList = null;
+	}
 
-		if(stmtList != null) {
-			stmtList.close();
-			stmtList = null;
-		}
+	if(stmtList != null) {
+		stmtList.close();
+		stmtList = null;
+	}
 %>
 <%@ include file="/inc_prg/disconnect.jsp"%>
 <%
