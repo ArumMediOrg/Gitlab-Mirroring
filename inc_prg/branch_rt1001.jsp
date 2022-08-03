@@ -25,6 +25,7 @@
 	htBranch.put("uRT_ReceDayReport_Up_afLoadComp7_001", 		"/method/rt1001/uRT_ReceDayReport_Up_afLoadComp7_001.jsp");
 	htBranch.put("uRT_ReceDayReport_Up_afLoadComp7_002", 		"/method/rt1001/uRT_ReceDayReport_Up_afLoadComp7_002.jsp");
 	htBranch.put("uRT_ReceDayReport_Up_afLoadComp7_003", 		"/method/rt1001/uRT_ReceDayReport_Up_afLoadComp7_003.jsp");
+	htBranch.put("uRT_ReceDayReport_Up_afLoadComp8_001", 		"/method/rt1001/uRT_ReceDayReport_Up_afLoadComp8_001.jsp");
 	htBranch.put("uPointPrint_setData_001", 		"/method/rt1001/uPointPrint_setData_001.jsp");
 	htBranch.put("uPointPrint_setData_002", 		"/method/rt1001/uPointPrint_setData_002.jsp");
 %>
