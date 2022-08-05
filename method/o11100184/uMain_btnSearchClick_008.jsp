@@ -125,7 +125,6 @@
     sql += " EEA_DISC_PR,";
     sql += " EEA_STOMA_CD,";
     sql += " EEA_CANAD_YN,";
-    sql += " EEA_BAST_CD,";
     sql += " EEA_ACPT_TX,";
     sql += " EEA_LIVER_CD,";
     sql += " EEA_BAST_CD,";
