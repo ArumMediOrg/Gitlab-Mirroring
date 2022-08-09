@@ -22,4 +22,5 @@
 	htBranch.put("uDoctor_Pm_UP_QryOpen_Chk_004", 		"/method/doctor_pm/uDoctor_Pm_UP_QryOpen_Chk_004.jsp");
 	htBranch.put("uDoctor_Pm_UP_QryOpen_Chk_005", 		"/method/doctor_pm/uDoctor_Pm_UP_QryOpen_Chk_005.jsp");
 	htBranch.put("uDoctor_Pm_UP_QryOpen_Chk_006", 		"/method/doctor_pm/uDoctor_Pm_UP_QryOpen_Chk_006.jsp");
+	htBranch.put("uDoctor_Pm_UP_QryOpen_Qqn_001", 		"/method/doctor_pm/uDoctor_Pm_UP_QryOpen_Qqn_001.jsp");
 %>
