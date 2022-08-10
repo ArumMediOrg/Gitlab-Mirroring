@@ -92,7 +92,6 @@
     sql = " SELECT EEA_EXAM_DT,";
     sql += " EEA_EXAM_SQ,";
     sql += " EEA_PSNL_NM,";
-    sql += " ICR_PENL_ID,";
     sql += " EEA_CHART_NO,";
     sql += " ICR_TEL_NO,";
     sql += " ICR_MOBL_NO,";
@@ -305,7 +304,6 @@
     sql += " EEA_HLTH_KD, ";
     sql += " EEA_COMP_CD, ";
     sql += " ICR_EMAI_AR, ";
-    sql += " ICR_PENL_ID, ";
     sql += " ICR_NTNA_CD, ";
     sql += " ICR_REGION_CD, ";
     sql += " CCN_REL ";
