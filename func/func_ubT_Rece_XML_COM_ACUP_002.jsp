@@ -19,9 +19,9 @@
 			RECE_KD = CTr.Replace(RECE_KD, "'", "''");
 			RECE_NO = CTr.Replace(RECE_NO, "'", "''");
 
-			sql = "UPDATE ET_EXAM_ACPT SET ";
-			sql += "  EEA_RECE_KD = '" + RECE_KD + "'";
-			sql += " WHERE EEA_RECE_NO = '" + RECE_NO + "'";
+			sql =  " UPDATE ET_EXAM_ACPT SET";
+			sql += " EEA_RECE_KD = '" + RECE_KD + "'";
+			sql += " WHERE NVL(EEA_RECE_NO,'XXX') = '" + RECE_NO + "'";
 
 			argStmtExec.executeUpdate(sql);
 
