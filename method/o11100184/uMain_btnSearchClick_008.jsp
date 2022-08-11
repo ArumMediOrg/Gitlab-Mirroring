@@ -170,6 +170,11 @@
     sql += " WHERE EEA_EXAM_DT = A.EEA_EXAM_DT";
     sql += " AND EEA_EXAM_SQ = A.EEA_EXAM_SQ";
     sql += " AND REGEXP_SUBSTR(A.EEA_SPCL_LT, '[^|]+', 1, LV) IS NOT NULL)))  ETC1_CD,";
+    sql += " (SELECT LISTAGG(ERI_ITEM_CD, '|') WITHIN GROUP (ORDER BY ERI_ITEM_CD)";
+    sql += " FROM ET_RSLT_ITEM";
+    sql += " WHERE ERI_EXAM_DT = A.EEA_EXAM_DT";
+    sql += " AND ERI_EXAM_SQ = A.EEA_EXAM_SQ";
+    sql += " AND NVL(ERI_CNCL_YN, 'N') <> 'Y') ITEM_CD,";
     sql += " (SELECT LISTAGG(IIM_KNME_NM, '|') WITHIN GROUP (ORDER BY ERI_ITEM_CD)";
     sql += " FROM IT_ITEM";
     sql += " Inner Join ET_RSLT_ITEM On IIM_ITEM_CD = ERI_ITEM_CD";
