@@ -25,12 +25,14 @@
 		String RECE_NO = htMethod.get("RECE_NO");
 		String RECE_SEQ = htMethod.get("RECE_SEQ");
 		String OCCU_KD = htMethod.get("OCCU_KD");
+		String USER_ID = htMethod.get("USER_ID");
 
 		//
 		if(PAY_KD == null) { PAY_KD = ""; }
 		if(RECE_NO == null) { RECE_NO = ""; }
 		if(RECE_SEQ == null) { RECE_SEQ = ""; }
 		if(OCCU_KD == null) { OCCU_KD = ""; }
+		if(USER_ID == null) { USER_ID = ""; }
 
 		// DB객체
 		stmtExec = connect.createStatement();
@@ -48,6 +50,7 @@
 			G_INFO += " RECE_NO : " + RECE_NO + " \n";
 			G_INFO += " RECE_SEQ : " + RECE_SEQ + " \n";
 			G_INFO += " OCCU_KD : " + OCCU_KD + " \n";
+			G_INFO += " USER_ID : " + USER_ID + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";
