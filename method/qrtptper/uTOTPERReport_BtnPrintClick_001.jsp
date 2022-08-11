@@ -77,11 +77,11 @@
 			//sql += " OR ERI_RSLT_EX <> ' ')";
 
 			if(RZCOMBOBOX2.equals("1")) {
-				sql += " AND ERI_ADD_KD IN ('1', '7')";
+				sql += " AND C.ERI_ADD_KD IN ('1', '7')";
 			}
 
 			if(RZCOMBOBOX2.equals("2")) {
-				sql += " AND ERI_ETC_KD <> '0'";
+				sql += " AND C.ERI_ADD_KD <> '0'";
 			}
 
 			if(RZCOMBOBOX2.equals("3")) {
@@ -97,6 +97,10 @@
 			}
 
 			if(RZCOMBOBOX2.equals("6")) {
+				sql += " AND (C.ERI_ETC_KD <> '0' OR ERI_ADD_KD <> '0')";
+			}
+
+			if(RZCOMBOBOX2.equals("7")) {
 				sql += " AND D.IIM_RSLT_KD IN ('6', '7')";
 			}
 
