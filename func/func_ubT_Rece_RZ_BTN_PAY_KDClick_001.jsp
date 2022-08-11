@@ -30,8 +30,8 @@
 
 			sql =  " UPDATE RT_RECE_MEDICHK SET ";
 			sql += " RRM_PAY_KD = '" + PAY_KD + "'";
-			sql += " RRM_MODI_ID  = '" + USER_ID + "'";
-			sql += " RRM_MODI_DTT  = SYSDATE";
+			sql += " ,RRM_MODI_ID  = '" + USER_ID + "'";
+			sql += " ,RRM_MODI_DTT  = SYSDATE";
 			sql += " WHERE RRM_RECE_NO = '" + RECE_NO + "'";
 			sql += " AND RRM_RECE_SEQ = '" + RECE_SEQ + "'";
 			sql += " AND RRM_OCCU_KD = '" + OCCU_KD + "'";
