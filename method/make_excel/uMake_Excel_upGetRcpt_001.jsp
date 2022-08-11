@@ -40,6 +40,7 @@
 		String CMBSORT = htMethod.get("CMBSORT");
 		String sDivi_Cs = htMethod.get("sDivi_Cs");
 		String sCLSS_KD = htMethod.get("sCLSS_KD");
+		String EDTEEA_ADDR = htMethod.get("EDTEEA_ADDR");
 
 		//
 		if(G_ENCRT_KD == null) { G_ENCRT_KD = ""; }
@@ -55,6 +56,7 @@
 		if(CMBSORT == null) { CMBSORT = ""; }
 		if(sDivi_Cs == null) { sDivi_Cs = ""; }
 		if(sCLSS_KD == null) { sCLSS_KD = ""; }
+		if(EDTEEA_ADDR == null) { EDTEEA_ADDR = ""; }
 
 		// DB객체
 		stmtList = connect.createStatement();
@@ -91,6 +93,10 @@
 
 		if(!EDTEEA_PSNL_NM.equals("")) {
 			sql += " AND EEA_PSNL_NM LIKE '" + EDTEEA_PSNL_NM + "' || '%'";
+		}
+
+		if(!EDTEEA_ADDR.equals("")) {
+			sql += " AND (EEA_ZIP_AR LIKE '%' || '" + EDTEEA_ADDR + "' || '%' OR EEA_ROAD_AR LIKE '%' || '" + EDTEEA_ADDR + "' || '%' )";
 		}
 
 		if(!MSKCOMP_CODE.equals("")) {
@@ -234,6 +240,7 @@
 			G_INFO += " CMBSORT : " + CMBSORT + " \n";
 			G_INFO += " sDivi_Cs : " + sDivi_Cs + " \n";
 			G_INFO += " sCLSS_KD : " + sCLSS_KD + " \n";
+			G_INFO += " EDTEEA_ADDR : " + EDTEEA_ADDR + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";
