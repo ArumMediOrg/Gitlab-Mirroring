@@ -77,31 +77,31 @@
 			//sql += " OR ERI_RSLT_EX <> ' ')";
 
 			if(RZCOMBOBOX2.equals("1")) {
-				sql += " AND C.ERI_ADD_KD IN ('1', '7')";
+				sql += " AND ET_RSLT_ITEM.ERI_ADD_KD IN ('1', '7')";
 			}
 
 			if(RZCOMBOBOX2.equals("2")) {
-				sql += " AND C.ERI_ADD_KD <> '0'";
+				sql += " AND ET_RSLT_ITEM.ERI_ADD_KD <> '0'";
 			}
 
 			if(RZCOMBOBOX2.equals("3")) {
-				sql += " AND C.ERI_ADD_KD IN ('3')";
+				sql += " AND ET_RSLT_ITEM.ERI_ADD_KD IN ('3')";
 			}
 
 			if(RZCOMBOBOX2.equals("4")) {
-				sql += " AND C.ERI_ADD_KD IN ('4', '5')";
+				sql += " AND ET_RSLT_ITEM.ERI_ADD_KD IN ('4', '5')";
 			}
 
 			if(RZCOMBOBOX2.equals("5")) {
-				sql += " AND C.ERI_ETC_KD <> '0'";
+				sql += " AND ET_RSLT_ITEM.ERI_ETC_KD <> '0'";
 			}
 
 			if(RZCOMBOBOX2.equals("6")) {
-				sql += " AND (C.ERI_ETC_KD <> '0' OR ERI_ADD_KD <> '0')";
+				sql += " AND (ET_RSLT_ITEM.ERI_ETC_KD <> '0' OR ET_RSLT_ITEM.ERI_ADD_KD <> '0')";
 			}
 
 			if(RZCOMBOBOX2.equals("7")) {
-				sql += " AND D.IIM_RSLT_KD IN ('6', '7')";
+				sql += " AND IT_ITEM.IIM_RSLT_KD IN ('6', '7')";
 			}
 
 			if(G_HOSP_NO.equals("11100761") && RZCOMBOBOX2.equals("1")) {
