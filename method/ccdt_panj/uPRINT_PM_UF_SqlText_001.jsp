@@ -41,6 +41,7 @@
 		String DTEDTBIRTH = htMethod.get("DTEDTBIRTH");
 		String RZCMBBOXPANJ = htMethod.get("RZCMBBOXPANJ");
 		String CMBBOXSORT = htMethod.get("CMBBOXSORT");
+		String CBPLCE_CD = htMethod.get("CBPLCE_CD");
 
 		//
 		if(SMODE == null) { SMODE = ""; }
@@ -57,6 +58,7 @@
 		if(DTEDTBIRTH == null) { DTEDTBIRTH = ""; }
 		if(RZCMBBOXPANJ == null) { RZCMBBOXPANJ = ""; }
 		if(CMBBOXSORT == null) { CMBBOXSORT = ""; }
+		if(CBPLCE_CD == null) { CBPLCE_CD = ""; }
 
 		// DB객체
 		stmtList = connect.createStatement();
@@ -89,6 +91,10 @@
 			else {
 				sql += " AND A.EEA_COMP_CD = '" + MSKEDTEEA_COMP_CD2 + "'";
 			}
+		}
+
+		if(!CBPLCE_CD.equals("00")) {
+			sql += " AND A.EEA_PLCE_CD = '" + CBPLCE_CD + "'";
 		}
 
 		if(!CMBFAMYCD.equals("00")) {
@@ -152,6 +158,7 @@
 			G_INFO += " DTEDTBIRTH : " + DTEDTBIRTH + " \n";
 			G_INFO += " RZCMBBOXPANJ : " + RZCMBBOXPANJ + " \n";
 			G_INFO += " CMBBOXSORT : " + CMBBOXSORT + " \n";
+			G_INFO += " CBPLCE_CD : " + CBPLCE_CD + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";
