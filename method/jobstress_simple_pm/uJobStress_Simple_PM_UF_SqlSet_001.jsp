@@ -94,8 +94,12 @@
 			sql += " AND A.EEA_PSNL_NM LIKE '%' || '" + EDTPSNL_NM + "' || '%'";
 		}
 
-		if(!CMBBOXPLCE_CD.equals("0")) {
-			sql += " AND SUBSTR(A.EEA_PLCE_CD,1,1) = '" + CMBBOXPLCE_CD + "'";
+		if(!EDTPSNL_NM.equals("")) {
+			sql += " AND A.EEA_PSNL_NM LIKE '%' || '" + EDTPSNL_NM + "' || '%'";
+		}
+
+		if(!CMBBOXPLCE_CD.equals("00")) {
+			sql += " AND SUBSTR(A.EEA_PLCE_CD,1,2) = '" + CMBBOXPLCE_CD + "'";
 		}
 
 		if(!CMBFAMYCD.equals("00")) {
