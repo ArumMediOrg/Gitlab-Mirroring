@@ -37,6 +37,7 @@
 		String CBDEPT_CD = htMethod.get("CBDEPT_CD");
 		String DEPT_CD = htMethod.get("DEPT_CD");
 		String EDITDEPT_NM = htMethod.get("EDITDEPT_NM");
+		String CMBBOXPLCE_CD = htMethod.get("CMBBOXPLCE_CD");
 
 		//
 		if(DTEDTEEA_EXAM_SDT == null) { DTEDTEEA_EXAM_SDT = ""; }
@@ -49,6 +50,7 @@
 		if(CBDEPT_CD == null) { CBDEPT_CD = ""; }
 		if(DEPT_CD == null) { DEPT_CD = ""; }
 		if(EDITDEPT_NM == null) { EDITDEPT_NM = ""; }
+		if(CMBBOXPLCE_CD == null) { CMBBOXPLCE_CD = ""; }
 
 		// DB객체
 		stmtList = connect.createStatement();
@@ -82,6 +84,10 @@
 			sql += " AND A.EEA_FAMY_CD = '" + CMBFAMYCD + "'";
 		}
 
+		if(!CMBBOXPLCE_CD.equals("00")) {
+			sql += " AND A.EEA_PLCE_CD = '" + CMBBOXPLCE_CD + "'";
+		}
+
 		if(RZCMBBOXPANJ.equals("1")) {
 			sql += " AND D.EJS_PANJ_YN = 'Y'";
 		}
@@ -105,6 +111,7 @@
 			G_INFO += " CBDEPT_CD : " + CBDEPT_CD + " \n";
 			G_INFO += " DEPT_CD : " + DEPT_CD + " \n";
 			G_INFO += " EDITDEPT_NM : " + EDITDEPT_NM + " \n";
+			G_INFO += " CMBBOXPLCE_CD : " + CMBBOXPLCE_CD + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";
