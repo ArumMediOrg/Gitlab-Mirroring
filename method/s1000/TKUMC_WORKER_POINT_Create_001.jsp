@@ -34,10 +34,6 @@
 		// DB객체
 		stmtList = connect.createStatement();
 
-		/*
-
-select EEA_DIVI_NO, EEA_FAMY_CD, EEA_PSNL_NM from et_exam_acpt where EEA_EXAM_DT = :EXAM_DT and EEA_EXAM_SQ = :EXAM_SQ
-		*/
 
 		sql = " SELECT EEA_DIVI_NO, EEA_FAMY_CD, EEA_PSNL_NM";
 		sql += " FROM ET_EXAM_ACPT";
