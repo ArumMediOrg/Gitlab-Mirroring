@@ -35,6 +35,7 @@
 		stmtList = connect.createStatement();
 
 
+
 		sql = " SELECT EEA_DIVI_NO, EEA_FAMY_CD, EEA_PSNL_NM";
 		sql += " FROM ET_EXAM_ACPT";
 		sql += " WHERE EEA_EXAM_DT = '" + EXAM_DT + "'";
