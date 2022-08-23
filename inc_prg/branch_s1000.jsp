@@ -61,4 +61,5 @@
 	htBranch.put("ubT_Rece_RzBTN_RECEPRTClick_004", 		"/method/s1000/ubT_Rece_RzBTN_RECEPRTClick_004.jsp");
 	htBranch.put("ubT_Rece_Up_afLoadConf1_001", 		"/method/s1000/ubT_Rece_Up_afLoadConf1_001.jsp");
 	htBranch.put("ubT_Rece_Up_afLoadConf2_001", 		"/method/s1000/ubT_Rece_Up_afLoadConf2_001.jsp");
+	htBranch.put("ubt_raceVAN_BtnCancelSaveClick_001", 		"/method/s1000/ubt_raceVAN_BtnCancelSaveClick_001.jsp");
 %>
