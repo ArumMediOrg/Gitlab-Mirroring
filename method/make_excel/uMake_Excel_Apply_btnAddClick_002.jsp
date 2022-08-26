@@ -58,6 +58,7 @@ WHERE ECI_COMP_CD = :COMP_CD
 		sql += " AND ECI_MNGT_YR = '" + MNGT_YR + "'";
 		sql += " AND ECI_CNRT_SQ = '" + CNRT_SQ + "'";
 		sql += " AND ECI_PROF_SQ = '" + PROF_SQ + "'";
+		sql += " ORDER BY ECI_SORT_SQ";
 
 			//
 			G_INFO += "<!-- \n";
