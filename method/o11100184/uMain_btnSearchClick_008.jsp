@@ -243,7 +243,7 @@
         sql += " AND EEA_CHART_NO Like  '%'|| '" + CHART_NO + "' ||'%'";
     }
 
-    if (!CANCEL_YN.equals("Y")) {
+    if (CANCEL_YN.equals("Y")) {
         sql += " AND EEA_ORDER_YN <> 'C'";
     }
 
