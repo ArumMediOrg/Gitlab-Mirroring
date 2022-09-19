@@ -39,8 +39,8 @@
 
 		sql =  " SELECT B.RRT_EXAM_TM FROM ET_EXAM_ACPT A ";
 		sql += " INNER JOIN RT_RSVT B ON A.EEA_RSVN_NO = B.RRT_RSVN_NO ";
-		sql += " WHERE A.EEA_EXAM_DT = '" + EXAM_DT + "' ";
-		sql += " AND A.EEA_EXAM_SQ = '" + EXAM_SQ + "' ";
+		sql += " WHERE A.EEA_EXAM_DT = '" + EXAM_DT + "'";
+		sql += " AND A.EEA_EXAM_SQ = '" + EXAM_SQ + "'";
 
 
 		//
