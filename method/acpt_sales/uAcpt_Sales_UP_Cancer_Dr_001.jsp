@@ -104,7 +104,7 @@ SELECT NVL(LICEN_CD, ' ') LICEN_CD, MAX(CASE WHEN DR_NM = ' ' THEN LICEN_CD ELSE
                                                                 AND ECV_EXAM_SQ = EEA_EXAM_SQ
                                LEFT OUTER JOIN ET_CANCER_LUNG  G ON ECG_EXAM_DT = EEA_EXAM_DT
                                                                 AND ECG_EXAM_SQ = EEA_EXAM_SQ
-                         WHERE EEA_EXAM_DT BETWEEN :EXAM_SDT AND :EXAM_EDT
+                         WHERE EEA_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'
                            AND NVL(EEA_HTSB_CD, ' ') <> ' '
                            AND EEA_ORDER_YN <> 'C'
                            AND NVL(EEA_RECE_NO, ' ') <> 'R'
@@ -115,7 +115,7 @@ SELECT NVL(LICEN_CD, ' ') LICEN_CD, MAX(CASE WHEN DR_NM = ' ' THEN LICEN_CD ELSE
                        (SELECT EEI_EXAM_DT, EEI_EXAM_SQ, EEI_CAN_KD,
                                SUM(EEI_FST_PR) FST_PR, SUM(EEI_HTSB_PR) HTSB_PR, SUM(EEI_CAN_PR) CAN_PR
                           FROM ET_EXAM_ITEM
-                         WHERE EEI_EXAM_DT BETWEEN :EXAM_SDT AND :EXAM_EDT
+                         WHERE EEI_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'
                            AND EEI_CAN_KD <> '0'
                          GROUP BY EEI_EXAM_DT, EEI_EXAM_SQ, EEI_CAN_KD
                        ) H
@@ -159,12 +159,12 @@ SELECT NVL(LICEN_CD, ' ') LICEN_CD, MAX(CASE WHEN DR_NM = ' ' THEN LICEN_CD ELSE
                           FROM (SELECT EEP_EXAM_DT, EEP_EXAM_SQ,
                                        SUM(EEP_FST_PR) FST_PR, SUM(EEP_HTSB_PR) HTSB_PR, SUM(EEP_CAN_PR) CAN_PR
                                   FROM ET_EXAM_PRICE
-                                 WHERE EEP_EXAM_DT BETWEEN :EXAM_SDT AND :EXAM_EDT
+                                 WHERE EEP_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'
                                  GROUP BY EEP_EXAM_DT, EEP_EXAM_SQ
                                ) C, ET_EXAM_ACPT A
                                  LEFT OUTER JOIN PT_FIR_PANJUNG  B ON PFP_EXAM_DT = EEA_EXAM_DT
                                                                   AND PFP_EXAM_SQ = EEA_EXAM_SQ
-                         WHERE EEA_EXAM_DT BETWEEN :EXAM_SDT AND :EXAM_EDT
+                         WHERE EEA_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'
                            AND EEA_HTSB_CD IN ('11001', '12001', '12003')
                            AND EEA_ORDER_YN <> 'C'
                            AND NVL(EEA_RECE_NO, ' ') <> 'R'
@@ -176,7 +176,7 @@ SELECT NVL(LICEN_CD, ' ') LICEN_CD, MAX(CASE WHEN DR_NM = ' ' THEN LICEN_CD ELSE
                           FROM ET_EXAM_ACPT A
                                LEFT OUTER JOIN PT_FIR_PANJUNG  B ON PFP_EXAM_DT = EEA_EXAM_DT
                                                                 AND PFP_EXAM_SQ = EEA_EXAM_SQ
-                         WHERE EEA_EXAM_DT BETWEEN :EXAM_SDT AND :EXAM_EDT
+                         WHERE EEA_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'
                            AND EEA_HTSB_CD IN ('11001', '12001', '12003')
                            AND EEA_ORDER_YN <> 'C'
                            AND NVL(EEA_RECE_NO, ' ') <> 'R'
@@ -186,12 +186,12 @@ SELECT NVL(LICEN_CD, ' ') LICEN_CD, MAX(CASE WHEN DR_NM = ' ' THEN LICEN_CD ELSE
                           FROM (SELECT EEP_EXAM_DT, EEP_EXAM_SQ,
                                        SUM(EEP_FST_PR) FST_PR, SUM(EEP_HTSB_PR) HTSB_PR, SUM(EEP_CAN_PR) CAN_PR
                                   FROM ET_EXAM_PRICE
-                                 WHERE EEP_EXAM_DT BETWEEN :EXAM_SDT AND :EXAM_EDT
+                                 WHERE EEP_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'
                                  GROUP BY EEP_EXAM_DT, EEP_EXAM_SQ
                                ) C, ET_EXAM_ACPT A
                                  LEFT OUTER JOIN PT_SED_PANJUNG  B ON PSP_EXAM_DT = EEA_EXAM_DT
                                                                         AND PSP_EXAM_SQ = EEA_EXAM_SQ
-                         WHERE EEA_EXAM_DT BETWEEN :EXAM_SDT AND :EXAM_EDT
+                         WHERE EEA_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'
                            AND EEA_HTSB_CD IN ('11002', '12002', '12004')
                            AND EEA_ORDER_YN <> 'C'
                            AND NVL(EEA_RECE_NO, ' ') <> 'R'
@@ -203,7 +203,7 @@ SELECT NVL(LICEN_CD, ' ') LICEN_CD, MAX(CASE WHEN DR_NM = ' ' THEN LICEN_CD ELSE
                           FROM ET_EXAM_ACPT A
                                LEFT OUTER JOIN ET_DENTAL_PANJ  B ON EDP_EXAM_DT = EEA_EXAM_DT
                                                                 AND EDP_EXAM_SQ = EEA_EXAM_SQ
-                         WHERE EEA_EXAM_DT BETWEEN :EXAM_SDT AND :EXAM_EDT
+                         WHERE EEA_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'
                            AND EEA_HTSB_CD LIKE '1%'
                            AND EEA_ORAL_YN = 'Y'
                            AND EEA_ORALR_PR > 0
@@ -215,7 +215,7 @@ SELECT NVL(LICEN_CD, ' ') LICEN_CD, MAX(CASE WHEN DR_NM = ' ' THEN LICEN_CD ELSE
                           FROM ET_EXAM_ACPT A
                                LEFT OUTER JOIN ET_STDT_PNJN B ON ESP_EXAM_DT = EEA_EXAM_DT
                                                              AND ESP_EXAM_SQ = EEA_EXAM_SQ
-                         WHERE EEA_EXAM_DT BETWEEN :EXAM_SDT AND :EXAM_EDT
+                         WHERE EEA_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'
                            AND EEA_EXAM_CD = '31001'
                            AND EEA_ORDER_YN <> 'C'
                            AND NVL(EEA_RECE_NO, ' ') <> 'R'
@@ -225,7 +225,7 @@ SELECT NVL(LICEN_CD, ' ') LICEN_CD, MAX(CASE WHEN DR_NM = ' ' THEN LICEN_CD ELSE
                           FROM ET_EXAM_ACPT A
                                LEFT OUTER JOIN ET_STDT_PNJN B ON ESP_EXAM_DT = EEA_EXAM_DT
                                                              AND ESP_EXAM_SQ = EEA_EXAM_SQ
-                         WHERE EEA_EXAM_DT BETWEEN :EXAM_SDT AND :EXAM_EDT
+                         WHERE EEA_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'
                            AND EEA_EXAM_CD = '31001'
                            AND EEA_ORDER_YN <> 'C'
                            AND NVL(EEA_RECE_NO, ' ') <> 'R'
@@ -235,7 +235,7 @@ SELECT NVL(LICEN_CD, ' ') LICEN_CD, MAX(CASE WHEN DR_NM = ' ' THEN LICEN_CD ELSE
                           FROM ET_EXAM_ACPT A
                                LEFT OUTER JOIN ET_STDT_PNJNO B ON ESO_EXAM_DT = EEA_EXAM_DT
                                                               AND ESO_EXAM_SQ = EEA_EXAM_SQ
-                         WHERE EEA_EXAM_DT BETWEEN :EXAM_SDT AND :EXAM_EDT
+                         WHERE EEA_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'
                            AND EEA_EXAM_CD = '31006'
                            AND EEA_ORDER_YN <> 'C'
                            AND NVL(EEA_RECE_NO, ' ') <> 'R'
@@ -245,7 +245,7 @@ SELECT NVL(LICEN_CD, ' ') LICEN_CD, MAX(CASE WHEN DR_NM = ' ' THEN LICEN_CD ELSE
                           FROM ET_EXAM_ACPT A
                                LEFT OUTER JOIN ET_STDT_PNJNO B ON ESO_EXAM_DT = EEA_EXAM_DT
                                                               AND ESO_EXAM_SQ = EEA_EXAM_SQ
-                         WHERE EEA_EXAM_DT BETWEEN :EXAM_SDT AND :EXAM_EDT
+                         WHERE EEA_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'
                            AND EEA_EXAM_CD = '31006'
                            AND EEA_ORDER_YN <> 'C'
                            AND NVL(EEA_RECE_NO, ' ') <> 'R'
@@ -255,16 +255,16 @@ SELECT NVL(LICEN_CD, ' ') LICEN_CD, MAX(CASE WHEN DR_NM = ' ' THEN LICEN_CD ELSE
                           FROM (SELECT EEP_EXAM_DT, EEP_EXAM_SQ,
                                        SUM(EEP_FST_PR) FST_PR, SUM(EEP_SPSB_PR) SPSB_PR
                                   FROM ET_EXAM_PRICE
-                                 WHERE EEP_EXAM_DT BETWEEN :EXAM_SDT AND :EXAM_EDT
+                                 WHERE EEP_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'
                                  GROUP BY EEP_EXAM_DT, EEP_EXAM_SQ
                                ) C, ET_EXAM_ACPT A
                                  LEFT OUTER JOIN (SELECT SPG_EXAM_DT, SPG_EXAM_SQ, MAX(NVL(SPG_DOCT_CD, ' ')) SPG_DOCT_CD
                                                     FROM ST_PANJUNG
-                                                   WHERE SPG_EXAM_DT BETWEEN :EXAM_SDT AND :EXAM_EDT
+                                                   WHERE SPG_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'
                                                    GROUP BY SPG_EXAM_DT, SPG_EXAM_SQ) B
                                               ON SPG_EXAM_DT = EEA_EXAM_DT
                                              AND SPG_EXAM_SQ = EEA_EXAM_SQ
-                         WHERE EEA_EXAM_DT BETWEEN :EXAM_SDT AND :EXAM_EDT
+                         WHERE EEA_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'
                            AND (EEA_EXAM_CD = '41001' OR EEA_SPSB_CD = '41001')
                            AND EEA_ORDER_YN <> 'C'
                            AND NVL(EEA_RECE_NO, ' ') <> 'R'
@@ -280,16 +280,16 @@ IF (:BATCH_YN = 'N') THEN
                           FROM (SELECT EEP_EXAM_DT, EEP_EXAM_SQ,
                                        SUM(EEP_FST_PR) FST_PR, SUM(EEP_SPSB_PR) SPSB_PR
                                   FROM ET_EXAM_PRICE
-                                 WHERE EEP_EXAM_DT BETWEEN :EXAM_SDT AND :EXAM_EDT
+                                 WHERE EEP_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'
                                  GROUP BY EEP_EXAM_DT, EEP_EXAM_SQ
                                ) C, ET_EXAM_ACPT A
                                  LEFT OUTER JOIN (SELECT SPG_EXAM_DT, SPG_EXAM_SQ, MAX(NVL(SPG_DOCT_CD, ' ')) SPG_DOCT_CD
                                                     FROM ST_PANJUNG
-                                                   WHERE SPG_EXAM_DT BETWEEN :EXAM_SDT AND :EXAM_EDT
+                                                   WHERE SPG_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'
                                                    GROUP BY SPG_EXAM_DT, SPG_EXAM_SQ) B
                                               ON SPG_EXAM_DT = EEA_EXAM_DT
                                              AND SPG_EXAM_SQ = EEA_EXAM_SQ
-                         WHERE EEA_EXAM_DT BETWEEN :EXAM_SDT AND :EXAM_EDT
+                         WHERE EEA_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'
                            AND (EEA_EXAM_CD = '42001' OR EEA_SPSB_CD = '42001')
                            AND EEA_ORDER_YN <> 'C'
                            AND NVL(EEA_RECE_NO, ' ') <> 'R'
@@ -315,10 +315,16 @@ IF (:PNJN_YN = 'Y') THEN
  ORDER BY DR_NM
 		*/
 
-	sql = " SELECT NVL(LICEN_CD, ' ') LICEN_CD, MAX(CASE WHEN DR_NM = ' ' THEN LICEN_CD ELSE DR_NM END) DR_NM, SUM(HLTH_CNT) HLTH_CNT, SUM(HLTH_PR) HLTH_PR, SUM(HLTHS_CNT) HLTHS_CNT, SUM(HLTHS_PR) HLTHS_PR, SUM(STOMA_CNT) STOMA_CNT, SUM(STOMA_PR) STOMA_PR, SUM(COLON_CNT) COLON_CNT, SUM(COLON_PR) COLON_PR, SUM(STOOL_CNT) STOOL_CNT, SUM(STOOL_PR) STOOL_PR, SUM(LIVER_CNT) LIVER_CNT, SUM(LIVER_PR) LIVER_PR, SUM(BAST_CNT) BAST_CNT, SUM(BAST_PR) BAST_PR, SUM(UTER_CNT) UTER_CNT, SUM(UTER_PR) UTER_PR, SUM(LUNG_CNT) LUNG_CNT, SUM(LUNG_PR) LUNG_PR, SUM(ORAL_CNT) ORAL_CNT, SUM(ORAL_PR) ORAL_PR, SUM(STDT_CNT) STDT_CNT, SUM(STDT_PR) STDT_PR, SUM(STDTO_CNT) STDTO_CNT, SUM(STDTO_PR) STDTO_PR, SUM(STDT_CNTO) STDT_CNTO, SUM(STDT_PRO) STDT_PRO, SUM(STDTO_CNTO) STDTO_CNTO, SUM(STDTO_PRO) STDTO_PRO, SUM(SPCL_CNT) SPCL_CNT, SUM(SPCL_PR) SPCL_PR, SUM(SPCLS_CNT) SPCLS_CNT, SUM(SPCLS_PR) SPCLS_PR, SUM(QSTN_CNT) QSTN_CNT, SUM(JONG_CNT) JONG_CNT, SUM(JONG_PR) JONG_PR ";
+	sql = " SELECT NVL(LICEN_CD, ' ') LICEN_CD, MAX(CASE WHEN DR_NM = ' ' THEN LICEN_CD ELSE DR_NM END) DR_NM, SUM(HLTH_CNT) HLTH_CNT, SUM(HLTH_PR) HLTH_PR, SUM(HLTHS_CNT) HLTHS_CNT, SUM(HLTHS_PR) HLTHS_PR, SUM(STOMA_CNT) STOMA_CNT, SUM(STOMA_PR) STOMA_PR, SUM(COLON_CNT) COLON_CNT, SUM(COLON_PR) COLON_PR, SUM(STOOL_CNT) STOOL_CNT, SUM(STOOL_PR) STOOL_PR, SUM(LIVER_CNT) LIVER_CNT, SUM(LIVER_PR) LIVER_PR, SUM(BAST_CNT) BAST_CNT, SUM(BAST_PR) BAST_PR, SUM(UTER_CNT) UTER_CNT, SUM(UTER_PR) UTER_PR, SUM(LUNG_CNT) LUNG_CNT, SUM(LUNG_PR) LUNG_PR, SUM(ORAL_CNT) ORAL_CNT, SUM(ORAL_PR) ORAL_PR, SUM(STDT_CNT) STDT_CNT, SUM(STDT_PR) STDT_PR, SUM(STDTO_CNT) STDTO_CNT, SUM(STDTO_PR) STDTO_PR, SUM(STDT_CNTO) STDT_CNTO, SUM(STDT_PRO) STDT_PRO, SUM(STDTO_CNTO) STDTO_CNTO, SUM(STDTO_PRO) STDTO_PRO, SUM(SPCL_CNT) SPCL_CNT, SUM(SPCL_PR) SPCL_PR, SUM(SPCLS_CNT) SPCLS_CNT, SUM(SPCLS_PR) SPCLS_PR, SUM(QSTN_CNT) QSTN_CNT, SUM(JONG_CNT) JONG_CNT, SUM(JONG_PR) JONG_PR,";
+	sql += " SUM(EMPL_CNT) EMPL_CNT, SUM(EMPL_PR) EMPL_PR,";
+	sql += " SUM(EACH_CNT) EACH_CNT, SUM(EACH_PR) EACH_PR,";
+	sql += " SUM(CVSB_CNT) CVSB_CNT, SUM(CVSB_PR) CVSB_PR,";
+	sql += " SUM(ETC_CNT) ETC_CNT, SUM(ETC_PR) ETC_PR,";
+	sql += " SUM(ADD_CNT) ADD_CNT, SUM(ADD_PR) ADD_PR ";
 	sql += " FROM (SELECT CAN_KD EXAM_CD, LICEN_CD,";
 	sql += " CASE WHEN NVL(LICEN_CD, ' ') = ' ' THEN '>미판정<' ELSE F_USER_FIND(LICEN_CD) END AS DR_NM, ";
 	sql += " 0 HLTH_PR, 0 HLTHS_PR, 0 ORAL_PR, 0 STDT_PR, 0 STDTO_PR, 0 STDT_PRO, 0 STDTO_PRO, 0 SPCL_PR, 0 SPCLS_PR, 0 JONG_PR,";
+	sql += " 0 EMPL_PR, 0 EACH_PR, 0 CVSB_PR, 0 ETC_PR, 0 ADD_PR,";
 	sql += " CASE WHEN CAN_KD = '1' THEN EXAM_PR ELSE 0 END AS STOMA_PR,";
 	sql += " CASE WHEN CAN_KD = '2' THEN EXAM_PR ELSE 0 END AS COLON_PR,";
 	sql += " CASE WHEN CAN_KD = 'S' THEN EXAM_PR ELSE 0 END AS STOOL_PR,";
@@ -334,7 +340,8 @@ IF (:PNJN_YN = 'Y') THEN
 	sql += " CASE WHEN CAN_KD = '5' THEN CNT ELSE 0 END AS UTER_CNT,";
 	sql += " CASE WHEN CAN_KD = '6' THEN CNT ELSE 0 END AS LUNG_CNT,";
 	sql += " 0 HLTH_CNT, 0 HLTHS_CNT, 0 ORAL_CNT, 0 STDT_CNT, 0 STDTO_CNT, 0 STDT_CNTO,";
-	sql += " 0 STDTO_CNTO, 0 SPCL_CNT, 0 SPCLS_CNT, 0 QSTN_CNT, 0  JONG_CNT";
+	sql += " 0 STDTO_CNTO, 0 SPCL_CNT, 0 SPCLS_CNT, 0 QSTN_CNT, 0  JONG_CNT,";
+	sql += " 0 EMPL_CNT, 0 EACH_CNT, 0 CVSB_CNT, 0 ETC_CNT, 0 ADD_CNT ";
 	sql += " FROM (SELECT CASE WHEN EEA_STOOL_CD <> '0' and EEI_CAN_KD = '2' THEN 'S' ELSE EEI_CAN_KD END CAN_KD, COUNT(*) CNT,";
 	sql += " CASE WHEN NVL(EEA_STOMA_CD, '0') <> '0' AND EEI_CAN_KD = '1' THEN ECS_LICEN_CD";
 	sql += " WHEN NVL(EEA_COLON_CD, '0') <> '0' AND EEI_CAN_KD = '2' THEN ECC_LICEN_CD";
@@ -381,7 +388,18 @@ IF (:PNJN_YN = 'Y') THEN
 	sql += " WHEN NVL(EEA_UTER_CD,  '0') <> '0' AND EEI_CAN_KD = '5' THEN ECV_LICEN_CD ";
 	sql += " WHEN NVL(EEA_LUNG_CD,  '0') <> '0' AND EEI_CAN_KD = '6' THEN ECG_LICEN_CD END ) I";
 	sql += " UNION";
-	sql += " ALL SELECT EXAM_CD, LICEN_CD, CASE WHEN NVL(LICEN_CD, ' ') = ' ' THEN '>미판정<' ELSE F_USER_FIND(LICEN_CD) END AS DR_NM, CASE WHEN EXAM_CD = '11001' THEN EXAM_PR ELSE 0 END AS HLTH_PR, CASE WHEN EXAM_CD = '11002' THEN EXAM_PR ELSE 0 END AS HLTHS_PR, CASE WHEN EXAM_CD = '14001' THEN EXAM_PR ELSE 0 END AS ORAL_PR, CASE WHEN EXAM_CD = '31001' THEN EXAM_PR ELSE 0 END AS STDT_PR, CASE WHEN EXAM_CD = '31002' THEN EXAM_PR ELSE 0 END AS STDTO_PR, CASE WHEN EXAM_CD = '31006' THEN EXAM_PR ELSE 0 END AS STDT_PRO, CASE WHEN EXAM_CD = '31007' THEN EXAM_PR ELSE 0 END AS STDTO_PRO, CASE WHEN EXAM_CD = '41001' THEN EXAM_PR ELSE 0 END AS SPCL_PR, CASE WHEN EXAM_CD = '42001' THEN EXAM_PR ELSE 0 END AS SPCLS_PR, CASE WHEN EXAM_CD = '21001' THEN EXAM_PR ELSE 0 END AS JONG_PR, 0 STOMA_PR, 0 COLON_PR, 0 STOOL_PR, 0 LIVER_PR, 0 BAST_PR, 0 UTER_PR, 0 LUNG_PR, 0 STOMA_CNT, 0 COLON_CNT, 0 STOOL_CNT, 0 LIVER_CNT, 0 BAST_CNT, 0 UTER_CNT, 0 LUNG_CNT, CASE WHEN EXAM_CD = '11001' THEN CNT ELSE 0 END AS HLTH_CNT, CASE WHEN EXAM_CD = '11002' THEN CNT ELSE 0 END AS HLTHS_CNT, CASE WHEN EXAM_CD = '14001' THEN CNT ELSE 0 END AS ORAL_CNT, CASE WHEN EXAM_CD = '31001' THEN CNT ELSE 0 END AS STDT_CNT, CASE WHEN EXAM_CD = '31002' THEN CNT ELSE 0 END AS STDTO_CNT, CASE WHEN EXAM_CD = '31006' THEN CNT ELSE 0 END AS STDT_CNTO, CASE WHEN EXAM_CD = '31007' THEN CNT ELSE 0 END AS STDTO_CNTO, CASE WHEN EXAM_CD = '41001' THEN CNT ELSE 0 END AS SPCL_CNT, CASE WHEN EXAM_CD = '42001' THEN CNT ELSE 0 END AS SPCLS_CNT, CASE WHEN EXAM_CD = '11009' THEN CNT ELSE 0 END AS QSTN_CNT, CASE WHEN EXAM_CD = '21001' THEN CNT ELSE 0 END AS JONG_CNT";
+	sql += " ALL SELECT EXAM_CD, LICEN_CD, CASE WHEN NVL(LICEN_CD, ' ') = ' ' THEN '>미판정<' ELSE F_USER_FIND(LICEN_CD) END AS DR_NM, CASE WHEN EXAM_CD = '11001' THEN EXAM_PR ELSE 0 END AS HLTH_PR, CASE WHEN EXAM_CD = '11002' THEN EXAM_PR ELSE 0 END AS HLTHS_PR, CASE WHEN EXAM_CD = '14001' THEN EXAM_PR ELSE 0 END AS ORAL_PR, CASE WHEN EXAM_CD = '31001' THEN EXAM_PR ELSE 0 END AS STDT_PR, CASE WHEN EXAM_CD = '31002' THEN EXAM_PR ELSE 0 END AS STDTO_PR, CASE WHEN EXAM_CD = '31006' THEN EXAM_PR ELSE 0 END AS STDT_PRO, CASE WHEN EXAM_CD = '31007' THEN EXAM_PR ELSE 0 END AS STDTO_PRO, CASE WHEN EXAM_CD = '41001' THEN EXAM_PR ELSE 0 END AS SPCL_PR, CASE WHEN EXAM_CD = '42001' THEN EXAM_PR ELSE 0 END AS SPCLS_PR, CASE WHEN EXAM_CD = '21001' THEN EXAM_PR ELSE 0 END AS JONG_PR,";
+	sql += " CASE WHEN EXAM_CD = '32001' THEN EXAM_PR ELSE 0 END AS EMPL_PR,";
+	sql += " CASE WHEN EXAM_CD = '71001' THEN EXAM_PR ELSE 0 END AS EACH_PR,";
+	sql += " CASE WHEN EXAM_CD = '81001' THEN EXAM_PR ELSE 0 END AS CVSB_PR,";
+	sql += " CASE WHEN EXAM_CD = '91001' THEN EXAM_PR ELSE 0 END AS ETC_PR,";
+	sql += " CASE WHEN EXAM_CD = 'ADD01' THEN EXAM_PR ELSE 0 END AS ADD_PR,";
+	sql += " 0 STOMA_PR, 0 COLON_PR, 0 STOOL_PR, 0 LIVER_PR, 0 BAST_PR, 0 UTER_PR, 0 LUNG_PR, 0 STOMA_CNT, 0 COLON_CNT, 0 STOOL_CNT, 0 LIVER_CNT, 0 BAST_CNT, 0 UTER_CNT, 0 LUNG_CNT, CASE WHEN EXAM_CD = '11001' THEN CNT ELSE 0 END AS HLTH_CNT, CASE WHEN EXAM_CD = '11002' THEN CNT ELSE 0 END AS HLTHS_CNT, CASE WHEN EXAM_CD = '14001' THEN CNT ELSE 0 END AS ORAL_CNT, CASE WHEN EXAM_CD = '31001' THEN CNT ELSE 0 END AS STDT_CNT, CASE WHEN EXAM_CD = '31002' THEN CNT ELSE 0 END AS STDTO_CNT, CASE WHEN EXAM_CD = '31006' THEN CNT ELSE 0 END AS STDT_CNTO, CASE WHEN EXAM_CD = '31007' THEN CNT ELSE 0 END AS STDTO_CNTO, CASE WHEN EXAM_CD = '41001' THEN CNT ELSE 0 END AS SPCL_CNT, CASE WHEN EXAM_CD = '42001' THEN CNT ELSE 0 END AS SPCLS_CNT, CASE WHEN EXAM_CD = '11009' THEN CNT ELSE 0 END AS QSTN_CNT, CASE WHEN EXAM_CD = '21001' THEN CNT ELSE 0 END AS JONG_CNT,";
+	sql += " CASE WHEN EXAM_CD = '32001' THEN CNT ELSE 0 END AS EMPL_CNT,";
+	sql += " CASE WHEN EXAM_CD = '71001' THEN CNT ELSE 0 END AS EACH_CNT,";
+	sql += " CASE WHEN EXAM_CD = '81001' THEN CNT ELSE 0 END AS CVSB_CNT,";
+	sql += " CASE WHEN EXAM_CD = '91001' THEN CNT ELSE 0 END AS ETC_CNT,";
+	sql += " CASE WHEN EXAM_CD = 'ADD01' THEN CNT ELSE 0 END AS ADD_CNT ";
 	sql += " FROM (SELECT EXAM_CD, LICEN_CD, COUNT(*) CNT, SUM(EXAM_PR) EXAM_PR";
 	sql += " FROM (SELECT EEA_EXAM_DT, EEA_EXAM_SQ, EEA_EXAM_CD, '11001' EXAM_CD, EEA_PLCE_CD, CASE WHEN EEA_HTSB_YN = 'Y' THEN HTSB_PR ELSE FST_PR END - EEA_CANR_PR - EEA_ORALR_PR EXAM_PR, B.PFP_DOCTORFIR LICEN_CD";
 	sql += " FROM (SELECT EEP_EXAM_DT, EEP_EXAM_SQ, SUM(EEP_FST_PR) FST_PR, SUM(EEP_HTSB_PR) HTSB_PR, SUM(EEP_CAN_PR) CAN_PR";
@@ -550,6 +568,77 @@ IF (:PNJN_YN = 'Y') THEN
 	sql += " AND NVL(EEA_RECE_NO, ' ') <> 'R'";
 	sql += " AND EEP_EXAM_DT = EEA_EXAM_DT";
 	sql += " AND EEP_EXAM_SQ = EEA_EXAM_SQ";
+	sql += " UNION ALL";
+	sql += " SELECT EEA_EXAM_DT, EEA_EXAM_SQ, EEA_EXAM_CD, '32001'  EXAM_CD, EEA_PLCE_CD,";
+	sql += " CASE WHEN EEA_EXAM_CD LIKE '32%' THEN FST_PR ELSE EMSB_PR END EXAM_PR, ' ' LICEN_CD";
+	sql += " FROM (SELECT EEP_EXAM_DT, EEP_EXAM_SQ, SUM(EEP_FST_PR) FST_PR, SUM(EEP_EMSB_PR) EMSB_PR";
+	sql += " FROM ET_EXAM_PRICE";
+	sql += " WHERE EEP_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'";
+	sql += " GROUP BY EEP_EXAM_DT, EEP_EXAM_SQ) C,";
+	sql += " ET_EXAM_ACPT A";
+	sql += " WHERE EEA_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'";
+	sql += " AND (EEA_EXAM_CD LIKE '32%' OR EEA_EMSB_CD LIKE '32%')";
+	sql += " AND EEA_ORDER_YN <> 'C'";
+	sql += " AND NVL(EEA_RECE_NO, ' ') <> 'R'";
+	sql += " AND EEP_EXAM_DT = EEA_EXAM_DT";
+	sql += " AND EEP_EXAM_SQ = EEA_EXAM_SQ";
+	sql += " UNION ALL";
+	sql += " SELECT EEA_EXAM_DT, EEA_EXAM_SQ, EEA_EXAM_CD, '71001'  EXAM_CD, EEA_PLCE_CD,";
+	sql += " FST_PR EXAM_PR, ' ' LICEN_CD";
+	sql += " FROM (SELECT EEP_EXAM_DT, EEP_EXAM_SQ, SUM(EEP_FST_PR) FST_PR";
+	sql += " FROM ET_EXAM_PRICE";
+	sql += " WHERE EEP_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'";
+	sql += " GROUP BY EEP_EXAM_DT, EEP_EXAM_SQ) C,";
+	sql += " ET_EXAM_ACPT A";
+	sql += " WHERE EEA_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'";
+	sql += " AND EEA_EXAM_CD LIKE '71%'";
+	sql += " AND EEA_ORDER_YN <> 'C'";
+	sql += " AND NVL(EEA_RECE_NO, ' ') <> 'R'";
+	sql += " AND EEP_EXAM_DT = EEA_EXAM_DT";
+	sql += " AND EEP_EXAM_SQ = EEA_EXAM_SQ";
+	sql += " UNION ALL";
+	sql += " SELECT EEA_EXAM_DT, EEA_EXAM_SQ, EEA_EXAM_CD, '81001'  EXAM_CD, EEA_PLCE_CD,";
+	sql += " CASE WHEN EEA_EXAM_CD LIKE '81%' THEN FST_PR ELSE CVSB_PR END EXAM_PR, ' ' LICEN_CD";
+	sql += " FROM (SELECT EEP_EXAM_DT, EEP_EXAM_SQ, SUM(EEP_FST_PR) FST_PR, SUM(EEP_CVSB_PR) CVSB_PR";
+	sql += " FROM ET_EXAM_PRICE";
+	sql += " WHERE EEP_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'";
+	sql += " GROUP BY EEP_EXAM_DT, EEP_EXAM_SQ) C,";
+	sql += " ET_EXAM_ACPT A";
+	sql += " WHERE EEA_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'";
+	sql += " AND (EEA_EXAM_CD LIKE '81%' OR EEA_CVSB_CD LIKE '81%')";
+	sql += " AND EEA_ORDER_YN <> 'C'";
+	sql += " AND NVL(EEA_RECE_NO, ' ') <> 'R'";
+	sql += " AND EEP_EXAM_DT = EEA_EXAM_DT";
+	sql += " AND EEP_EXAM_SQ = EEA_EXAM_SQ";
+	sql += " UNION ALL";
+	sql += " SELECT EEA_EXAM_DT, EEA_EXAM_SQ, EEA_EXAM_CD, '91001'  EXAM_CD, EEA_PLCE_CD,";
+	sql += " CASE WHEN EEA_ETSB_CD LIKE '9%' THEN ETSB_PR ELSE FST_PR END EXAM_PR, ' ' LICEN_CD";
+	sql += " FROM (SELECT EEP_EXAM_DT, EEP_EXAM_SQ, SUM(EEP_FST_PR) FST_PR, SUM(EEP_ETSB_PR) ETSB_PR";
+	sql += " FROM ET_EXAM_PRICE";
+	sql += " WHERE EEP_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'";
+	sql += " GROUP BY EEP_EXAM_DT, EEP_EXAM_SQ) C,";
+	sql += " ET_EXAM_ACPT A";
+	sql += " WHERE EEA_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'";
+	sql += " AND (SUBSTR(EEA_EXAM_CD, 1, 1) IN ('5', '6', '9') OR EEA_ETSB_CD LIKE '9%')";
+	sql += " AND EEA_ORDER_YN <> 'C'";
+	sql += " AND NVL(EEA_RECE_NO, ' ') <> 'R'";
+	sql += " AND EEP_EXAM_DT = EEA_EXAM_DT";
+	sql += " AND EEP_EXAM_SQ = EEA_EXAM_SQ";
+	sql += " UNION ALL";
+	sql += " SELECT EEA_EXAM_DT, EEA_EXAM_SQ, EEA_EXAM_CD, 'ADD01'  EXAM_CD, EEA_PLCE_CD,";
+	sql += " ADD_PR EXAM_PR, ' ' LICEN_CD";
+	sql += " FROM (SELECT EEP_EXAM_DT, EEP_EXAM_SQ, SUM(EEP_ADD_PR) ADD_PR";
+	sql += " FROM ET_EXAM_PRICE";
+	sql += " WHERE EEP_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'";
+	sql += " GROUP BY EEP_EXAM_DT, EEP_EXAM_SQ) C, ET_EXAM_ACPT A";
+	sql += " WHERE EEA_EXAM_DT BETWEEN '" + EXAM_SDT + "' AND '" + EXAM_EDT + "'";
+	sql += " AND NOT EEA_EXAM_CD LIKE '31%'";
+	sql += " AND EEA_ORDER_YN <> 'C'";
+	sql += " AND NVL(EEA_RECE_NO, ' ') <> 'R'";
+	sql += " AND EEP_EXAM_DT = EEA_EXAM_DT";
+	sql += " AND EEP_EXAM_SQ = EEA_EXAM_SQ";
+	sql += " AND ADD_PR > 0";
+
 	sql += " ) C";
 	sql += " WHERE EXAM_PR > 0";
 	sql += PARAM_TX;
