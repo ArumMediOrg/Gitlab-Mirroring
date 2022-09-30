@@ -74,8 +74,8 @@ SELECT PlP_EXAM_DT, PLP_EXAM_SQ, PLP_JLPN_DSCD, PLP_JLPN_PNCD, PLP_JLPN_DOCV
     AND PSP_EXAM_SQ = PFP_EXAM_SQ2
   WHERE PLP_EXAM_DT = :EXAM_DT
     AND PLP_EXAM_SQ = :EXAM_SQ
-    AND NVL(PLP_JLPN_PNCD, ' ') <> ' ' 
-    AND NVL(ERI_RSLT_VL, ' ') <> ' ' 
+    AND NVL(PLP_JLPN_PNCD, ' ') <> ' '
+    AND NVL(ERI_RSLT_VL, ' ') <> ' '
 
 if (:cmb_panIndex = '5') or
    (:cmb_panIndex = '6') then //2018.04.02 이명재 추가
@@ -83,16 +83,16 @@ begin
   if :cmb_panIndex = '5' then
     AND PLP_JLPN_PNCD In ('C', 'D1', 'D2')
   else if :cmb_panIndex = '6' then
-    AND PLP_JLPN_PNCD In ('D1', 'D2') 
+    AND PLP_JLPN_PNCD In ('D1', 'D2')
 end else if :cmb_panText <> ' then
 begin
   AND PLP_JLPN_PNCD = :cmb_panText
 end;
 
-ORDER BY PLP_JLPN_DSCD 
+ORDER BY PLP_JLPN_DSCD
 		*/
 
-		sql = " SELECT PLP_EXAM_DT, PLP_EXAM_SQ, PLP_JLPN_DSCD, PLP_JLPN_PNCD, PLP_JLPN_DOCV";
+		sql = " SELECT PLP_EXAM_DT, PLP_EXAM_SQ, PLP_JLPN_DSCD, PLP_JLPN_PNCD, PLP_JLPN_DOCV, ITEM_CD";
 
 		sql += ", CASE WHEN ITEM_CD = 'A0014' AND NVL(PSP_HIBLOOD_VAL, ' ') <> ' ' THEN";
 		sql += "	IIM_SNME_NM || ': 1차:' || ERI_RSLT_VL || ERI_RSLT_UNIT || ', 2차:' || PSP_HIBLOOD_VAL || ERI_RSLT_UNIT";
@@ -100,7 +100,7 @@ ORDER BY PLP_JLPN_DSCD
 		sql += " IIM_SNME_NM || ': 1차:' || ERI_RSLT_VL || ERI_RSLT_UNIT || ', 2차:' || PSP_LIBLOOD_VAL || ERI_RSLT_UNIT WHEN ITEM_CD = 'BA014' AND NVL(PSP_RVAL_GLO, ' ') <> ' ' THEN";
 		sql += "	IIM_SNME_NM || ': 1차:' || ERI_RSLT_VL || ERI_RSLT_UNIT || ', 2차:' || PSP_RVAL_GLO || ERI_RSLT_UNIT ELSE IIM_SNME_NM || ': ' || ERI_RSLT_VL || NVL(ERI_RSLT_UNIT, ' ')";
 		sql += " END AS ERI_RSLT_VL";
-		
+
 		sql += ", PFP_RESULTR2_1, PFP_RESULTR2_2";
 		sql += ", CASE WHEN NVL(";
 		sql += "	(";
@@ -116,7 +116,7 @@ ORDER BY PLP_JLPN_DSCD
 		sql += "		), ' ')";
 		sql += "	|| CHR(13)";
 		sql += "  ELSE '' END";
-		
+
 		sql += " || CASE WHEN NVL(";
 		sql += "	(";
 		sql += "		SELECT JLPN_NAME";
