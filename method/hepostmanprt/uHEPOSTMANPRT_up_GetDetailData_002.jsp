@@ -162,7 +162,6 @@ ORDER BY PLP_JLPN_DSCD
 		sql += " WHERE PLP_EXAM_DT = '" + EXAM_DT + "'";
 		sql += " AND PLP_EXAM_SQ = '" + EXAM_SQ + "'";
 		sql += " AND NVL(PLP_JLPN_PNCD, ' ') <> ' '";
-		sql += " AND NVL(ERI_RSLT_VL, ' ') <> ' '";
 
 		if(CMB_PANINDEX.equals("5") || CMB_PANINDEX.equals("6")) {
 			if(CMB_PANINDEX.equals("5")) {
