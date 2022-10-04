@@ -78,6 +78,8 @@
 	htBranch.put("uFind_Rslt_upGetDev_Rslt_001", 		"/method/exam_result/uFind_Rslt_upGetDev_Rslt_001.jsp");
 	htBranch.put("uExam_Result_grdDevRsltDblClickCell_001", 		"/method/exam_result/uExam_Result_grdDevRsltDblClickCell_001.jsp");
 	htBranch.put("uExam_Result_grdBldRsltKeyPress_001", 		"/method/exam_result/uExam_Result_grdBldRsltKeyPress_001.jsp");
+	htBranch.put("uExam_Result_grdBldRsltKeyPress_002", 		"/method/exam_result/uExam_Result_grdBldRsltKeyPress_002.jsp");
+	htBranch.put("uDevc_Rslt_ufSaveDevDoctEmp_001", 		"/method/exam_result/uDevc_Rslt_ufSaveDevDoctEmp_001.jsp");
 	htBranch.put("uRslt_Past_upGetRslt_001", 		"/method/exam_result/uRslt_Past_upGetRslt_001.jsp");
 	htBranch.put("uExam_Result_upSetFrstGenSort_002", 		"/method/exam_result/uExam_Result_upSetFrstGenSort_002.jsp");
 	htBranch.put("uTotal_Finding_ufCompareValueToRef_002", 		"/method/exam_result/uTotal_Finding_ufCompareValueToRef_002.jsp");
