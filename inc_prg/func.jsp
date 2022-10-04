@@ -150,6 +150,8 @@
 <%@ include file="/func/func_uExam_Result_edtWidthChange_001.jsp"%>
 <%@ include file="/func/func_uExam_Result_FormShow_002.jsp"%>
 <%@ include file="/func/func_uExam_Result_grdBldRsltKeyPress_001.jsp"%>
+<%@ include file="/func/func_uExam_Result_grdBldRsltKeyPress_002.jsp"%>
+<%@ include file="/func/func_uDevc_Rslt_ufSaveDevDoctEmp_001.jsp"%>
 <%@ include file="/func/func_uExam_Result_spFindingMoved_001.jsp"%>
 <%@ include file="/func/func_uExam_Result_upGetRcpt_002.jsp"%>
 <%@ include file="/func/func_uExam_Result_upGetRcpt_003.jsp"%>
@@ -837,6 +839,8 @@
 		if(argMethodName.equals("uExam_Result_edtWidthChange_001")) 	{ return func_uExam_Result_edtWidthChange_001(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uExam_Result_FormShow_002")) 	{ return func_uExam_Result_FormShow_002(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uExam_Result_grdBldRsltKeyPress_001")) 	{ return func_uExam_Result_grdBldRsltKeyPress_001(argStmtExec, argHtMethod); }
+		if(argMethodName.equals("uExam_Result_grdBldRsltKeyPress_002")) 	{ return func_uExam_Result_grdBldRsltKeyPress_002(argStmtExec, argHtMethod); }
+		if(argMethodName.equals("uDevc_Rslt_ufSaveDevDoctEmp_001")) 	{ return func_uDevc_Rslt_ufSaveDevDoctEmp_001(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uExam_Result_spFindingMoved_001")) 	{ return func_uExam_Result_spFindingMoved_001(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uExam_Result_upGetRcpt_002")) 	{ return func_uExam_Result_upGetRcpt_002(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uExam_Result_upGetRcpt_003")) 	{ return func_uExam_Result_upGetRcpt_003(argStmtExec, argHtMethod); }
