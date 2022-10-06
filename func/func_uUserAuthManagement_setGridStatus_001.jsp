@@ -36,7 +36,7 @@
 			sql += ", 'ADMIN'";
 			sql += ", SYSDATE";
 			sql += " FROM IT_AUTH_PRGM";
-			sql += " WHERE IAP_LIBR_NM = '" + IAP_LIBR_NM + "'";
+			sql += " WHERE IAP_LIBR_NM = '" + IAP_LIBR_NM + "' AND IAP_USE_YN = 'Y'";
 
 			argStmtExec.executeUpdate(sql);
 
