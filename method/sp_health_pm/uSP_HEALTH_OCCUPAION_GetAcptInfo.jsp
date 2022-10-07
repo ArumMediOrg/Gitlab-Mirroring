@@ -44,7 +44,7 @@
 		sql += " B.ICR_BIRH_DT, C.ICY_COMP_NM, A.EEA_DEPT_NM ";
 		sql += " From ET_EXAM_ACPT A ";
 		sql += " Inner Join IT_CUSTOMER B On B.ICR_CUST_NO = A.EEA_CUST_NO ";
-		sql += " Inner Join IT_COMPANY  C On C.ICY_COMP_CD = A.EEA_COMP_CD ";
+		sql += " Left Outer Join IT_COMPANY C On C.ICY_COMP_CD = A.EEA_COMP_CD ";
 		sql += " Where A.EEA_EXAM_DT = '" + EXAM_DT + "' ";
 		sql += " And A.EEA_EXAM_SQ = '" + EXAM_SQ + "' ";
 
