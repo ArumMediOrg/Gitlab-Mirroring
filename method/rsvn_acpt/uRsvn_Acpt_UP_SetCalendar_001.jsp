@@ -120,6 +120,7 @@
 		sql += " ) A";
 
 		sql += " GROUP BY RRL_EXAM_DT";
+		sql += " ORDER BY RRL_EXAM_DT";
 			//
 			G_INFO += "<!-- \n";
 			G_INFO += "서비스명 : uRsvn_Acpt_UP_SetCalendar_001 \n";
