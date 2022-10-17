@@ -40,6 +40,7 @@
 			String KOSHA_PROVD_YN = (String) argHtMethod.get("KOSHA_PROVD_YN");
 			String INFO_PROVD_YN = (String) argHtMethod.get("INFO_PROVD_YN");
 			String NIGHT_OPERT_CD = (String) argHtMethod.get("NIGHT_OPERT_CD");
+			String SP_XRAY_CD = (String) argHtMethod.get("SP_XRAY_CD");
 
 			//
 			if(SSAVEMODE == null) { SSAVEMODE = ""; }
@@ -74,6 +75,7 @@
 			if(KOSHA_PROVD_YN == null) { KOSHA_PROVD_YN = ""; }
 			if(INFO_PROVD_YN == null) { INFO_PROVD_YN = ""; }
 			if(NIGHT_OPERT_CD == null) { NIGHT_OPERT_CD = ""; }
+			if(SP_XRAY_CD == null) { SP_XRAY_CD = ""; }
 
 			//
 			SSAVEMODE = CTr.Replace(SSAVEMODE, "'", "''");
@@ -108,13 +110,14 @@
 			KOSHA_PROVD_YN = CTr.Replace(KOSHA_PROVD_YN, "'", "''");
 			INFO_PROVD_YN = CTr.Replace(INFO_PROVD_YN, "'", "''");
 			NIGHT_OPERT_CD = CTr.Replace(NIGHT_OPERT_CD, "'", "''");
+			SP_XRAY_CD = CTr.Replace(SP_XRAY_CD, "'", "''");
 
 			if(SSAVEMODE.equals("I")) {
 				sql = "INSERT INTO ST_BASE (SBE_EXAM_DT, SBE_EXAM_SQ, SBE_EXAM_CHA, SBE_ISSU_NO ,SBE_JIJO_CD, SBE_GOJU_CD, ";
 				sql += " SBE_NCPN_LT, SBE_NCHR_HH, SBE_WORK_LT ,SBE_JUIP_DT, SBE_SAHU_YN, SBE_XRAY_CD, SBE_XRAY_NO, SBE_XRFM_CD, ";
 				sql += " SBE_XDOC_CD, SBE_MEDI_YN, SBE_MEDI_CNT, SBE_PANJ_YN, SBE_DDOC_CD ,SBE_TPAN_NM, SBE_TBUS_NM, SBE_TOBO_DT, ";
 				sql += " SBE_RECHK_DT, SBE_INPT_ID, SBE_INPT_DTT, SBE_SMTM_CD, SBE_BUILD_CD, SBE_NOT_REG, SBE_SLNS_DELAY, ";
-				sql += " SBE_KOSHA_PROVD_YN, SBE_INFO_PROVD_YN, SBE_NIGHT_OPERT_CD ";
+				sql += " SBE_KOSHA_PROVD_YN, SBE_INFO_PROVD_YN, SBE_NIGHT_OPERT_CD, SBE_SP_XRAY_CD ";
 				sql += " ) VALUES (";
 				sql += "  '" + EXAM_DT + "'";
 				sql += ", '" + EXAM_SQ + "'";
@@ -148,6 +151,7 @@
 				sql += ", '" + KOSHA_PROVD_YN + "'";
 				sql += ", '" + INFO_PROVD_YN + "'";
 				sql += ", '" + NIGHT_OPERT_CD + "'";
+				sql += ", '" + SP_XRAY_CD + "'";
 				sql += ")";
 
 				argStmtExec.executeUpdate(sql);
@@ -183,6 +187,7 @@
 				sql += ", SBE_KOSHA_PROVD_YN = '" + KOSHA_PROVD_YN + "'";
          		sql += ", SBE_INFO_PROVD_YN = '" + INFO_PROVD_YN + "'";
          		sql += ", SBE_NIGHT_OPERT_CD = '" + NIGHT_OPERT_CD + "'";
+         		sql += ", SBE_SP_XRAY_CD  = '" + SP_XRAY_CD + "'";
 				sql += " WHERE SBE_EXAM_DT = '" + EXAM_DT + "'";
 				sql += " AND SBE_EXAM_SQ = '" + EXAM_SQ + "'";
 				sql += " AND SBE_EXAM_CHA = '" + EXAM_CHA + "'";
