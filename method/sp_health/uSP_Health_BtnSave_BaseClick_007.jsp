@@ -53,6 +53,7 @@
 		String KOSHA_PROVD_YN = htMethod.get("KOSHA_PROVD_YN");
 		String INFO_PROVD_YN = htMethod.get("INFO_PROVD_YN");
 		String NIGHT_OPERT_CD = htMethod.get("NIGHT_OPERT_CD");
+		String SP_XRAY_CD = htMethod.get("SP_XRAY_CD");
 
 		//
 		if(SSAVEMODE == null) { SSAVEMODE = ""; }
@@ -87,6 +88,7 @@
 		if(KOSHA_PROVD_YN == null) { KOSHA_PROVD_YN = ""; }
 		if(INFO_PROVD_YN == null) { INFO_PROVD_YN = ""; }
 		if(NIGHT_OPERT_CD == null) { NIGHT_OPERT_CD = ""; }
+		if(SP_XRAY_CD == null) { SP_XRAY_CD = ""; }
 
 		// DB객체
 		stmtExec = connect.createStatement();
@@ -132,6 +134,7 @@
 			G_INFO += " KOSHA_PROVD_YN : " + KOSHA_PROVD_YN + " \n";
 			G_INFO += " INFO_PROVD_YN : " + INFO_PROVD_YN + " \n";
 			G_INFO += " NIGHT_OPERT_CD : " + NIGHT_OPERT_CD + " \n";
+			G_INFO += " SP_XRAY_CD : " + SP_XRAY_CD + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";
