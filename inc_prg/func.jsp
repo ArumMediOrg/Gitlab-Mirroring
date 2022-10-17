@@ -485,6 +485,7 @@
 <%@ include file="/func/func_uSP_Health_ChkBoxTPanClick_001.jsp"%>
 <%@ include file="/func/func_uSP_Health_ChkBoxTPanClick_005.jsp"%>
 <%@ include file="/func/func_uSP_Health_CmbXRay_RsltChange_001.jsp"%>
+<%@ include file="/func/func_uSP_Health_CmbXRay_RsltChange_002.jsp"%>
 <%@ include file="/func/func_uSP_Health_GrdEXAM_ACPTSelectionChanged_006.jsp"%>
 <%@ include file="/func/func_uSP_Health_GrdEXAM_ACPTSelectionChanged_008.jsp"%>
 <%@ include file="/func/func_uSP_Health_GrdEXAM_ACPTSelectionChanged_010.jsp"%>
@@ -1174,6 +1175,7 @@
 		if(argMethodName.equals("uSP_Health_ChkBoxTPanClick_001")) 	{ return func_uSP_Health_ChkBoxTPanClick_001(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uSP_Health_ChkBoxTPanClick_005")) 	{ return func_uSP_Health_ChkBoxTPanClick_005(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uSP_Health_CmbXRay_RsltChange_001")) 	{ return func_uSP_Health_CmbXRay_RsltChange_001(argStmtExec, argHtMethod); }
+		if(argMethodName.equals("uSP_Health_CmbXRay_RsltChange_002")) 	{ return func_uSP_Health_CmbXRay_RsltChange_002(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uSP_Health_GrdEXAM_ACPTSelectionChanged_006")) 	{ return func_uSP_Health_GrdEXAM_ACPTSelectionChanged_006(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uSP_Health_GrdEXAM_ACPTSelectionChanged_008")) 	{ return func_uSP_Health_GrdEXAM_ACPTSelectionChanged_008(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uSP_Health_GrdEXAM_ACPTSelectionChanged_010")) 	{ return func_uSP_Health_GrdEXAM_ACPTSelectionChanged_010(argStmtExec, argHtMethod); }

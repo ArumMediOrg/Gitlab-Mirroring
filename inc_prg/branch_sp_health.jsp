@@ -38,6 +38,7 @@
 	htBranch.put("uSP_HEALTH_ITEM_RECHK_UP_GirdDisplay_005", 		"/method/sp_health/uSP_HEALTH_ITEM_RECHK_UP_GirdDisplay_005.jsp");
 	htBranch.put("uSP_Health_BtnSave_DentalClick_005", 		"/method/sp_health/uSP_Health_BtnSave_DentalClick_005.jsp");
 	htBranch.put("uSP_Health_CmbXRay_RsltChange_001", 		"/method/sp_health/uSP_Health_CmbXRay_RsltChange_001.jsp");
+	htBranch.put("uSP_Health_CmbXRay_RsltChange_002", 		"/method/sp_health/uSP_Health_CmbXRay_RsltChange_002.jsp");
 	htBranch.put("uSP_Health_GrdEXAM_ACPTSelectionChanged_005", 		"/method/sp_health/uSP_Health_GrdEXAM_ACPTSelectionChanged_005.jsp");
 	htBranch.put("uSP_HEALTH_HPRI_BtnSaveClick_001", 		"/method/sp_health/uSP_HEALTH_HPRI_BtnSaveClick_001.jsp");
 	htBranch.put("uSP_HEALTH_HPRI_FormShow_001", 		"/method/sp_health/uSP_HEALTH_HPRI_FormShow_001.jsp");
