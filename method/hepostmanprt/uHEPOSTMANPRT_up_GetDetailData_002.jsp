@@ -49,7 +49,7 @@
 		sql += " IIM_SNME_NM || ': 1차:' || ERI_RSLT_VL || ERI_RSLT_UNIT || ', 2차:' || PSP_LIBLOOD_VAL || ERI_RSLT_UNIT WHEN ITEM_CD = 'BA014' AND NVL(PSP_RVAL_GLO, ' ') <> ' ' THEN";
 		sql += "	IIM_SNME_NM || ': 1차:' || ERI_RSLT_VL || ERI_RSLT_UNIT || ', 2차:' || PSP_RVAL_GLO || ERI_RSLT_UNIT ELSE IIM_SNME_NM || ': ' || ERI_RSLT_VL || NVL(ERI_RSLT_UNIT, ' ')";
 		sql += " END AS ERI_RSLT_VL";
-
+		sql += " , CASE WHEN ERI_CNCL_YN = 'Y' THEN '' ELSE ERI_RSLT_VL END AS ERI_RSLT_VL2";
 		sql += ", PFP_RESULTR2_1, PFP_RESULTR2_2";
 		sql += ", CASE WHEN NVL(";
 		sql += "	(";
