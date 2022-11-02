@@ -16,9 +16,6 @@
 	//
 	String G_INFO = "";
 
-	ResultSetMetaData rsmd = null;
-	int colCnt = 0;
-
 	try {
 %>
 <%@ include file="/inc_prg/connect.jsp"%>
@@ -196,8 +193,6 @@
 		rsList = stmtList.executeQuery(sql);
 		cRsList = new CRs(rsList);
 
-		rsmd = rsList.getMetaData();  //Select 결과의 Metadata 가져오기.
-
 		out.clear();		// include된 파일안의 공백 제거
 		response.addHeader("Content-type", "text/xml");
 %><?xml version="1.0" encoding="UTF-8"?>
@@ -214,53 +209,363 @@
 
 <s:Schema id='RowsetSchema'>
 	<s:ElementType name='row' content='eltOnly' rs:updatable='true'>
-<%
-		for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
-			String dataType = "string";
-			String maxLength = "4000";
-
-			if (rsmd.getColumnTypeName(colCnt).equals("BLOB")){
-				dataType = "bin.hex";
-				maxLength = "2147483647";
-				//<s:datatype dt:type='bin.hex' dt:maxLength='2147483647' rs:long='true'/>
-			} else if (rsmd.getColumnTypeName(colCnt).equals("CLOB")){
-				maxLength = "1073741823";
-				//<s:datatype dt:type='string' dt:maxLength='1073741823' rs:long='true'/>
-			}
-%>
-		<s:AttributeType name='<%= rsmd.getColumnName(colCnt)%>' rs:number='<%= Integer.toString(colCnt)%>' rs:writeunknown='true' rs:basetable='DUAL' rs:basecolumn='<%= rsmd.getColumnName(colCnt)%>'>
-			<s:datatype dt:type='<%= dataType%>' dt:maxLength='<%= maxLength%>' <% if (! maxLength.equals("4000")) { %> rs:long='true' <% } %>/>
+		<s:AttributeType name='EEA_EXAM_DT' rs:number='1' rs:writeunknown='true' rs:basetable='ET_EXAM_ACPT' rs:basecolumn='EEA_EXAM_DT'>
+			<s:datatype dt:type='string' dt:maxLength='10' rs:maybenull='false'/>
 		</s:AttributeType>
-<%
-		}
-%>
-		<s:AttributeType name='ROWID' rs:number='<%= Integer.toString(colCnt)%>' rs:rowid='true' rs:writeunknown='true' rs:basetable='DUAL'
-			 rs:basecolumn='ROWID' rs:keycolumn='true' rs:hidden='true' rs:autoincrement='true'>
+		<s:AttributeType name='EEA_EXAM_SQ' rs:number='2' rs:writeunknown='true' rs:basetable='ET_EXAM_ACPT' rs:basecolumn='EEA_EXAM_SQ'>
+			<s:datatype dt:type='string' dt:maxLength='6' rs:maybenull='false'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_PSNL_NM' rs:number='3' rs:writeunknown='true' rs:basetable='ET_EXAM_ACPT' rs:basecolumn='EEA_PSNL_NM'>
+			<s:datatype dt:type='string' dt:maxLength='100' rs:maybenull='false'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_CUST_NO' rs:number='4' rs:writeunknown='true' rs:basetable='ET_EXAM_ACPT' rs:basecolumn='EEA_CUST_NO'>
+			<s:datatype dt:type='string' dt:maxLength='10' rs:maybenull='false'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_HTSB_CD' rs:number='5' rs:nullable='true' rs:writeunknown='true' rs:basetable='ET_EXAM_ACPT'
+			 rs:basecolumn='EEA_HTSB_CD'>
+			<s:datatype dt:type='string' dt:maxLength='10'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_DIVI_CS' rs:number='6' rs:nullable='true' rs:writeunknown='true' rs:basetable='ET_EXAM_ACPT'
+			 rs:basecolumn='EEA_DIVI_CS'>
+			<s:datatype dt:type='string' dt:maxLength='30'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_CHART_NO' rs:number='7' rs:nullable='true' rs:writeunknown='true' rs:basetable='ET_EXAM_ACPT'
+			 rs:basecolumn='EEA_CHART_NO'>
+			<s:datatype dt:type='string' dt:maxLength='30'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_MOBL_NO' rs:number='8' rs:nullable='true'>
+			<s:datatype dt:type='string' dt:maxLength='4000'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_CNCR_DT' rs:number='9' rs:nullable='true' rs:writeunknown='true' rs:basetable='ET_EXAM_ACPT'
+			 rs:basecolumn='EEA_CNCR_DT'>
+			<s:datatype dt:type='string' dt:maxLength='10'/>
+		</s:AttributeType>
+		<s:AttributeType name='PFP_TRANC_DATE' rs:number='10' rs:nullable='true' rs:writeunknown='true' rs:basetable='PT_FIR_PANJUNG'
+			 rs:basecolumn='PFP_TRANC_DATE'>
+			<s:datatype dt:type='string' dt:maxLength='10'/>
+		</s:AttributeType>
+		<s:AttributeType name='PSP_TRANC_DATE' rs:number='11' rs:nullable='true' rs:writeunknown='true' rs:basetable='PT_SED_PANJUNG'
+			 rs:basecolumn='PSP_TRANC_DATE'>
+			<s:datatype dt:type='string' dt:maxLength='10'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_SEND_DT' rs:number='12' rs:nullable='true'>
+			<s:datatype dt:type='string' dt:maxLength='10'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_EXAM_NM' rs:number='13' rs:nullable='true' rs:writeunknown='true' rs:basetable='ET_EXAM_ACPT'
+			 rs:basecolumn='EEA_TOTAL_YN'>
+			<s:datatype dt:type='string' dt:maxLength='4000'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_ENTY_NM' rs:number='14' rs:nullable='true' rs:writeunknown='true' rs:basetable='ET_EXAM_ACPT'
+			 rs:basecolumn='EEA_CANAD_YN'>
+			<s:datatype dt:type='string' dt:maxLength='4000'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_PSNL_ID' rs:number='15' rs:nullable='true' rs:writeunknown='true' rs:basetable='ET_EXAM_ACPT'
+			 rs:basecolumn='EEA_UTER_CD'>
+			<s:datatype dt:type='string' dt:maxLength='4000'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_TOTAL_YN' rs:number='16' rs:nullable='true'>
+			<s:datatype dt:type='string' dt:maxLength='1'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_CANAD_YN' rs:number='17' rs:nullable='true'>
+			<s:datatype dt:type='string' dt:maxLength='1'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_UTER_CD' rs:number='18' rs:nullable='true' rs:writeunknown='true' rs:basetable='ET_EXAM_ACPT'
+			 rs:basecolumn='EEA_EMAIL_AR'>
+			<s:datatype dt:type='string' dt:maxLength='1'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_HTSB_OX' rs:number='19' rs:nullable='true' rs:writeunknown='true' rs:basetable='ET_EXAM_ACPT'
+			 rs:basecolumn='EEA_SEND_CD'>
+			<s:datatype dt:type='string' dt:maxLength='5'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_CAN_CD' rs:number='20' rs:nullable='true'>
+			<s:datatype dt:type='string' dt:maxLength='6'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_ORAL_OX' rs:number='21' rs:nullable='true' rs:writeunknown='true' rs:basetable='IT_CUSTOMER'
+			 rs:basecolumn='ROWID'>
+			<s:datatype dt:type='string' dt:maxLength='4'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_ORAL_YN' rs:number='22' rs:nullable='true' rs:writeunknown='true' rs:basetable='ET_EXAM_ACPT'
+			 rs:basecolumn='ROWID'>
+			<s:datatype dt:type='string' dt:maxLength='1'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_ADDR_TX' rs:number='23' rs:nullable='true' rs:writeunknown='true' rs:basetable='PT_FIR_PANJUNG'
+			 rs:basecolumn='ROWID'>
+			<s:datatype dt:type='string' dt:maxLength='4000'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_EMAIL_AR' rs:number='24' rs:nullable='true' rs:writeunknown='true' rs:basetable='PT_SED_PANJUNG'
+			 rs:basecolumn='ROWID'>
+			<s:datatype dt:type='string' dt:maxLength='50'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_SEND_CD' rs:number='25' rs:nullable='true' rs:writeunknown='true' rs:basetable='ET_STDT_PNJN'
+			 rs:basecolumn='ROWID'>
+			<s:datatype dt:type='string' dt:maxLength='2'/>
+		</s:AttributeType>
+		<s:AttributeType name='EEA_SEND_NM' rs:number='26' rs:nullable='true' rs:writeunknown='true' rs:basetable='ET_STDT_PNJNO'
+			 rs:basecolumn='ROWID'>
+			<s:datatype dt:type='string' dt:maxLength='4000'/>
+		</s:AttributeType>
+		<s:AttributeType name='ROWID' rs:number='27' rs:rowid='true' rs:basetable='ET_DENTAL_PANJ' rs:basecolumn='ROWID'
+			 rs:keycolumn='true' rs:hidden='true' rs:autoincrement='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='c27' rs:name='ROWID' rs:number='28' rs:rowid='true' rs:hidden='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='c28' rs:name='ROWID' rs:number='29' rs:rowid='true' rs:hidden='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='c29' rs:name='ROWID' rs:number='30' rs:rowid='true' rs:hidden='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='c30' rs:name='ROWID' rs:number='31' rs:rowid='true' rs:hidden='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='c31' rs:name='ROWID' rs:number='32' rs:rowid='true' rs:hidden='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='c32' rs:name='ROWID' rs:number='33' rs:rowid='true' rs:hidden='true'>
 			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
 		</s:AttributeType>
 		<s:extends type='rs:rowbase'/>
 	</s:ElementType>
-</s:Schema>		<rs:data>
+</s:Schema>
+		<rs:data>
 <%
 		int cnt = 0;
 		while(cRsList.next()) {
 
 			cnt++;
 
+			String EEA_EXAM_DT_T = cRsList.getString("EEA_EXAM_DT");
+			String EEA_EXAM_SQ_T = cRsList.getString("EEA_EXAM_SQ");
+			String EEA_PSNL_NM_T = cRsList.getString("EEA_PSNL_NM");
+			String EEA_CUST_NO_T = cRsList.getString("EEA_CUST_NO");
+			String EEA_HTSB_CD_T = cRsList.getString("EEA_HTSB_CD");
+			String EEA_DIVI_CS_T = cRsList.getString("EEA_DIVI_CS");
+			String EEA_CHART_NO_T = cRsList.getString("EEA_CHART_NO");
+			String EEA_MOBL_NO_T = cRsList.getString("EEA_MOBL_NO");
+			String EEA_CNCR_DT_T = cRsList.getString("EEA_CNCR_DT");
+			String PFP_TRANC_DATE_T = cRsList.getString("PFP_TRANC_DATE");
+			String PSP_TRANC_DATE_T = cRsList.getString("PSP_TRANC_DATE");
+			String EEA_SEND_DT_T = cRsList.getString("EEA_SEND_DT");
+			String EEA_EXAM_NM_T = cRsList.getString("EEA_EXAM_NM");
+			String EEA_ENTY_NM_T = cRsList.getString("EEA_ENTY_NM");
+			String EEA_PSNL_ID_T = cRsList.getString("EEA_PSNL_ID");
+			String EEA_TOTAL_YN_T = cRsList.getString("EEA_TOTAL_YN");
+			String EEA_CANAD_YN_T = cRsList.getString("EEA_CANAD_YN");
+			String EEA_UTER_CD_T = cRsList.getString("EEA_UTER_CD");
+			String EEA_HTSB_OX_T = cRsList.getString("EEA_HTSB_OX");
+			String EEA_CAN_CD_T = cRsList.getString("EEA_CAN_CD");
+			String EEA_ORAL_OX_T = cRsList.getString("EEA_ORAL_OX");
+			String EEA_ORAL_YN_T = cRsList.getString("EEA_ORAL_YN");
+			String EEA_ADDR_TX_T = cRsList.getString("EEA_ADDR_TX");
+			String EEA_EMAIL_AR_T = cRsList.getString("EEA_EMAIL_AR");
+			String EEA_SEND_CD_T = cRsList.getString("EEA_SEND_CD");
+			String EEA_SEND_NM_T = cRsList.getString("EEA_SEND_NM");
 			String ROWID_T = cRsList.getString("ROWID");
+			String c27_T = cRsList.getString("c27");
+			String c28_T = cRsList.getString("c28");
+			String c29_T = cRsList.getString("c29");
+			String c30_T = cRsList.getString("c30");
+			String c31_T = cRsList.getString("c31");
+			String c32_T = cRsList.getString("c32");
 %>
 			<z:row
 <%
-			for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
-				String tempData = cRsList.getString(rsmd.getColumnName(colCnt));
-				if(! tempData.equals("")) {
+			if(! EEA_EXAM_DT_T.equals("")) {
 %>
-		 			<%= rsmd.getColumnName(colCnt)%>='<%= tempData%>'
+		 		EEA_EXAM_DT='<%= EEA_EXAM_DT_T%>'
 <%
-				}
+			}
+
+			if(! EEA_EXAM_SQ_T.equals("")) {
+%>
+		 		EEA_EXAM_SQ='<%= EEA_EXAM_SQ_T%>'
+<%
+			}
+
+			if(! EEA_PSNL_NM_T.equals("")) {
+%>
+		 		EEA_PSNL_NM='<%= EEA_PSNL_NM_T%>'
+<%
+			}
+
+			if(! EEA_CUST_NO_T.equals("")) {
+%>
+		 		EEA_CUST_NO='<%= EEA_CUST_NO_T%>'
+<%
+			}
+
+			if(! EEA_HTSB_CD_T.equals("")) {
+%>
+		 		EEA_HTSB_CD='<%= EEA_HTSB_CD_T%>'
+<%
+			}
+
+			if(! EEA_DIVI_CS_T.equals("")) {
+%>
+		 		EEA_DIVI_CS='<%= EEA_DIVI_CS_T%>'
+<%
+			}
+
+			if(! EEA_CHART_NO_T.equals("")) {
+%>
+		 		EEA_CHART_NO='<%= EEA_CHART_NO_T%>'
+<%
+			}
+
+			if(! EEA_MOBL_NO_T.equals("")) {
+%>
+		 		EEA_MOBL_NO='<%= EEA_MOBL_NO_T%>'
+<%
+			}
+
+			if(! EEA_CNCR_DT_T.equals("")) {
+%>
+		 		EEA_CNCR_DT='<%= EEA_CNCR_DT_T%>'
+<%
+			}
+
+			if(! PFP_TRANC_DATE_T.equals("")) {
+%>
+		 		PFP_TRANC_DATE='<%= PFP_TRANC_DATE_T%>'
+<%
+			}
+
+			if(! PSP_TRANC_DATE_T.equals("")) {
+%>
+		 		PSP_TRANC_DATE='<%= PSP_TRANC_DATE_T%>'
+<%
+			}
+
+			if(! EEA_SEND_DT_T.equals("")) {
+%>
+		 		EEA_SEND_DT='<%= EEA_SEND_DT_T%>'
+<%
+			}
+
+			if(! EEA_EXAM_NM_T.equals("")) {
+%>
+		 		EEA_EXAM_NM='<%= EEA_EXAM_NM_T%>'
+<%
+			}
+
+			if(! EEA_ENTY_NM_T.equals("")) {
+%>
+		 		EEA_ENTY_NM='<%= EEA_ENTY_NM_T%>'
+<%
+			}
+
+			if(! EEA_PSNL_ID_T.equals("")) {
+%>
+		 		EEA_PSNL_ID='<%= EEA_PSNL_ID_T%>'
+<%
+			}
+
+			if(! EEA_TOTAL_YN_T.equals("")) {
+%>
+		 		EEA_TOTAL_YN='<%= EEA_TOTAL_YN_T%>'
+<%
+			}
+
+			if(! EEA_CANAD_YN_T.equals("")) {
+%>
+		 		EEA_CANAD_YN='<%= EEA_CANAD_YN_T%>'
+<%
+			}
+
+			if(! EEA_UTER_CD_T.equals("")) {
+%>
+		 		EEA_UTER_CD='<%= EEA_UTER_CD_T%>'
+<%
+			}
+
+			if(! EEA_HTSB_OX_T.equals("")) {
+%>
+		 		EEA_HTSB_OX='<%= EEA_HTSB_OX_T%>'
+<%
+			}
+
+			if(! EEA_CAN_CD_T.equals("")) {
+%>
+		 		EEA_CAN_CD='<%= EEA_CAN_CD_T%>'
+<%
+			}
+
+			if(! EEA_ORAL_OX_T.equals("")) {
+%>
+		 		EEA_ORAL_OX='<%= EEA_ORAL_OX_T%>'
+<%
+			}
+
+			if(! EEA_ORAL_YN_T.equals("")) {
+%>
+		 		EEA_ORAL_YN='<%= EEA_ORAL_YN_T%>'
+<%
+			}
+
+			if(! EEA_ADDR_TX_T.equals("")) {
+%>
+		 		EEA_ADDR_TX='<%= EEA_ADDR_TX_T%>'
+<%
+			}
+
+			if(! EEA_EMAIL_AR_T.equals("")) {
+%>
+		 		EEA_EMAIL_AR='<%= EEA_EMAIL_AR_T%>'
+<%
+			}
+
+			if(! EEA_SEND_CD_T.equals("")) {
+%>
+		 		EEA_SEND_CD='<%= EEA_SEND_CD_T%>'
+<%
+			}
+
+			if(! EEA_SEND_NM_T.equals("")) {
+%>
+		 		EEA_SEND_NM='<%= EEA_SEND_NM_T%>'
+<%
 			}
 %>
 				ROWID='<%= cnt%>'
+<%
+			if(! c27_T.equals("")) {
+%>
+		 		c27='<%= c27_T%>'
+<%
+			}
+
+			if(! c28_T.equals("")) {
+%>
+		 		c28='<%= c28_T%>'
+<%
+			}
+
+			if(! c29_T.equals("")) {
+%>
+		 		c29='<%= c29_T%>'
+<%
+			}
+
+			if(! c30_T.equals("")) {
+%>
+		 		c30='<%= c30_T%>'
+<%
+			}
+
+			if(! c31_T.equals("")) {
+%>
+		 		c31='<%= c31_T%>'
+<%
+			}
+
+			if(! c32_T.equals("")) {
+%>
+		 		c32='<%= c32_T%>'
+<%
+			}
+%>
 			/>
 <%
 		}
@@ -304,4 +609,5 @@
 <%
 	}
 %>
+
 
