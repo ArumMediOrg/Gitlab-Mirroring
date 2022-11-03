@@ -27,33 +27,102 @@
 		htData = (HashMap<String, Object>)request.getAttribute("htData");
 		htMethod = (HashMap<String, String>)request.getAttribute("htMethod_1");
 
-		String PLCD_CD = htMethod.get("PLCD_CD");
-
+		String G_ENCRT_KD = htMethod.get("G_ENCRT_KD");
+		String EDPSNL_NM = htMethod.get("EDPSNL_NM");
+		String EDPSNL_ID = htMethod.get("EDPSNL_ID");
+		String SECUREEDPSNL_ID = htMethod.get("SECUREEDPSNL_ID");
+		String EDCHART_NO = htMethod.get("EDCHART_NO");
+		String SMOBL_NO = htMethod.get("SMOBL_NO");
+		String CBJUMIN_YN = htMethod.get("CBJUMIN_YN");
 
 		//
-		if(PLCD_CD == null) { PLCD_CD = ""; }
+		if(G_ENCRT_KD == null) { G_ENCRT_KD = ""; }
+		if(EDPSNL_NM == null) { EDPSNL_NM = ""; }
+		if(EDPSNL_ID == null) { EDPSNL_ID = ""; }
+		if(SECUREEDPSNL_ID == null) { SECUREEDPSNL_ID = ""; }
+		if(EDCHART_NO == null) { EDCHART_NO = ""; }
+		if(SMOBL_NO == null) { SMOBL_NO = ""; }
+		if(CBJUMIN_YN == null) { CBJUMIN_YN = ""; }
 
 		// DB객체
 		stmtList = connect.createStatement();
 
-		sql = " SELECT A.IHL_NXRY_CD, B.CSC_ETC1_CD";
-		sql += " FROM IT_HOSPITAL A ";
-		if(PLCD_CD.equals("0")) {
-			sql += " LEFT OUTER JOIN CT_SP_COMMON B ON A.IHL_CXRY_CD = B.CSC_SMALL ";
-		} else if (PLCD_CD.equals("1")) {
-			sql += " LEFT OUTER JOIN CT_SP_COMMON B ON A.IHL_NXRY_CD = B.CSC_SMALL ";
+		sql = " SELECT CASE WHEN ICR_CHART_NO = ' ' OR ICR_CHART_NO IS NULL THEN ";
+		sql += " 		CASE WHEN EEA_CHART_NO = ' ' OR EEA_CHART_NO IS NULL THEN RRT_CHART_NO ELSE EEA_CHART_NO END ";
+		sql += " ELSE ICR_CHART_NO END ICR_CHART_NO, ";
+		sql += " ICR_CUST_NO, ICR_PENL_NM, ICR_BIRH_DT,  F_PID(ICR_PENL_ID) AS ICR_PSNL_ID, ICR_PID_EN ";
+
+		if(G_ENCRT_KD.equals("2")) {
+			sql += ", ECL_DECRYPT(ICR_PID_EN) ICR_DEC_ID";
+		} else {
+			sql += ", ICR_PENL_ID ICR_DEC_ID";
 		}
-		sql += " AND B.CSC_LARGE = 'HM05G'";
-		sql += " AND B.CSC_USE_YN = 'Y'";
+
+		sql += ", F_TEL_FORMAT(ICR_TEL_NO) ICR_TEL_NO, F_TEL_FORMAT(ICR_MOBL_NO) ICR_MOBL_NO, ";
+		sql += " ICR_COMP_CD, F_COMP_FIND(ICR_COMP_CD) ICR_COMP_NM, ";
+		sql += " LTRIM(RTRIM(LTRIM(ICR_ZIP_AR)) || ' ' || RTRIM(LTRIM(ICR_ROAD_AR))) ICR_ADDR, EEA_EXAM_DT, RRT_EXAM_DT ";
+		sql += " FROM IT_CUSTOMER A LEFT OUTER JOIN (SELECT EEA_CUST_NO, MAX(EEA_CHART_NO) EEA_CHART_NO, MAX(EEA_EXAM_DT) EEA_EXAM_DT ";
+		sql += " FROM ET_EXAM_ACPT";
+		sql += " WHERE EEA_ORDER_YN <> 'C'";
+		sql += " GROUP BY EEA_CUST_NO) B";
+		sql += " ON EEA_CUST_NO = ICR_CUST_NO";
+		sql += " LEFT OUTER JOIN (SELECT RRT_CUST_NO, MAX(RRT_CHART_NO) RRT_CHART_NO, MAX(RRT_EXAM_DT) RRT_EXAM_DT ";
+		sql += " 		FROM RT_RSVT ";
+		sql += " 		WHERE RRT_CNCL_YN <> 'Y' ";
+		sql += " 		AND RRT_EXAM_CD LIKE '21%' ";
+		sql += " 		GROUP BY RRT_CUST_NO) C ";
+		sql += " 	ON RRT_CUST_NO = ICR_CUST_NO ";
+		sql += " WHERE 1 = 1";
+
+
+		if(! EDPSNL_NM.equals("")) {
+			sql += " AND ICR_PENL_NM LIKE '" + EDPSNL_NM + "%'";
+		}
+
+		if(EDPSNL_ID.length() == 13) {
+
+
+			if(G_ENCRT_KD.equals("1")) {
+				sql += " AND ICR_PID_EN = '" + SECUREEDPSNL_ID + "'";
+			} else if(G_ENCRT_KD.equals("2")) {
+				sql += " AND ICR_PID_EN = ECL_ENCRYPT('" + EDPSNL_ID + "')";
+			} else {
+				sql += " AND ICR_PENL_ID = TRIM('" + EDPSNL_ID + "')";
+			}
+		} else if(! EDPSNL_ID.equals("")) {
+
+			sql += " AND ICR_PENL_ID LIKE SUBSTR('" + EDPSNL_ID + "',1,7) || '%'";
+		}
+
+		if(! EDCHART_NO.equals("")) {
+			sql += " AND (";
+			sql += "	ICR_CHART_NO LIKE '%" + EDCHART_NO + "'";
+			sql += " 	OR EEA_CHART_NO LIKE '%" + EDCHART_NO + "'";
+			sql += "    OR RRT_CHART_NO LIKE '%" + EDCHART_NO + "'";
+			sql += ")";
+		}
+
+		if(! SMOBL_NO.equals("")) {
+			sql += " AND ICR_MOBL_NO LIKE '" + SMOBL_NO + "%'";
+		}
+
+		sql += " AND NVL(ICR_USE_YN, 'Y') <> 'N'";
+		sql += " ORDER BY ICR_PENL_NM, ICR_PENL_ID";
 
 			//
 			G_INFO += "<!-- \n";
-			G_INFO += "서비스명 : uCOMP_DEPT_APPLY_FormInit_001 \n";
-			G_INFO += "설명 : 병원관리 XRAY 구분자 가져오기 \n";
+			G_INFO += "서비스명 : uFind_Cust_Up_FindCustomer_002 \n";
+			G_INFO += "설명 : 고객정보 로딩-2 \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "전달인자 : \n";
-			G_INFO += " PLCD_CD : " + PLCD_CD + " \n";
+			G_INFO += " G_ENCRT_KD : " + G_ENCRT_KD + " \n";
+			G_INFO += " EDPSNL_NM : " + EDPSNL_NM + " \n";
+			G_INFO += " EDPSNL_ID : " + EDPSNL_ID + " \n";
+			G_INFO += " SECUREEDPSNL_ID : " + SECUREEDPSNL_ID + " \n";
+			G_INFO += " EDCHART_NO : " + EDCHART_NO + " \n";
+			G_INFO += " SMOBL_NO : " + SMOBL_NO + " \n";
+			G_INFO += " CBJUMIN_YN : " + CBJUMIN_YN + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";
