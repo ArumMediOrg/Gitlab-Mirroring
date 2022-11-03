@@ -43,7 +43,7 @@
 		} else if (PLCD_CD.equals("1")) {
 			sql += " LEFT OUTER JOIN CT_SP_COMMON B ON A.IHL_NXRY_CD = B.CSC_SMALL ";
 		}
-		sql += " AND B.CSC_LARGE = 'HM05G'";
+		sql += " WHERE B.CSC_LARGE = 'HM05G'";
 		sql += " AND B.CSC_USE_YN = 'Y'";
 
 			//
