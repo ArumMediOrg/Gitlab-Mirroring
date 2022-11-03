@@ -75,6 +75,7 @@
 	htBranch.put("uPsnl_Memo_btnSaveClick_001", 		"/method/libs/uPsnl_Memo_btnSaveClick_001.jsp");
 	htBranch.put("uFindCustomer_btnFindClick_001", 		"/method/libs/uFindCustomer_btnFindClick_001.jsp");
 	htBranch.put("uFind_Cust_Up_FindCustomer_001", 		"/method/libs/uFind_Cust_Up_FindCustomer_001.jsp");
+	htBranch.put("uFind_Cust_Up_FindCustomer_002", 		"/method/libs/uFind_Cust_Up_FindCustomer_002.jsp");
 	htBranch.put("UFM_Common_GP_ITEMGridDisPlay_001", 		"/method/libs/UFM_Common_GP_ITEMGridDisPlay_001.jsp");
 	htBranch.put("UFM_Common_GP_ITEMGridDisPlay_001___1", 		"/method/libs/UFM_Common_GP_ITEMGridDisPlay_001___1.jsp");
 	htBranch.put("UFM_Common_GP_ITEMGridDisPlay_001___2", 		"/method/libs/UFM_Common_GP_ITEMGridDisPlay_001___2.jsp");
