@@ -22,25 +22,9 @@
 			sql = " INSERT INTO ST_ADVICE  \n";
 			sql += " (SAE_ADVI_DT, SAE_CUST_NO, SAE_ADVI_SQ, SAE_EXAM_DT, SAE_EXAM_SQ, SAE_EXAM_CHA, SAE_NEXT_DT,  \n";
 			sql += " SAE_ADVI_CD, SAE_ADVI_TX, SAE_NURSE_ID, SAE_DOCT_ID, SAE_INPT_ID, SAE_INPT_DTT, SAE_USE_YN,  \n";
-			sql += " SAE_RSVT_NO)  \n";
+			sql += " SAE_ADVI_STEP, SAE_RSVT_NO)  \n";
 			sql += " VALUES  \n";
 			sql += " ( " + SSQL_ADD1 + " \n";
-
-			/*'2021-01-11',
-			'2020032097',
-			'1',
-			'2020-12-18',
-			'110004',
-			'',
-			'2021-01-18',
-			'',
-			'test',
-			'admin',
-			' ',
-			'admin',
-			SYSDATE,
-			'Y',
-			'')*/
 
 
 			CallStmtExec = connect.prepareCall(sql);
