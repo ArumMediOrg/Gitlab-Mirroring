@@ -61,28 +61,26 @@
 			CODE_GBN = CTr.Replace(CODE_GBN, "'", "''");
 			OCS_VL = CTr.Replace(OCS_VL, "'", "''");
 
-			sql = "UPDATE ET_RSLT_ITEM  ";
-			sql += "   SET ERI_RSLT_VL = CASE WHEN NVL(ERI_RSLT_VL,' ') = ' ' THEN '" + RSLT_VL + "' ELSE ERI_RSLT_VL END ";
-			sql += " , ERI_CHAR_CD   = '" + CHAR_CD + "' ";
-			sql += " , ERI_PACS_RSLT = '" + PACS_RSLT + "' ";
-			sql += " , ERI_PRCH_VL   = '" + PRCH_VL + "' ";
-			sql += " , ERI_PRNM_VL   = '" + PRNM_VL + "' ";
-			sql += " , ERI_RSLT_KD   = '" + RSLT_KD + "' ";
-			sql += " , ERI_MODI_ID   = '" + MODI_ID + "' ";
-			sql += " , ERI_MODI_DTT = SYSDATE ";
-			sql += " , ERI_OCS_VL   = '" + OCS_VL + "'  ";
+			sql += " , DEPRECATED   = '" + DEPRECATED + "' ";
+			sql += " , DEPRECATED = '" + DEPRECATED + "' ";
+			sql += " , DEPRECATED   = '" + DEPRECATED + "' ";
+			sql += " , DEPRECATED   = '" + DEPRECATED + "' ";
+			sql += " , DEPRECATED   = '" + DEPRECATED + "' ";
+			sql += " , DEPRECATED   = '" + DEPRECATED + "' ";
+			sql += " , DEPRECATED = SYSDATE ";
+			sql += " , DEPRECATED   = '" + DEPRECATED + "'  ";
 
 			if(!RSLT_EX.equals("")) {
-			sql += " ,  ERI_RSLT_EX = '" + RSLT_EX + "' ";
+			sql += " ,  ERI_RSLT_EX = '" + DEPRECATED + "' ";
 			}
 
-			sql += " WHERE ERI_EXAM_DT = '" + EXAM_DT + "' ";
-			sql += " AND ERI_EXAM_SQ = '" + EXAM_SQ + "' ";
+			sql += " WHERE ERI_EXAM_DT = '" + DEPRECATED + "' ";
+			sql += " AND ERI_EXAM_SQ = '" + DEPRECATED + "' ";
 
 			if(CODE_GBN.equals("ITEM_CD")) {
-				sql += " AND (ERI_ITEM_CD = '" + OSRL_CD + "') ";
+				sql += " AND (ERI_ITEM_CD = '" + DEPRECATED + "') ";
 			} else {
-				sql += " AND (NVL(ERI_OSRL_CD,'XXX') = '" + OSRL_CD +"') ";
+				sql += " AND (NVL(ERI_OSRL_CD,'XXX') = '" + DEPRECATED +"') ";
 			}
 
 
