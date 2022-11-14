@@ -87,7 +87,7 @@
 
 			sql += " WHERE ERI_EXAM_DT = '" + EXAM_DT + "'";
 			sql += " AND ERI_EXAM_SQ = '" + EXAM_SQ + "'";
-			sql += " AND ERI_EXAM_SQ = '" + EXAM_SQ + "'";
+			sql += " AND ERI_EXAM_SQ_ERROR = '" + EXAM_SQ + "'";
 
 			if(CODE_GBN.equals("ITEM_CD")){
 				sql += " AND (ERI_ITEM_CD = '" + OSRL_CD + "')";
