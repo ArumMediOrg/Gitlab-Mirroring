@@ -133,8 +133,8 @@
 			}
 		}
 
-		if(!CMBBOXPLCE_CD.equals("0")) {
-			sql += " AND SUBSTR(A.EEA_PLCE_CD,1,1) = '" + CMBBOXPLCE_CD + "'";
+		if(!CMBBOXPLCE_CD.equals("00")) {
+			sql += " AND SUBSTR(A.EEA_PLCE_CD,1,2) = '" + CMBBOXPLCE_CD + "'";
 		}
 
 		if(!CMBBOXFAMY_CD.equals("00")) {
