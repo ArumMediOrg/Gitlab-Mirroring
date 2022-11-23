@@ -83,7 +83,7 @@
 			sql += " 	, ERI_OCS_VL   = '" + OCS_VL + "' ";
 			sql += " 	, ERI_REMK_EX  = '" + REMK_EX + "' ";
 			sql += " 	, ERI_PACS_OLD = '" + OLD_PACS_RSLT + "' ";
-			sql += " 	, ERI_RSLT_VL2 = 'ZZ' || '/' || to_char(sysdate,'YYYYMMDD hh24miss') || '/' || '" + MODI_ID + "' || '/' || 로컬사용자IP ";
+			sql += " 	, ERI_RSLT_VL2 = 'ZZ' || '/' || to_char(sysdate,'YYYYMMDD hh24miss') || '/' || '" + MODI_ID + "' || '/' || 로컬사용자IP : '" + request.getRemoteAddr() + "'";
 
 			if(PACS_FLAG.equals("Y")){
 				sql += " 	, ERI_PACS_CHK = '" + PACS_FLAG + "' ";
