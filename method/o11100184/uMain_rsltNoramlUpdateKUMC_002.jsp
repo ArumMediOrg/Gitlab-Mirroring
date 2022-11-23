@@ -39,7 +39,7 @@
 		String OCS_VL = htMethod.get("OCS_VL");
 		String CODE_GBN = htMethod.get("CODE_GBN");
 		String RSLT_EX = htMethod.get("RSLT_EX");
-		String MODI_ID = htMethod.get("MODI_ID");
+		String RSLT_VL2 = htMethod.get("RSLT_VL2");
 
 		//
 		if(RSLT_VL == null) { RSLT_VL = ""; }
@@ -60,7 +60,7 @@
 		if(OCS_VL == null) { OCS_VL = ""; }
 		if(CODE_GBN == null) { CODE_GBN = ""; }
 		if(RSLT_EX == null) { RSLT_EX = ""; }
-		if(MODI_ID == null) { MODI_ID = ""; }
+		if(RSLT_VL2 == null) { RSLT_VL2 = ""; }
 
 		// DB객체
 		stmtExec = connect.createStatement();
@@ -92,7 +92,7 @@
 			G_INFO += " OCS_VL : " + OCS_VL + " \n";
 			G_INFO += " CODE_GBN : " + CODE_GBN + " \n";
 			G_INFO += " RSLT_EX : " + RSLT_EX + " \n";
-			G_INFO += " MODI_ID : " + MODI_ID + " \n";
+			G_INFO += " RSLT_VL2 : " + RSLT_VL2 + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";

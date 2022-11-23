@@ -26,7 +26,7 @@
 			String OCS_VL = (String) argHtMethod.get("OCS_VL");
 			String CODE_GBN = (String) argHtMethod.get("CODE_GBN");
 			String RSLT_EX = (String) argHtMethod.get("RSLT_EX");
-			String MODI_ID = (String) argHtMethod.get("MODI_ID");
+			String RSLT_VL2 = (String) argHtMethod.get("RSLT_VL2");
 
 
 			//
@@ -48,7 +48,7 @@
 			if(OCS_VL == null) { OCS_VL = ""; }
 			if(CODE_GBN == null) { CODE_GBN = ""; }
 			if(RSLT_EX == null) { RSLT_EX = ""; }
-			if(MODI_ID == null) { MODI_ID = ""; }
+			if(RSLT_VL2 == null) { RSLT_VL2 = ""; }
 
 			//
 			RSLT_VL = CTr.Replace(RSLT_VL, "'", "''");
@@ -69,7 +69,7 @@
 			OCS_VL = CTr.Replace(OCS_VL, "'", "''");
 			CODE_GBN = CTr.Replace(CODE_GBN, "'", "''");
 			RSLT_EX = CTr.Replace(RSLT_EX, "'", "''");
-			MODI_ID = CTr.Replace(MODI_ID, "'", "''");
+			RSLT_VL2 = CTr.Replace(RSLT_VL2, "'", "''");
 
 			sql = " UPDATE ET_RSLT_ITEM ";
 			sql += " SET ERI_RSLT_VL   = '" + RSLT_VL + "' ";
