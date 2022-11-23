@@ -65,7 +65,7 @@
 		// DB객체
 		stmtExec = connect.createStatement();
 
-		sql = func_uMain_rsltNoramlUpdateKUMC_002(stmtExec, htMethod);
+		sql = func_uMain_rsltNoramlUpdateKUMC_002(stmtExec, htMethod, request);
 
 			//
 			G_INFO += "<!-- \n";
