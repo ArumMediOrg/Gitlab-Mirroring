@@ -26,7 +26,6 @@
 			String OCS_VL = (String) argHtMethod.get("OCS_VL");
 			String CODE_GBN = (String) argHtMethod.get("CODE_GBN");
 			String RSLT_EX = (String) argHtMethod.get("RSLT_EX");
-			String MODI_ID = (String) argHtMethod.get("MODI_ID");
 
 
 			//
@@ -48,7 +47,6 @@
 			if(OCS_VL == null) { OCS_VL = ""; }
 			if(CODE_GBN == null) { CODE_GBN = ""; }
 			if(RSLT_EX == null) { RSLT_EX = ""; }
-			if(MODI_ID == null) { MODI_ID = ""; }
 
 			//
 			RSLT_VL = CTr.Replace(RSLT_VL, "'", "''");
@@ -69,7 +67,6 @@
 			OCS_VL = CTr.Replace(OCS_VL, "'", "''");
 			CODE_GBN = CTr.Replace(CODE_GBN, "'", "''");
 			RSLT_EX = CTr.Replace(RSLT_EX, "'", "''");
-			MODI_ID = CTr.Replace(MODI_ID, "'", "''");
 
 			sql = " UPDATE ET_RSLT_ITEM ";
 			sql += " SET ERI_RSLT_VL   = '" + RSLT_VL + "' ";
@@ -83,7 +80,6 @@
 			sql += " 	, ERI_OCS_VL   = '" + OCS_VL + "' ";
 			sql += " 	, ERI_REMK_EX  = '" + REMK_EX + "' ";
 			sql += " 	, ERI_PACS_OLD = '" + OLD_PACS_RSLT + "' ";
-			sql += " 	, ERI_RSLT_VL2 = 'ZZ' || '/' || to_char(sysdate,'YYYYMMDD hh24miss') || '/' || '" + MODI_ID + "' || '/' || 로컬사용자IP ";
 
 			if(PACS_FLAG.equals("Y")){
 				sql += " 	, ERI_PACS_CHK = '" + PACS_FLAG + "' ";
