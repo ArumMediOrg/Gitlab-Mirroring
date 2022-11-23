@@ -104,6 +104,11 @@
 				sql += " AND IT_ITEM.IIM_RSLT_KD IN ('6', '7')";
 			}
 
+			//22.11.23
+			if(RZCOMBOBOX2.equals("8")) {
+				sql += "  AND IT_ITEM.IIM_RSLT_KD NOT IN ('6', '7')";
+			}
+
 			if(G_HOSP_NO.equals("11100761") && RZCOMBOBOX2.equals("1")) {
 				sql += " AND ERI_ITEM_CD NOT IN ('BZ159', 'BZ179', 'C0001', 'C0006', 'C0007', 'C0008', 'Z0267', 'Z0268')";
 			}
