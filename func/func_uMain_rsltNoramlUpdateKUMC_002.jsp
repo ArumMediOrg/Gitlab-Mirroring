@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%!
-	public String func_uMain_rsltNoramlUpdateKUMC_002(Statement argStmtExec, HashMap argHtMethod, HttpServletRequest request) throws Exception {
+	public String func_uMain_rsltNoramlUpdateKUMC_002(Statement argStmtExec, HashMap argHtMethod) throws Exception {
 
 		String sql = "";
 		String sql2 = "";
@@ -26,7 +26,6 @@
 			String OCS_VL = (String) argHtMethod.get("OCS_VL");
 			String CODE_GBN = (String) argHtMethod.get("CODE_GBN");
 			String RSLT_EX = (String) argHtMethod.get("RSLT_EX");
-			String RSLT_VL2 = (String) argHtMethod.get("RSLT_VL2");
 
 
 			//
@@ -48,7 +47,6 @@
 			if(OCS_VL == null) { OCS_VL = ""; }
 			if(CODE_GBN == null) { CODE_GBN = ""; }
 			if(RSLT_EX == null) { RSLT_EX = ""; }
-			if(RSLT_VL2 == null) { RSLT_VL2 = ""; }
 
 			//
 			RSLT_VL = CTr.Replace(RSLT_VL, "'", "''");
@@ -69,7 +67,6 @@
 			OCS_VL = CTr.Replace(OCS_VL, "'", "''");
 			CODE_GBN = CTr.Replace(CODE_GBN, "'", "''");
 			RSLT_EX = CTr.Replace(RSLT_EX, "'", "''");
-			RSLT_VL2 = CTr.Replace(RSLT_VL2, "'", "''");
 
 			sql = " UPDATE ET_RSLT_ITEM ";
 			sql += " SET ERI_RSLT_VL   = '" + RSLT_VL + "' ";
@@ -83,9 +80,6 @@
 			sql += " 	, ERI_OCS_VL   = '" + OCS_VL + "' ";
 			sql += " 	, ERI_REMK_EX  = '" + REMK_EX + "' ";
 			sql += " 	, ERI_PACS_OLD = '" + OLD_PACS_RSLT + "' ";
-			sql += "***********";
-			sql += " 	로컬사용자IP : '" + request.getRemoteAddr() + "'";
-			sql += "***********";
 
 			if(PACS_FLAG.equals("Y")){
 				sql += " 	, ERI_PACS_CHK = '" + PACS_FLAG + "' ";
