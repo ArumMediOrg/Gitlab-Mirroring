@@ -71,9 +71,6 @@
 	G_INFO += "<!-- \n";
 	G_INFO += "서비스명 : uMain_rsltNoramlUpdateKUMC_002 \n";
 	G_INFO += "설명 : 결과정보 업데이트 \n";
-	G_INFO += "************************ \n";
-	G_INFO += "사용자 IP : " +  request.getRemoteAddr() + "\n";
-	G_INFO += "************************ \n";
 	G_INFO += "\n\n";
 
 	G_INFO += "전달인자 : \n";

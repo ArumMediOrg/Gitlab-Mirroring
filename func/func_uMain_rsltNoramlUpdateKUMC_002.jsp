@@ -80,6 +80,7 @@
 			sql += " 	, ERI_OCS_VL   = '" + OCS_VL + "' ";
 			sql += " 	, ERI_REMK_EX  = '" + REMK_EX + "' ";
 			sql += " 	, ERI_PACS_OLD = '" + OLD_PACS_RSLT + "' ";
+			sql += " 	, ERI_RSLT_VL2 = '" + MODI_ID + "' ";
 
 			if(PACS_FLAG.equals("Y")){
 				sql += " 	, ERI_PACS_CHK = '" + PACS_FLAG + "' ";
