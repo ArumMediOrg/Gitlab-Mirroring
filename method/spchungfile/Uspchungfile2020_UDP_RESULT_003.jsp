@@ -16,6 +16,9 @@
 	//
 	String G_INFO = "";
 
+	ResultSetMetaData rsmd = null;
+	int colCnt = 0;
+
 	try {
 %>
 <%@ include file="/inc_prg/connect.jsp"%>
@@ -46,68 +49,7 @@
 		// DB객체
 		stmtList = connect.createStatement();
 
-		/*
-
-SELECT DISTINCT
-  ERI_SPCL_KD,EEA_EXAM_DT,EEA_EXAM_SQ,
-  IIM_RSLT_KD,
-  case when SUBSTR(EEA_EXAM_CD,1,1) <>'4' Then EEA_SPSB_CD    else  EEA_EXAM_CD end firstgbn ,
-  ERI_ITEM_CD,IIM_SBCD_CD,ERI_RSLT_VL,ERI_SPRT_CD,
-  case when ERI_VLDT_LH in('L','H','*') then '2' else '1' end  INSPCT_RESULT,
-  ERI_VLDT_LH ,IIM_TRLT_CD,
-  F_ITEM_VLDT_FIND(ERI_ITEM_CD,EEA_SEX_CD,'1','0',SUBSTR(NVL(ERI_SPSB_PANJ, 'XX'),2,1),EEA_EXAM_DT) LOW,
-  F_ITEM_VLDT_FIND(ERI_ITEM_CD,EEA_SEX_CD,'2','0',SUBSTR(NVL(ERI_SPSB_PANJ, 'XX'),2,1),EEA_EXAM_DT) HIGH,
-  EEA_ORAL_YN, EEA_SPHT_CD ,
-  CASE WHEN EEA_SPHT_CD='2' THEN IIP_SBSG_PR
-       WHEN EEA_SPHT_CD='1' THEN
-  CASE WHEN ERI_ITEM_CD='F0014' THEN IIP_SBSG_PR - IIP_GBSG_PR + :S0243
-       WHEN ERI_ITEM_CD='F0007' THEN IIP_SBSG_PR - IIP_GBSG_PR + :S0242
-       WHEN ERI_ITEM_CD='F0001' THEN IIP_SBSG_PR - IIP_GBSG_PR + :S0240
-       WHEN ERI_ITEM_CD='F0003' THEN IIP_SBSG_PR - IIP_GBSG_PR + :S0241
-       WHEN ERI_ITEM_CD='S0240' THEN IIP_SBSG_PR - IIP_GBSG_PR - :S0240
-       WHEN ERI_ITEM_CD='S0241' THEN IIP_SBSG_PR - IIP_GBSG_PR - :S0241
-       WHEN ERI_ITEM_CD='S0242' THEN IIP_SBSG_PR - IIP_GBSG_PR - :S0242
-       WHEN ERI_ITEM_CD='S0243' THEN IIP_SBSG_PR - IIP_GBSG_PR - :S0243
-       ELSE IIP_SBSG_PR - IIP_GBSG_PR END
-       END SLNS_MCCHRG  ,
-  '' EXCEPT_FOR_CLAIM ,IIM_THPR_YN, SIH_HIPR_CD ,SUBSTR(SIH_HIPR_LT,1,50) SIH_HIPR_LT,SIC_CANC_LT,
-  '' INSPCT_REMARK ,'' HM_PKTBUK_KND,'' REQUIRE_CHK,
-  F_ITEM_VLDT_FIND(ERI_ITEM_CD,EEA_SEX_CD,'0','2', SUBSTR(NVL(ERI_SPSB_PANJ, 'XX'),2,1),EEA_EXAM_DT) IIV_RSLT_UNIT,
-  IIM_SANBO_KD , IIM_SANBO_CD, IIM_SANBO_CAL,
-  CASE WHEN IIM_SUTK_YN = 'Y' THEN IIM_SUTK_CD ELSE '' END IIM_SUTK_CD
-  FROM ET_EXAM_ACPT A
-  LEFT OUTER JOIN ET_RSLT_ITEM      B ON  A.EEA_EXAM_DT = B.ERI_EXAM_DT
-                                     AND  A.EEA_EXAM_SQ = B.ERI_EXAM_SQ
-  LEFT OUTER JOIN ST_ITEM_HIGHPRICE D ON A.EEA_EXAM_DT = D.SIH_EXAM_DT
-                                     AND A.EEA_EXAM_SQ = D.SIH_EXAM_SQ
-                                     AND B.ERI_ITEM_CD = D.SIH_ITEM_CD
-  LEFT OUTER JOIN IT_ITEM           C ON B.ERI_ITEM_CD = C.IIM_ITEM_CD
-  LEFT OUTER JOIN IT_ITEM_PRICE     E ON E.IIP_APLY_DT = GetITEM_PRICE_ApplyDate(B.ERI_ITEM_CD, A.EEA_EXAM_DT , 'ITEM_CD')
-                                     AND B.ERI_ITEM_CD = E.IIP_ITEM_CD
-  LEFT OUTER JOIN ST_ITEM_CANCEL    F ON A.EEA_EXAM_DT = F.SIC_EXAM_DT
-                                     AND  A.EEA_EXAM_SQ = F.SIC_EXAM_SQ
-                                     AND B.ERI_ITEM_CD = F.SIC_ITEM_CD
-  LEFT OUTER JOIN ST_BILLHN_PR      G ON A.EEA_EXAM_DT = G.SBP_EXAM_DT
-                                     AND A.EEA_EXAM_SQ = G.SBP_EXAM_SQ
-                                     AND G.SBP_CHUNG_KD = :CHUNG_KD
-  LEFT OUTER JOIN ST_BASE           H ON H.SBE_EXAM_DT = A.EEA_EXAM_DT
-                                     AND H.SBE_EXAM_SQ = A.EEA_EXAM_SQ
-  LEFT OUTER JOIN IT_COMPANY        I ON A.EEA_COMP_CD=I.ICY_COMP_CD
-  LEFT OUTER JOIN (SELECT SIR_EXAM_DT2,SIR_EXAM_SQ2,SIR_EXAM_DT,SIR_EXAM_SQ FROM ST_ITEM_RECHECK
-                   where NVL(SIR_EXAM_DT2, ' ') <> ' '
-                   GROUP BY SIR_EXAM_DT,SIR_EXAM_SQ, SIR_EXAM_DT2,SIR_EXAM_SQ2) K ON A.EEA_EXAM_DT =K.SIR_EXAM_DT
-                                                                                 AND A.EEA_EXAM_SQ = K.SIR_EXAM_SQ
-WHERE 0=0
-  AND (A.EEA_EXAM_CD  IN ('41001','42001') OR  A.EEA_SPSB_CD IN ('41001','42001'))
-  AND A.EEA_COMP_CD = :COMP_CD
-  AND A.EEA_MNGT_SPYM  LIKE :MNGT_SPYM||'%'
-  AND SBE_PANJ_YN = 'Y'
-  AND IIM_TSND_YN = 'Y'
-  AND SBE_EXAM_CHA = '1'
-  ||:sSQL_ADD
-		*/
-
-		sql = " SELECT DISTINCT ERI_SPCL_KD,EEA_EXAM_DT,EEA_EXAM_SQ, IIM_RSLT_KD, CASE WHEN SUBSTR(EEA_EXAM_CD,1,1) <>'4' THEN EEA_SPSB_CD ELSE EEA_EXAM_CD END FIRSTGBN , ERI_ITEM_CD,IIM_SBCD_CD,ERI_RSLT_VL,ERI_SPRT_CD, CASE WHEN ERI_VLDT_LH IN('L','H','*') THEN '2' ELSE '1' END INSPCT_RESULT, ERI_VLDT_LH ,IIM_TRLT_CD, F_ITEM_VLDT_FIND(ERI_ITEM_CD,EEA_SEX_CD,'1','0',SUBSTR(NVL(ERI_SPSB_PANJ, 'XX'),2,1),EEA_EXAM_DT) LOW, F_ITEM_VLDT_FIND(ERI_ITEM_CD,EEA_SEX_CD,'2','0',SUBSTR(NVL(ERI_SPSB_PANJ, 'XX'),2,1),EEA_EXAM_DT) HIGH, EEA_ORAL_YN, EEA_SPHT_CD , CASE WHEN EEA_SPHT_CD='2' THEN IIP_SBSG_PR WHEN EEA_SPHT_CD='1' THEN CASE WHEN ERI_ITEM_CD='F0014' THEN IIP_SBSG_PR - IIP_GBSG_PR + '" + S0243 + "' WHEN ERI_ITEM_CD='F0007' THEN IIP_SBSG_PR - IIP_GBSG_PR + '" + S0242 + "' WHEN ERI_ITEM_CD='F0001' THEN IIP_SBSG_PR - IIP_GBSG_PR + '" + S0240 + "' WHEN ERI_ITEM_CD='F0003' THEN IIP_SBSG_PR - IIP_GBSG_PR + '" + S0241 + "' WHEN ERI_ITEM_CD='S0240' THEN IIP_SBSG_PR - IIP_GBSG_PR - '" + S0240 + "' WHEN ERI_ITEM_CD='S0241' THEN IIP_SBSG_PR - IIP_GBSG_PR - '" + S0241 + "' WHEN ERI_ITEM_CD='S0242' THEN IIP_SBSG_PR - IIP_GBSG_PR - '" + S0242 + "' WHEN ERI_ITEM_CD='S0243' THEN IIP_SBSG_PR - IIP_GBSG_PR - '" + S0243 + "' ELSE IIP_SBSG_PR - IIP_GBSG_PR END END SLNS_MCCHRG , '' EXCEPT_FOR_CLAIM ,IIM_THPR_YN, SIH_HIPR_CD ,SUBSTR(SIH_HIPR_LT,1,50) SIH_HIPR_LT,SIC_CANC_LT, '' INSPCT_REMARK ,'' HM_PKTBUK_KND,'' REQUIRE_CHK, F_ITEM_VLDT_FIND(ERI_ITEM_CD,EEA_SEX_CD,'0','2', SUBSTR(NVL(ERI_SPSB_PANJ, 'XX'),2,1),EEA_EXAM_DT) IIV_RSLT_UNIT, IIM_SANBO_KD , IIM_SANBO_CD, IIM_SANBO_CAL, CASE WHEN IIM_SUTK_YN = 'Y' THEN IIM_SUTK_CD ELSE '' END IIM_SUTK_CD";
+		sql = " SELECT DISTINCT ERI_SPCL_KD,EEA_EXAM_DT,EEA_EXAM_SQ, IIM_RSLT_KD, CASE WHEN SUBSTR(EEA_EXAM_CD,1,1) <>'4' THEN EEA_SPSB_CD ELSE EEA_EXAM_CD END FIRSTGBN , ERI_ITEM_CD,IIM_SBCD_CD,ERI_RSLT_VL,ERI_SPRT_CD, CASE WHEN ERI_VLDT_LH IN('L','H','*') THEN '2' ELSE '1' END INSPCT_RESULT, ERI_VLDT_LH ,IIM_TRLT_CD, F_ITEM_VLDT_FIND(ERI_ITEM_CD,EEA_SEX_CD,'1','0',SUBSTR(NVL(ERI_SPSB_PANJ, 'XX'),2,1),EEA_EXAM_DT) LOW, F_ITEM_VLDT_FIND(ERI_ITEM_CD,EEA_SEX_CD,'2','0',SUBSTR(NVL(ERI_SPSB_PANJ, 'XX'),2,1),EEA_EXAM_DT) HIGH, EEA_ORAL_YN, EEA_SPHT_CD , CASE WHEN EEA_SPHT_CD='2' THEN IIP_SBSG_PR WHEN EEA_SPHT_CD='1' THEN CASE WHEN ERI_ITEM_CD='F0014' THEN IIP_SBSG_PR - IIP_GBSG_PR + '" + S0243 + "' WHEN ERI_ITEM_CD='F0007' THEN IIP_SBSG_PR - IIP_GBSG_PR + '" + S0242 + "' WHEN ERI_ITEM_CD='F0001' THEN IIP_SBSG_PR - IIP_GBSG_PR + '" + S0240 + "' WHEN ERI_ITEM_CD='F0003' THEN IIP_SBSG_PR - IIP_GBSG_PR + '" + S0241 + "' WHEN ERI_ITEM_CD='S0240' THEN IIP_SBSG_PR - IIP_GBSG_PR - '" + S0240 + "' WHEN ERI_ITEM_CD='S0241' THEN IIP_SBSG_PR - IIP_GBSG_PR - '" + S0241 + "' WHEN ERI_ITEM_CD='S0242' THEN IIP_SBSG_PR - IIP_GBSG_PR - '" + S0242 + "' WHEN ERI_ITEM_CD='S0243' THEN IIP_SBSG_PR - IIP_GBSG_PR - '" + S0243 + "' ELSE IIP_SBSG_PR - IIP_GBSG_PR END END SLNS_MCCHRG , '' EXCEPT_FOR_CLAIM ,IIM_THPR_YN, SIH_HIPR_CD, SIH_HIPR_LT,SIC_CANC_LT, '' INSPCT_REMARK ,'' HM_PKTBUK_KND,'' REQUIRE_CHK, F_ITEM_VLDT_FIND(ERI_ITEM_CD,EEA_SEX_CD,'0','2', SUBSTR(NVL(ERI_SPSB_PANJ, 'XX'),2,1),EEA_EXAM_DT) IIV_RSLT_UNIT, IIM_SANBO_KD , IIM_SANBO_CD, IIM_SANBO_CAL, CASE WHEN IIM_SUTK_YN = 'Y' THEN IIM_SUTK_CD ELSE '' END IIM_SUTK_CD";
 		sql += " FROM ET_EXAM_ACPT A LEFT OUTER JOIN ET_RSLT_ITEM B";
 		sql += " ON A.EEA_EXAM_DT = B.ERI_EXAM_DT";
 		sql += " AND A.EEA_EXAM_SQ = B.ERI_EXAM_SQ LEFT OUTER JOIN ST_ITEM_HIGHPRICE D";
@@ -163,6 +105,8 @@ WHERE 0=0
 		rsList = stmtList.executeQuery(sql);
 		cRsList = new CRs(rsList);
 
+		rsmd = rsList.getMetaData();  //Select 결과의 Metadata 가져오기.
+
 		out.clear();		// include된 파일안의 공백 제거
 		response.addHeader("Content-type", "text/xml");
 %><?xml version="1.0" encoding="UTF-8"?>
@@ -179,319 +123,53 @@ WHERE 0=0
 
 <s:Schema id='RowsetSchema'>
 	<s:ElementType name='row' content='eltOnly' rs:updatable='true'>
-		<s:AttributeType name='ERI_SPCL_KD' rs:number='1' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='1'/>
+<%
+		for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
+			String dataType = "string";
+			String maxLength = "4000";
+
+			if (rsmd.getColumnTypeName(colCnt).equals("BLOB")){
+				dataType = "bin.hex";
+				maxLength = "2147483647";
+				//<s:datatype dt:type='bin.hex' dt:maxLength='2147483647' rs:long='true'/>
+			} else if (rsmd.getColumnTypeName(colCnt).equals("CLOB")){
+				maxLength = "1073741823";
+				//<s:datatype dt:type='string' dt:maxLength='1073741823' rs:long='true'/>
+			}
+%>
+		<s:AttributeType name='<%= rsmd.getColumnName(colCnt)%>' rs:number='<%= Integer.toString(colCnt)%>' rs:writeunknown='true' rs:basetable='DUAL' rs:basecolumn='<%= rsmd.getColumnName(colCnt)%>'>
+			<s:datatype dt:type='<%= dataType%>' dt:maxLength='<%= maxLength%>' <% if (! maxLength.equals("4000")) { %> rs:long='true' <% } %>/>
 		</s:AttributeType>
-		<s:AttributeType name='EEA_EXAM_DT' rs:number='2'>
-			<s:datatype dt:type='string' dt:maxLength='10' rs:maybenull='false'/>
-		</s:AttributeType>
-		<s:AttributeType name='EEA_EXAM_SQ' rs:number='3'>
-			<s:datatype dt:type='string' dt:maxLength='6' rs:maybenull='false'/>
-		</s:AttributeType>
-		<s:AttributeType name='IIM_RSLT_KD' rs:number='4' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='1'/>
-		</s:AttributeType>
-		<s:AttributeType name='FIRSTGBN' rs:number='5' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='10'/>
-		</s:AttributeType>
-		<s:AttributeType name='ERI_ITEM_CD' rs:number='6' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='10'/>
-		</s:AttributeType>
-		<s:AttributeType name='IIM_SBCD_CD' rs:number='7' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='10'/>
-		</s:AttributeType>
-		<s:AttributeType name='ERI_RSLT_VL' rs:number='8' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='50'/>
-		</s:AttributeType>
-		<s:AttributeType name='ERI_SPRT_CD' rs:number='9' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='20'/>
-		</s:AttributeType>
-		<s:AttributeType name='INSPCT_RESULT' rs:number='10' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='1' rs:fixedlength='true'/>
-		</s:AttributeType>
-		<s:AttributeType name='ERI_VLDT_LH' rs:number='11' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='1'/>
-		</s:AttributeType>
-		<s:AttributeType name='IIM_TRLT_CD' rs:number='12' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='3'/>
-		</s:AttributeType>
-		<s:AttributeType name='LOW' rs:number='13' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='4000'/>
-		</s:AttributeType>
-		<s:AttributeType name='HIGH' rs:number='14' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='4000'/>
-		</s:AttributeType>
-		<s:AttributeType name='EEA_ORAL_YN' rs:number='15' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='1'/>
-		</s:AttributeType>
-		<s:AttributeType name='EEA_SPHT_CD' rs:number='16' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='1'/>
-		</s:AttributeType>
-		<s:AttributeType name='SLNS_MCCHRG' rs:number='17' rs:nullable='true'>
-			<s:datatype dt:type='number' rs:dbtype='varnumeric' dt:maxLength='38' rs:scale='255' rs:precision='38'/>
-		</s:AttributeType>
-		<s:AttributeType name='EXCEPT_FOR_CLAIM' rs:number='18' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='2' rs:fixedlength='true'/>
-		</s:AttributeType>
-		<s:AttributeType name='IIM_THPR_YN' rs:number='19' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='1'/>
-		</s:AttributeType>
-		<s:AttributeType name='SIH_HIPR_CD' rs:number='20' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='3'/>
-		</s:AttributeType>
-		<s:AttributeType name='SIH_HIPR_LT' rs:number='21' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='100'/>
-		</s:AttributeType>
-		<s:AttributeType name='SIC_CANC_LT' rs:number='22' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='200'/>
-		</s:AttributeType>
-		<s:AttributeType name='INSPCT_REMARK' rs:number='23' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='2' rs:fixedlength='true'/>
-		</s:AttributeType>
-		<s:AttributeType name='HM_PKTBUK_KND' rs:number='24' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='2' rs:fixedlength='true'/>
-		</s:AttributeType>
-		<s:AttributeType name='REQUIRE_CHK' rs:number='25' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='2' rs:fixedlength='true'/>
-		</s:AttributeType>
-		<s:AttributeType name='IIV_RSLT_UNIT' rs:number='26' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='4000'/>
-		</s:AttributeType>
-		<s:AttributeType name='IIM_SANBO_KD' rs:number='27' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='1'/>
-		</s:AttributeType>
-		<s:AttributeType name='IIM_SANBO_CD' rs:number='28' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='10'/>
-		</s:AttributeType>
-		<s:AttributeType name='IIM_SANBO_CAL' rs:number='29' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='30'/>
-		</s:AttributeType>
-		<s:AttributeType name='IIM_SUTK_CD' rs:number='30' rs:nullable='true'>
-			<s:datatype dt:type='string' dt:maxLength='10'/>
+<%
+		}
+%>
+		<s:AttributeType name='ROWID' rs:number='<%= Integer.toString(colCnt)%>' rs:rowid='true' rs:writeunknown='true' rs:basetable='DUAL'
+			 rs:basecolumn='ROWID' rs:keycolumn='true' rs:hidden='true' rs:autoincrement='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='18' rs:fixedlength='true'/>
 		</s:AttributeType>
 		<s:extends type='rs:rowbase'/>
 	</s:ElementType>
-</s:Schema>
-		<rs:data>
+</s:Schema>		<rs:data>
 <%
 		int cnt = 0;
 		while(cRsList.next()) {
 
 			cnt++;
 
-			String ERI_SPCL_KD_T = cRsList.getString("ERI_SPCL_KD");
-			String EEA_EXAM_DT_T = cRsList.getString("EEA_EXAM_DT");
-			String EEA_EXAM_SQ_T = cRsList.getString("EEA_EXAM_SQ");
-			String IIM_RSLT_KD_T = cRsList.getString("IIM_RSLT_KD");
-			String FIRSTGBN_T = cRsList.getString("FIRSTGBN");
-			String ERI_ITEM_CD_T = cRsList.getString("ERI_ITEM_CD");
-			String IIM_SBCD_CD_T = cRsList.getString("IIM_SBCD_CD");
-			String ERI_RSLT_VL_T = cRsList.getString("ERI_RSLT_VL");
-			String ERI_SPRT_CD_T = cRsList.getString("ERI_SPRT_CD");
-			String INSPCT_RESULT_T = cRsList.getString("INSPCT_RESULT");
-			String ERI_VLDT_LH_T = cRsList.getString("ERI_VLDT_LH");
-			String IIM_TRLT_CD_T = cRsList.getString("IIM_TRLT_CD");
-			String LOW_T = cRsList.getString("LOW");
-			String HIGH_T = cRsList.getString("HIGH");
-			String EEA_ORAL_YN_T = cRsList.getString("EEA_ORAL_YN");
-			String EEA_SPHT_CD_T = cRsList.getString("EEA_SPHT_CD");
-			String SLNS_MCCHRG_T = cRsList.getString("SLNS_MCCHRG");
-			String EXCEPT_FOR_CLAIM_T = cRsList.getString("EXCEPT_FOR_CLAIM");
-			String IIM_THPR_YN_T = cRsList.getString("IIM_THPR_YN");
-			String SIH_HIPR_CD_T = cRsList.getString("SIH_HIPR_CD");
-			String SIH_HIPR_LT_T = cRsList.getString("SIH_HIPR_LT");
-			String SIC_CANC_LT_T = cRsList.getString("SIC_CANC_LT");
-			String INSPCT_REMARK_T = cRsList.getString("INSPCT_REMARK");
-			String HM_PKTBUK_KND_T = cRsList.getString("HM_PKTBUK_KND");
-			String REQUIRE_CHK_T = cRsList.getString("REQUIRE_CHK");
-			String IIV_RSLT_UNIT_T = cRsList.getString("IIV_RSLT_UNIT");
-			String IIM_SANBO_KD_T = cRsList.getString("IIM_SANBO_KD");
-			String IIM_SANBO_CD_T = cRsList.getString("IIM_SANBO_CD");
-			String IIM_SANBO_CAL_T = cRsList.getString("IIM_SANBO_CAL");
-			String IIM_SUTK_CD_T = cRsList.getString("IIM_SUTK_CD");
+			String ROWID_T = cRsList.getString("ROWID");
 %>
 			<z:row
 <%
-			if(! ERI_SPCL_KD_T.equals("")) {
+			for (colCnt = 1; colCnt <= rsmd.getColumnCount(); colCnt++){
+				String tempData = cRsList.getString(rsmd.getColumnName(colCnt));
+				if(! tempData.equals("")) {
 %>
-		 		ERI_SPCL_KD='<%= ERI_SPCL_KD_T%>'
+		 			<%= rsmd.getColumnName(colCnt)%>='<%= tempData%>'
 <%
-			}
-
-			if(! EEA_EXAM_DT_T.equals("")) {
-%>
-		 		EEA_EXAM_DT='<%= EEA_EXAM_DT_T%>'
-<%
-			}
-
-			if(! EEA_EXAM_SQ_T.equals("")) {
-%>
-		 		EEA_EXAM_SQ='<%= EEA_EXAM_SQ_T%>'
-<%
-			}
-
-			if(! IIM_RSLT_KD_T.equals("")) {
-%>
-		 		IIM_RSLT_KD='<%= IIM_RSLT_KD_T%>'
-<%
-			}
-
-			if(! FIRSTGBN_T.equals("")) {
-%>
-		 		FIRSTGBN='<%= FIRSTGBN_T%>'
-<%
-			}
-
-			if(! ERI_ITEM_CD_T.equals("")) {
-%>
-		 		ERI_ITEM_CD='<%= ERI_ITEM_CD_T%>'
-<%
-			}
-
-			if(! IIM_SBCD_CD_T.equals("")) {
-%>
-		 		IIM_SBCD_CD='<%= IIM_SBCD_CD_T%>'
-<%
-			}
-
-			if(! ERI_RSLT_VL_T.equals("")) {
-%>
-		 		ERI_RSLT_VL='<%= ERI_RSLT_VL_T%>'
-<%
-			}
-
-			if(! ERI_SPRT_CD_T.equals("")) {
-%>
-		 		ERI_SPRT_CD='<%= ERI_SPRT_CD_T%>'
-<%
-			}
-
-			if(! INSPCT_RESULT_T.equals("")) {
-%>
-		 		INSPCT_RESULT='<%= INSPCT_RESULT_T%>'
-<%
-			}
-
-			if(! ERI_VLDT_LH_T.equals("")) {
-%>
-		 		ERI_VLDT_LH='<%= ERI_VLDT_LH_T%>'
-<%
-			}
-
-			if(! IIM_TRLT_CD_T.equals("")) {
-%>
-		 		IIM_TRLT_CD='<%= IIM_TRLT_CD_T%>'
-<%
-			}
-
-			if(! LOW_T.equals("")) {
-%>
-		 		LOW='<%= LOW_T%>'
-<%
-			}
-
-			if(! HIGH_T.equals("")) {
-%>
-		 		HIGH='<%= HIGH_T%>'
-<%
-			}
-
-			if(! EEA_ORAL_YN_T.equals("")) {
-%>
-		 		EEA_ORAL_YN='<%= EEA_ORAL_YN_T%>'
-<%
-			}
-
-			if(! EEA_SPHT_CD_T.equals("")) {
-%>
-		 		EEA_SPHT_CD='<%= EEA_SPHT_CD_T%>'
-<%
-			}
-
-			if(! SLNS_MCCHRG_T.equals("")) {
-%>
-		 		SLNS_MCCHRG='<%= SLNS_MCCHRG_T%>'
-<%
-			}
-
-			if(! EXCEPT_FOR_CLAIM_T.equals("")) {
-%>
-		 		EXCEPT_FOR_CLAIM='<%= EXCEPT_FOR_CLAIM_T%>'
-<%
-			}
-
-			if(! IIM_THPR_YN_T.equals("")) {
-%>
-		 		IIM_THPR_YN='<%= IIM_THPR_YN_T%>'
-<%
-			}
-
-			if(! SIH_HIPR_CD_T.equals("")) {
-%>
-		 		SIH_HIPR_CD='<%= SIH_HIPR_CD_T%>'
-<%
-			}
-
-			if(! SIH_HIPR_LT_T.equals("")) {
-%>
-		 		SIH_HIPR_LT='<%= SIH_HIPR_LT_T%>'
-<%
-			}
-
-			if(! SIC_CANC_LT_T.equals("")) {
-%>
-		 		SIC_CANC_LT='<%= SIC_CANC_LT_T%>'
-<%
-			}
-
-			if(! INSPCT_REMARK_T.equals("")) {
-%>
-		 		INSPCT_REMARK='<%= INSPCT_REMARK_T%>'
-<%
-			}
-
-			if(! HM_PKTBUK_KND_T.equals("")) {
-%>
-		 		HM_PKTBUK_KND='<%= HM_PKTBUK_KND_T%>'
-<%
-			}
-
-			if(! REQUIRE_CHK_T.equals("")) {
-%>
-		 		REQUIRE_CHK='<%= REQUIRE_CHK_T%>'
-<%
-			}
-
-			if(! IIV_RSLT_UNIT_T.equals("")) {
-%>
-		 		IIV_RSLT_UNIT='<%= IIV_RSLT_UNIT_T%>'
-<%
-			}
-
-			if(! IIM_SANBO_KD_T.equals("")) {
-%>
-		 		IIM_SANBO_KD='<%= IIM_SANBO_KD_T%>'
-<%
-			}
-
-			if(! IIM_SANBO_CD_T.equals("")) {
-%>
-		 		IIM_SANBO_CD='<%= IIM_SANBO_CD_T%>'
-<%
-			}
-
-			if(! IIM_SANBO_CAL_T.equals("")) {
-%>
-		 		IIM_SANBO_CAL='<%= IIM_SANBO_CAL_T%>'
-<%
-			}
-
-			if(! IIM_SUTK_CD_T.equals("")) {
-%>
-		 		IIM_SUTK_CD='<%= IIM_SUTK_CD_T%>'
-<%
+				}
 			}
 %>
+				ROWID='<%= cnt%>'
 			/>
 <%
 		}
@@ -515,6 +193,7 @@ WHERE 0=0
 	<resultCode>400</resultCode>
 	<resultXml></resultXml>
 	<errorMsg><![CDATA[<%= e.toString()%>]]></errorMsg>
+	<sql><![CDATA[<%= sql%>]]></sql>
 </nurionXml>
 
 <%
