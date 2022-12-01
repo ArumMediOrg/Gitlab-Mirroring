@@ -20,6 +20,8 @@
 <%@ include file="/func/func_uDT_CCDT_PANJ_UP_Save_001.jsp"%>
 <%@ include file="/func/func_uDT_CCDT_PANJ_UP_Save_002.jsp"%>
 <%@ include file="/func/uDT_CCDT_PANJ_BtnDeleteClick_JB_001.jsp"%>
+<%@ include file="/func/uDT_CCDT_PANJ_UP_Save_JB_001.jsp"%>
+<%@ include file="/func/uDT_CCDT_PANJ_UP_Save_JB_002.jsp"%>
 <%@ include file="/func/func_uIT_ChungFILERE_RzBmNhAcnoClick_001.jsp"%>
 <%@ include file="/func/func_uIT_ChungFILERE_RZ_BTN_ALLChugu_REClick_001.jsp"%>
 <%@ include file="/func/func_uIT_ChungPer_btnSelectClick_001.jsp"%>
@@ -702,6 +704,8 @@
 		if(argMethodName.equals("uAutoBrain_uAutoPanBrain_013")) 	{ return func_uAutoBrain_uAutoPanBrain_013(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uDT_CCDT_PANJ_BtnDeleteClick_002")) 	{ return func_uDT_CCDT_PANJ_BtnDeleteClick_002(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uDT_CCDT_PANJ_BtnDeleteClick_JB_001")) 	{ return func_uDT_CCDT_PANJ_BtnDeleteClick_JB_001(argStmtExec, argHtMethod); }
+		if(argMethodName.equals("uDT_CCDT_PANJ_UP_Save_JB_001")) 	{ return func_uDT_CCDT_PANJ_UP_Save_JB_001(argStmtExec, argHtMethod); }
+		if(argMethodName.equals("uDT_CCDT_PANJ_UP_Save_JB_002")) 	{ return func_uDT_CCDT_PANJ_UP_Save_JB_002(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uDT_CCDT_PANJ_FormShow_002")) 	{ return func_uDT_CCDT_PANJ_FormShow_002(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uDT_CCDT_PANJ_FormShow_006")) 	{ return func_uDT_CCDT_PANJ_FormShow_006(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uDT_CCDT_PANJ_FormShow_015")) 	{ return func_uDT_CCDT_PANJ_FormShow_015(argStmtExec, argHtMethod); }
