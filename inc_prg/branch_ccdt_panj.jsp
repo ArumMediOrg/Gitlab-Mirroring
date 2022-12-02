@@ -70,8 +70,8 @@
 	htBranch.put("uAutoBrain_uAutoPanBrain_012", 		"/method/ccdt_panj/uAutoBrain_uAutoPanBrain_012.jsp");
 	htBranch.put("uAutoBrain_uAutoPanBrain_013", 		"/method/ccdt_panj/uAutoBrain_uAutoPanBrain_013.jsp");
 	htBranch.put("uDT_CCDT_PANJ_UP_Save_001", 		"/method/ccdt_panj/uDT_CCDT_PANJ_UP_Save_001.jsp");
-	htBranch.put("uDT_CCDT_PANJ_GrdEXAM_ACPTSelectionChanged_JB_001", 		"/method/ccdt_panj/uDT_CCDT_PANJ_GrdEXAM_ACPTSelectionChanged_JB_001.jsp");
-	htBranch.put("uDT_CCDT_PANJ_BtnDeleteClick_JB_001", 		"/method/ccdt_panj/uDT_CCDT_PANJ_BtnDeleteClick_JB_001.jsp");
-	htBranch.put("uDT_CCDT_PANJ_UP_Save_JB_001", 		"/method/ccdt_panj/uDT_CCDT_PANJ_UP_Save_JB_001.jsp");
-	htBranch.put("uDT_CCDT_PANJ_UP_Save_JB_002", 		"/method/ccdt_panj/uDT_CCDT_PANJ_UP_Save_JB_002.jsp");
+	//htBranch.put("uDT_CCDT_PANJ_GrdEXAM_ACPTSelectionChanged_JB_001", 		"/method/ccdt_panj/uDT_CCDT_PANJ_GrdEXAM_ACPTSelectionChanged_JB_001.jsp");
+	//htBranch.put("uDT_CCDT_PANJ_BtnDeleteClick_JB_001", 		"/method/ccdt_panj/uDT_CCDT_PANJ_BtnDeleteClick_JB_001.jsp");
+	//htBranch.put("uDT_CCDT_PANJ_UP_Save_JB_001", 		"/method/ccdt_panj/uDT_CCDT_PANJ_UP_Save_JB_001.jsp");
+	//htBranch.put("uDT_CCDT_PANJ_UP_Save_JB_002", 		"/method/ccdt_panj/uDT_CCDT_PANJ_UP_Save_JB_002.jsp");
 %>
