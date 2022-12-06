@@ -36,20 +36,20 @@
 
 		/*
 
-SELECT DISTINCT                                        
+SELECT DISTINCT
 B.IIM_ITEM_CD, A.CSP_SBCD_CD, B.IIM_SNME_NM CSP_SBCD_NM
-FROM CT_SP_PROF A                                      
-INNER JOIN IT_ITEM B ON A.CSP_SBCD_CD = B.IIM_SBCD_CD  
-WHERE A.CSP_USE_YN = 'Y'     
-AND B.IIM_TBIO_YN = 'Y' 
+FROM CT_SP_PROF A
+INNER JOIN IT_ITEM B ON A.CSP_SBCD_CD = B.IIM_SBCD_CD
+WHERE A.CSP_USE_YN = 'Y'
+AND B.IIM_TBIO_YN = 'Y'
 
 if :isBatch <> ''  then
-   AND (A.CSP_CHOC_KD = '1' or A.CSP_CHOC_KD = '3')    
+   AND (A.CSP_CHOC_KD = '1' or A.CSP_CHOC_KD = '3')
 else
   AND A.CSP_CHOC_KD = '1'
 
-And ( || :sMatterCut  ||) 
-Order By B.IIM_ITEM_CD 
+And ( || :sMatterCut  ||)
+Order By B.IIM_ITEM_CD
 
 		*/
 
@@ -60,8 +60,7 @@ Order By B.IIM_ITEM_CD
 		sql += "AND B.IIM_TBIO_YN = 'Y'";
 
 		if(! ISBATCH.equals("")) {
-			sql += " AND (A.CSP_CHOC_KD = '1'";
-			sql += " OR A.CSP_CHOC_KD = '3')";
+			sql += " AND A.CSP_CHOC_KD = '3'";
 		} else {
 			sql += " AND A.CSP_CHOC_KD = '1'";
 		}
