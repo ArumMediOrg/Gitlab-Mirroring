@@ -253,6 +253,7 @@
 	htBranch.put("uExam_Memo_FormShow_001", 		"/method/exam_result/uExam_Memo_FormShow_001.jsp");
 	htBranch.put("uQuestion_UP_QuestionSave_002", 		"/method/exam_result/uQuestion_UP_QuestionSave_002.jsp");
 	htBranch.put("uExam_Result_upGetRcpt_002", 		"/method/exam_result/uExam_Result_upGetRcpt_002.jsp");
+	htBranch.put("uExam_Result_upGetRcpt_004", 		"/method/exam_result/uExam_Result_upGetRcpt_004.jsp");
 	htBranch.put("uExam_Result_spFindingMoved_001", 		"/method/exam_result/uExam_Result_spFindingMoved_001.jsp");
 	htBranch.put("uExam_Result_chkSsv_Rslt_InputMouseUp_001", 		"/method/exam_result/uExam_Result_chkSsv_Rslt_InputMouseUp_001.jsp");
 	htBranch.put("uExam_Result_XML_COM_004", 		"/method/exam_result/uExam_Result_XML_COM_004.jsp");
