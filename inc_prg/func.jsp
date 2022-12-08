@@ -155,6 +155,7 @@
 <%@ include file="/func/func_uExam_Result_spFindingMoved_001.jsp"%>
 <%@ include file="/func/func_uExam_Result_upGetRcpt_002.jsp"%>
 <%@ include file="/func/func_uExam_Result_upGetRcpt_003.jsp"%>
+<%@ include file="/func/func_uExam_Result_upGetRcpt_004.jsp"%>
 <%@ include file="/func/func_uExam_Result_upSetFrstGenSort_002.jsp"%>
 <%@ include file="/func/func_uExam_Result_XML_COM_002.jsp"%>
 <%@ include file="/func/func_uExam_Result_XML_COM_003.jsp"%>
@@ -848,6 +849,7 @@
 		if(argMethodName.equals("uExam_Result_spFindingMoved_001")) 	{ return func_uExam_Result_spFindingMoved_001(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uExam_Result_upGetRcpt_002")) 	{ return func_uExam_Result_upGetRcpt_002(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uExam_Result_upGetRcpt_003")) 	{ return func_uExam_Result_upGetRcpt_003(argStmtExec, argHtMethod); }
+		if(argMethodName.equals("uExam_Result_upGetRcpt_004")) 	{ return func_uExam_Result_upGetRcpt_004(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uExam_Result_upSetFrstGenSort_002")) 	{ return func_uExam_Result_upSetFrstGenSort_002(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uExam_Result_XML_COM_002")) 	{ return func_uExam_Result_XML_COM_002(argStmtExec, argHtMethod); }
 		if(argMethodName.equals("uExam_Result_XML_COM_003")) 	{ return func_uExam_Result_XML_COM_003(argStmtExec, argHtMethod); }
