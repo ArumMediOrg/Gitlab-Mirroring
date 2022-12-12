@@ -19,7 +19,7 @@
 			EXAM_DT = CTr.Replace(EXAM_DT, "'", "''");
 			EXAM_SQ = CTr.Replace(EXAM_SQ, "'", "''");
 
-			sql += " INSERT INTO ST_SYTH_VIEW ( SSV_EXAM_DT, SSV_EXAM_SQ, SSV_PACK_CD )";
+			sql = " INSERT INTO ST_SYTH_VIEW ( SSV_EXAM_DT, SSV_EXAM_SQ, SSV_PACK_CD )";
 			sql += " SELECT EEA_EXAM_DT, EEA_EXAM_SQ, '00'";
 			sql += " FROM ET_EXAM_ACPT ";
 			sql += " WHERE EEA_EXAM_DT = '" + EXAM_DT  + "'";
