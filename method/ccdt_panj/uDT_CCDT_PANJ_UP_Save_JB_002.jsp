@@ -119,7 +119,7 @@
 			//
 			G_INFO += "<!-- \n";
 			G_INFO += "서비스명 : uDT_CCDT_PANJ_UP_Save_JB_002 \n";
-			G_INFO += "설명 : 업무적합성평가 정보 저장(업데이트) \n";
+			G_INFO += "설명 : 업무적합성평가 정보 저장(Insert) \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "전달인자 : \n";
