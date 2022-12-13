@@ -186,8 +186,6 @@
 	G_INFO += " IIM_INPT_ID : " + IIM_INPT_ID + " \n";
 	G_INFO += " IIM_ETONME_NM : " + IIM_ETONME_NM + " \n";
 	G_INFO += " IIM_SPSORT_SQ : " + IIM_SPSORT_SQ + " \n";
-
-
 	G_INFO += "\n\n";
 
 	G_INFO += "질의문 : " + sql + " \n";
