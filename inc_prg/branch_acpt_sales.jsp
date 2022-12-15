@@ -53,4 +53,5 @@
 	htBranch.put("uAcpt_Sales_UP_KUMC_Year_003", 		"/method/acpt_sales/uAcpt_Sales_UP_KUMC_Year_003.jsp");
 	htBranch.put("uAcpt_Sales_UP_KUMC_Year_004", 		"/method/acpt_sales/uAcpt_Sales_UP_KUMC_Year_004.jsp");
 	htBranch.put("uAcpt_Sales_UP_Comp_Kd_001", 		"/method/acpt_sales/uAcpt_Sales_UP_Comp_Kd_001.jsp");
+	htBranch.put("uAcpt_Sales_UP_Pack2_Kd_001", 		"/method/acpt_sales/uAcpt_Sales_UP_Pack2_Kd_001.jsp");
 %>
