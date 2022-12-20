@@ -21,5 +21,5 @@
 	htBranch.put("uGetExam_SelectDoctorInfo_001", 		"/method/nurionpnt_11100184/uGetExam_SelectDoctorInfo_001.jsp");
 	htBranch.put("uTotal_Finding_Prntdt_Insert_001", 		"/method/nurionpnt_11100184/uTotal_Finding_Prntdt_Insert_001.jsp");
 	htBranch.put("uSP_RECHECK_SELECT_001", 		"/method/nurionpnt_11100184/uSP_RECHECK_SELECT_001.jsp");
-
+	htBranch.put("uGetExam_SelectPerinfo_001_AsCm", 		"/method/nurionpnt_11100184/uGetExam_SelectPerinfo_001_AsCm.jsp");
 %>
