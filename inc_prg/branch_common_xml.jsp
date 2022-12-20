@@ -9,6 +9,7 @@
 	htBranch.put("uCommon_XML_IHL_001", 		"/method/common_xml/uCommon_XML_IHL_001.jsp");
 	htBranch.put("uCommon_XML_IAU_003", 		"/method/common_xml/uCommon_XML_IAU_003.jsp");
 	htBranch.put("uCommon_XML_IAU_005", 		"/method/common_xml/uCommon_XML_IAU_005.jsp");
+	htBranch.put("uCommon_XML_IAU_006", 		"/method/common_xml/uCommon_XML_IAU_006.jsp");
 	htBranch.put("uCommon_XML_IAU_004", 		"/method/common_xml/uCommon_XML_IAU_004.jsp");
 	htBranch.put("uCommon_XML_IAU_002", 		"/method/common_xml/uCommon_XML_IAU_002.jsp");
 	htBranch.put("uCommon_XML_IAU_001", 		"/method/common_xml/uCommon_XML_IAU_001.jsp");
