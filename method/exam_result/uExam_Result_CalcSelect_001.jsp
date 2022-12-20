@@ -32,7 +32,7 @@
 		// DB객체
 		stmtList = connect.createStatement();
 
-		sql = " SELECT A.* FROM IT_ITEM_ACAL A";
+		sql = "SELECT A.* FROM IT_ITEM_ACAL A";
 		sql += " INNER JOIN IT_ITEM B ON B.IIM_ITEM_CD = A.IIA_ITEM_CD";
 		sql += " AND B.IIM_USE_YN = 'Y'";
 		sql += " AND B.IIM_ACAL_YN = 'Y'";
