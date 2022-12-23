@@ -138,7 +138,7 @@ else if :CmbBoxSort = '4' then
 		if(RZCMBBOXPANJ.equals("1")) {
 			sql += " AND D.EJS_PANJ_YN = 'Y'";
 		}
-		else {
+		else if(RZCMBBOXPANJ.equals("2")) {
 			sql += " AND D.EJS_PANJ_YN = 'N'";
 		}
 
