@@ -85,6 +85,8 @@
 		String PRNT_ZIP_CD = htMethod.get("PRNT_ZIP_CD");
 		String PRNT_ZIP_AR = htMethod.get("PRNT_ZIP_AR");
 		String PRNT_ROAD_AR = htMethod.get("PRNT_ROAD_AR");
+		String HUND_CK = htMethod.get("HUND_CK");
+		String FIFTY_YN = htMethod.get("FIFTY_YN");
 
 		//
 		if(SMODE == null) { SMODE = ""; }
@@ -151,6 +153,8 @@
 		if(PRNT_ZIP_CD == null) { PRNT_ZIP_CD = ""; }
 		if(PRNT_ZIP_AR == null) { PRNT_ZIP_AR = ""; }
 		if(PRNT_ROAD_AR == null) { PRNT_ROAD_AR = ""; }
+		if(HUND_CK == null) { HUND_CK = ""; }
+		if(FIFTY_YN == null) { FIFTY_YN = ""; }
 
 		// DB객체
 		stmtExec = connect.createStatement();
@@ -228,6 +232,8 @@
 			G_INFO += " PRNT_ZIP_CD : " + PRNT_ZIP_CD + " \n";
 			G_INFO += " PRNT_ZIP_AR : " + PRNT_ZIP_AR + " \n";
 			G_INFO += " PRNT_ROAD_AR : " + PRNT_ROAD_AR + " \n";
+			G_INFO += " HUND_CK : " + HUND_CK + " \n";
+			G_INFO += " FIFTY_YN : " + FIFTY_YN + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";
