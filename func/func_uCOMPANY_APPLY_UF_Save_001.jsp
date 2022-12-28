@@ -72,6 +72,8 @@
 			String PRNT_ZIP_CD = (String) argHtMethod.get("PRNT_ZIP_CD");
 			String PRNT_ZIP_AR = (String) argHtMethod.get("PRNT_ZIP_AR");
 			String PRNT_ROAD_AR = (String) argHtMethod.get("PRNT_ROAD_AR");
+			String HUND_CK = (String) argHtMethod.get("HUND_CK");
+			String FIFTY_YN = (String) argHtMethod.get("FIFTY_YN");
 
 			//
 			if(SMODE == null) { SMODE = ""; }
@@ -138,6 +140,8 @@
 			if(PRNT_ZIP_CD == null) { PRNT_ZIP_CD = ""; }
 			if(PRNT_ZIP_AR == null) { PRNT_ZIP_AR = ""; }
 			if(PRNT_ROAD_AR == null) { PRNT_ROAD_AR = ""; }
+			if(HUND_CK == null) { HUND_CK = ""; }
+			if(FIFTY_YN == null) { FIFTY_YN = ""; }
 
 			//
 			SMODE = CTr.Replace(SMODE, "'", "''");
@@ -204,6 +208,8 @@
 			PRNT_ZIP_CD = CTr.Replace(PRNT_ZIP_CD, "'", "''");
 			PRNT_ZIP_AR = CTr.Replace(PRNT_ZIP_AR, "'", "''");
 			PRNT_ROAD_AR = CTr.Replace(PRNT_ROAD_AR, "'", "''");
+			HUND_CK = CTr.Replace(HUND_CK, "'", "''");
+			FIFTY_YN = CTr.Replace(FIFTY_YN, "'", "''");
 
 			if(SMODE.equals("INSERT")) {
 				sql = "INSERT INTO IT_COMPANY (";
@@ -219,7 +225,8 @@
 				sql += " ICY_DISC_RT, ICY_CLAS_CD, ICY_FAMI_CD, ICY_COMP_TX, ICY_PAST_CD, ";
 				sql += " ICY_OCS_CD, ICY_STRT_YR, ICY_PROD_NM, ICY_SMPL_YN, ICY_USE_YN, ";
 				sql += " ICY_NUSE_ID, ICY_NUSE_DTT, ICY_NUSE_TX, ICY_INPT_ID, ICY_INPT_DTT, ";
-				sql += " ICY_TKGJ_YR, ICY_SLNS_DELAY, ICY_PRNT_ZIP_CD, ICY_PRNT_ZIP_AR, ICY_PRNT_ROAD_AR ";
+				sql += " ICY_TKGJ_YR, ICY_SLNS_DELAY, ICY_PRNT_ZIP_CD, ICY_PRNT_ZIP_AR, ICY_PRNT_ROAD_AR, ";
+				sql += " ICY_HUND_CK, ICY_FIFTY_YN ";
 				sql += " ) VALUES (";
 				sql += "  '" + COMP_CD + "'";
 				sql += ", '" + APLY_DT + "'";
@@ -286,6 +293,8 @@
 				sql += ", '" + PRNT_ZIP_CD + "'";
 				sql += ", '" + PRNT_ZIP_AR + "'";
 				sql += ", '" + PRNT_ROAD_AR + "'";
+				sql += ", '" + HUND_CK + "'";
+				sql += ", '" + FIFTY_YN + "'";
 				sql += ")";
 
 				argStmtExec.executeUpdate(sql);
@@ -356,6 +365,8 @@
 				sql += ", ICY_PRNT_ZIP_CD = '" + PRNT_ZIP_CD + "'";
          		sql += ", ICY_PRNT_ZIP_AR = '" + PRNT_ZIP_AR + "'";
          		sql += ", ICY_PRNT_ROAD_AR = '" + PRNT_ROAD_AR + "'";
+         		sql += ", ICY_HUND_CK = '" + HUND_CK + "'";
+         		sql += ", ICY_FIFTY_YN = '" + FIFTY_YN + "'";
 				sql += " WHERE ICY_COMP_CD = '" + COMP_CD + "'";
 
 				argStmtExec.executeUpdate(sql);
