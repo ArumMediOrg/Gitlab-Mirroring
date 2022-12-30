@@ -27,37 +27,40 @@
 		String EXAM_SDT = htMethod.get("EXAM_SDT");
 		String EXAM_EDT = htMethod.get("EXAM_EDT");
 		String COMP_CD = htMethod.get("COMP_CD");
+		String SSQLTEXT = htMethod.get("SSQLTEXT");
 
 		//
 		if(EXAM_SDT == null) { EXAM_SDT = ""; }
 		if(EXAM_EDT == null) { EXAM_EDT = ""; }
 		if(COMP_CD == null) { COMP_CD = ""; }
+		if(SSQLTEXT == null) { SSQLTEXT = ""; }
 
 		// DB객체
 		stmtList = connect.createStatement();
 
 		/*
 
-SELECT EEA_COMP_CD, EEA_EXAM_DT, EEA_CUST_NO, EEA_CHART_NO, 
-       EEA_EXAM_SQ, EEA_SPCL_LT, EEA_HTSB_CD, EEA_SPCL_CD, EEA_SEX_CD
+SELECT EEA_COMP_CD, EEA_EXAM_DT, EEA_CUST_NO, EEA_CHART_NO,
+       EEA_EXAM_SQ, EEA_SPCL_LT, EEA_HTSB_CD, EEA_SPCL_CD, EEA_SEX_CD, EEA_SPCL_CD
   FROM ET_EXAM_ACPT
  WHERE EEA_EXAM_DT >= :EXAM_SDT
    AND EEA_EXAM_DT <= :EXAM_EDT
-   AND EEA_ORDER_YN <> 'C'   
+   AND EEA_ORDER_YN <> 'C'
    AND EEA_COMP_CD  = :COMP_CD
-   AND (EEA_EXAM_CD = '41001' 
-    OR  EEA_SPSB_YN = 'Y')
-    
+   AND (EEA_EXAM_CD = '41001'  OR  EEA_SPSB_YN = 'Y') --삭제 요청
+:sSQLTEXT
+
 		*/
 
-		sql = " SELECT EEA_COMP_CD, EEA_EXAM_DT, EEA_CUST_NO, EEA_CHART_NO, EEA_EXAM_SQ, EEA_SPCL_LT, EEA_HTSB_CD, EEA_SPCL_CD, EEA_SEX_CD";
+		sql = " SELECT EEA_COMP_CD, EEA_EXAM_DT, EEA_CUST_NO, EEA_CHART_NO, EEA_EXAM_SQ, EEA_SPCL_LT, EEA_HTSB_CD, EEA_SPCL_CD, EEA_SEX_CD, EEA_SPCL_CD";
 		sql += " FROM ET_EXAM_ACPT";
 		sql += " WHERE EEA_EXAM_DT >= '" + EXAM_SDT + "'";
 		sql += " AND EEA_EXAM_DT <= '" + EXAM_EDT + "'";
 		sql += " AND EEA_ORDER_YN <> 'C'";
 		sql += " AND EEA_COMP_CD = '" + COMP_CD + "'";
-		sql += " AND (EEA_EXAM_CD = '41001'";
-		sql += " OR EEA_SPSB_YN = 'Y')";
+		sql += " AND EEA_COMP_CD = '" + COMP_CD + "'";
+		sql += SSQLTEXT;
+
 
 			//
 			G_INFO += "<!-- \n";
@@ -69,6 +72,7 @@ SELECT EEA_COMP_CD, EEA_EXAM_DT, EEA_CUST_NO, EEA_CHART_NO,
 			G_INFO += " EXAM_SDT : " + EXAM_SDT + " \n";
 			G_INFO += " EXAM_EDT : " + EXAM_EDT + " \n";
 			G_INFO += " COMP_CD : " + COMP_CD + " \n";
+			G_INFO += " SSQLTEXT : " + SSQLTEXT + " \n";
 			G_INFO += "\n\n";
 
 			G_INFO += "질의문 : " + sql + " \n";
